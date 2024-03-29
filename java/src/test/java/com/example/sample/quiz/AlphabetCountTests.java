@@ -1,10 +1,8 @@
 package com.example.sample.quiz;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 
 public class AlphabetCountTests {
@@ -25,14 +23,10 @@ public class AlphabetCountTests {
 
     @Test
     void alphabetCountTestA() {
-        var m = new LinkedHashMap<String, Integer>();
-        Stream.of(s.split("")).forEach(k -> {
-            if (m.containsKey(k)) {
-                m.put(k, m.get(k) + 1);
-            } else {
-                m.put(k, 1);
-            }
-        });
+        var m = new HashMap<Character, Integer>();
+        for (var c : s.toCharArray()) {
+            m.put(c, m.getOrDefault(c, 0) + 1);
+        }
 
         var list = m.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
         System.out.println(list.get(list.size() - 1).getValue() - list.get(0).getValue());
