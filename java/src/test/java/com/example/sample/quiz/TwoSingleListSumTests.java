@@ -6,13 +6,13 @@ class Node {
     int data;
     Node next;
 
-    Node() {
-    }
+    Node() {}
 
     Node(int data) {
         this.data = data;
     }
 }
+
 
 public class TwoSingleListSumTests {
     // https://leetcode.com/problems/add-two-numbers/description/
