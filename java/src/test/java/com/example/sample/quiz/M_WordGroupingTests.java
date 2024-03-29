@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 
 public class M_WordGroupingTests {
@@ -45,9 +44,11 @@ public class M_WordGroupingTests {
         String[] tokens = s1.split("[\\s]+");
         for (String t : tokens) {
             if (!t.isBlank()) {
+                // var k = t.chars().mapToObj(Character::toString).sorted().collect(Collectors.joining());
                 char[] ar = t.toCharArray();
                 Arrays.sort(ar);
                 var k = new String(ar);
+
                 if (m.containsKey(k)) {
                     m.get(k).add(t);
                 } else {
