@@ -29,8 +29,13 @@ dependencies {
 	testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 }
 
-// gradle cleanTest test --tests 'Hello*.hello'
-// gradle test --rerun-tasks --tests 'Hello*.hello'
+/*
+ * # clean a specific test result cache before run test
+ * gradle test --rerun --tests 'Hello*.hello'
+ * # clean all tests result cache before run tests
+ * gradle test --rerun-tasks --tests 'Hello*.hello'
+ * gradle cleanTest test --tests 'Hello*.hello'
+ */
 test {
 	useJUnitPlatform()
 	testLogging {
