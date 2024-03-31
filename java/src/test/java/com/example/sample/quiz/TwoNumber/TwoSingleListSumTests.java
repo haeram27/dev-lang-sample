@@ -1,4 +1,4 @@
-package com.example.sample.quiz;
+package com.example.sample.quiz.TwoNumber;
 
 import org.junit.jupiter.api.Test;
 

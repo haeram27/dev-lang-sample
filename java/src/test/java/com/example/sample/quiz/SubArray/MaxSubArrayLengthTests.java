@@ -1,4 +1,4 @@
-package com.example.sample.quiz;
+package com.example.sample.quiz.SubArray;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashMap;

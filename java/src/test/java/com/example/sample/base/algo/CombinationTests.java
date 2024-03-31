@@ -12,14 +12,14 @@ public class CombinationTests {
     }
 
     // TODO: implement combination() Under Here
-    <T> void combination(T[] data, T[] out, int r, int depth, int start) {
-    }
+    <T> void combination(T[] data, T[] out, int r, int depth, int start) {}
 
     @Test
     public void run() {
-        int r = 2;
-        // combination = {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
-        String[] data = { "a", "b", "c", "d" }; // n = 4
+        int r = 3;
+        // combination, r==2 : {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
+        // combination, r==3 : {{a,b,c}, {a,b,d}, {a,c,d}, {b,c,d}}
+        String[] data = {"a", "b", "c", "d"}; // n = 4
         String[] out = new String[r];
 
         System.out.println("\n[combination recursive]===================");
@@ -38,13 +38,10 @@ public class CombinationTests {
     * @param depth     current level of combination, if depth==2 then 0~(depth-1) index is filled in out array 
     * @param start     start is index of data to be candidate of out[depth]
     */
-    public <T> void combination_answer(T[] data, T[] out, int r, int depth, int start) {
+    public <T> void combinationA(T[] data, T[] out, int r, int depth, int start) {
         //System.out.println(String.format("depth=%d, start=%d", depth, start));
         if (depth == r) {
-            for (var e : out) {
-                System.out.print(e + " ");
-            }
-            System.out.println();
+            printa(out);
             return;
         }
 
@@ -56,7 +53,33 @@ public class CombinationTests {
             // data[i] is selected for current depth
             out[depth] = data[i];
             // data[i] can NOT be select in next depth because pass i+1 as start
-            combination_answer(data, out, r, depth + 1, i + 1);
+            combinationA(data, out, r, depth + 1, i + 1);
+        }
+    }
+
+    @Test
+    public void fastestTwoIndexCombinationInSingleArray() {
+        // recursive way is so slow than just for loop
+
+        // combination = {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
+        String[] data = {"a", "b", "c", "d"}; // n = 4
+        int len = data.length;
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                System.out.println(i + ", " + j);
+            }
+        }
+    }
+
+    @Test
+    public void fastestMatchingTwoIndexCombinationInSingleArray2() {
+        // recursive way is so slow than just for loop
+        int len = 4;
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                System.out.println(i + ", " + j);
+                System.out.println((len - 1 - i) + ", " + (len - 1 - j));
+            }
         }
     }
 }

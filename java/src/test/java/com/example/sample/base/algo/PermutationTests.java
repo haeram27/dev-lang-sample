@@ -1,7 +1,6 @@
 package com.example.sample.base.algo;
 
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 public class PermutationTests {
@@ -13,14 +12,13 @@ public class PermutationTests {
     }
 
     // TODO: implement permutation() Under Here
-    <T> void permutation(T[] data, T[] out, int r, int depth, boolean[] visited) {
-    }
+    <T> void permutation(T[] data, T[] out, int r, int depth, boolean[] visited) {}
 
     @Test
     public void run() {
         int r = 2;
         // permutation = {a, b}, {a, c}, {a, d}, {b, a}, {b, c}, {b, d}, {c, a}, {c, b}, {c, d}, {d, a}, {d, b}, {d, c}
-        String[] data = { "a", "b", "c", "d" }; // n = 4
+        String[] data = {"a", "b", "c", "d"}; // n = 4
         String[] out = new String[r];
         boolean[] visited = new boolean[data.length];
         Arrays.fill(visited, false);
@@ -46,10 +44,7 @@ public class PermutationTests {
     public <T> void permutation_answer(T[] data, T[] out, int r, int depth, boolean[] visited) {
         //System.out.println(String.format("depth=%d, start=%d", depth, start));
         if (depth == r) {
-            for (var e : out) {
-                System.out.print(e + " ");
-            }
-            System.out.println();
+            printa(out);
             return;
         }
 
