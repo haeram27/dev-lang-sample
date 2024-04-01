@@ -1,4 +1,4 @@
-package com.example.sample.base.algo;
+package com.example.sample.base.array;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -228,6 +228,51 @@ public class ArrayBasicsTests {
         }
 
         System.out.println(count);
+    }
+
+
+    /**
+    * Quest:
+    * merge two sorted array into sorted single array 
+    */
+    @Test
+    void mergeTwoSortedArrays() {
+        int a[] = {1, 3, 5};
+        int b[] = {2, 4, 6};
+        // TODO:
+
+
+        //System.out.println(Arrays.toString(c));
+    }
+
+    @Test
+    void mergeTwoSortedArraysA() {
+        int a[] = {1, 3, 5};
+        int b[] = {2, 4, 6};
+        // TODO:
+        var alen = a.length;
+        var blen = b.length;
+        int[] c = new int[alen + blen];
+        int i = 0, j = 0, k = 0;
+
+        while (i < alen && j < blen) {
+            if (a[i] <= b[j])
+                c[k++] = a[i++];
+            else
+                c[k++] = b[j++];
+        }
+
+        // consume l array if there is remaining index
+        while (i < alen) {
+            c[k++] = a[i++];
+        }
+
+        // consume r array if there is remaining index
+        while (j < blen) {
+            c[k++] = b[j++];
+        }
+
+        System.out.println(Arrays.toString(c));
     }
 
 }

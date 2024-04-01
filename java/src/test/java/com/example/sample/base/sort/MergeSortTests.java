@@ -1,7 +1,6 @@
 package com.example.sample.base.sort;
 
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 public class MergeSortTests {
@@ -32,14 +31,14 @@ public class MergeSortTests {
 
     }
 
-    void merge(int[] a, int[] l, int[] r, int lLen, int rLen) {
+    void merge(int[] a, int[] l, int[] r, int llen, int rlen) {
         int i = 0; // i index of l
         int j = 0; // j index of r
         int k = 0; // k index of a
 
         // insert item until each index reaches to the end of l or r size
         // after this while(), one of l or r's index is completely consumed.
-        while (i < lLen && j < rLen) {
+        while (i < llen && j < rlen) {
             if (l[i] <= r[j])
                 a[k++] = l[i++];
             else
@@ -47,19 +46,19 @@ public class MergeSortTests {
         }
 
         // consume l array if there is remaining index
-        while (i < lLen) {
+        while (i < llen) {
             a[k++] = l[i++];
         }
 
         // consume r array if there is remaining index
-        while (j < rLen) {
+        while (j < rlen) {
             a[k++] = r[j++];
         }
     }
 
     @Test
     public void run() {
-        int[] arr = { 9, 5, 1, 0, 6, 2, 3, 4, 7, 8 };
+        int[] arr = {9, 5, 1, 0, 6, 2, 3, 4, 7, 8};
         System.out.println("Before sorting");
         System.out.println(Arrays.toString(arr));
 
