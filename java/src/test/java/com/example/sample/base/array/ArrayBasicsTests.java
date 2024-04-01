@@ -1,16 +1,15 @@
-package com.example.sample.base.ds;
+package com.example.sample.base.algo;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class M_ArrayTests {
+public class ArrayBasicsTests {
     /**
     * # median between two integer
     * mid = (lo+hi)/2
@@ -32,13 +31,13 @@ public class M_ArrayTests {
     */
     @Test
     void primitiveArrayToList() {
-        int a[] = { 1, 2, 3, 4, 5 };
+        int a[] = {1, 2, 3, 4, 5};
         // TODO:
     }
 
     @Test
     void primitiveArrayToListA() {
-        int a[] = { 1, 2, 3, 4, 5 };
+        int a[] = {1, 2, 3, 4, 5};
         var list = Arrays.stream(a).boxed().collect(Collectors.toList());
         list.forEach(e -> System.out.print(e + " "));
         System.out.println();
@@ -60,7 +59,7 @@ public class M_ArrayTests {
     public void arrayCopyTest() {
         long start = System.nanoTime();
 
-        int[] a = { 1, 2, 3, 4, 5 };
+        int[] a = {1, 2, 3, 4, 5};
         var b = arrayCopy(a);
         System.out.println(Arrays.toString(b));
         System.out.println(a);
@@ -91,14 +90,14 @@ public class M_ArrayTests {
 
     @Test
     public void reverseArrayTest() {
-        int[] a = { 1, 2, 3, 4, 5 };
+        int[] a = {1, 2, 3, 4, 5};
         // TODO:
 
     }
 
     @Test
     void reverseArrayA() {
-        int[] a = { 1, 2, 3, 4, 5 };
+        int[] a = {1, 2, 3, 4, 5};
         int len = a.length;
 
         // just swap item 0 with item n-1, 1 with n-2, ...
@@ -115,7 +114,7 @@ public class M_ArrayTests {
 
     @Test
     void reverseArrayB() {
-        int[] a = { 1, 2, 3, 4, 5 };
+        int[] a = {1, 2, 3, 4, 5};
         int len = a.length;
 
         // just swap item 0 with item last-1, 1 with last-2, ...
@@ -131,7 +130,7 @@ public class M_ArrayTests {
 
     @Test
     void reverseArrayC() {
-        int[] a = { 1, 2, 3, 4, 5 };
+        int[] a = {1, 2, 3, 4, 5};
 
         var l = Arrays.stream(a).boxed().collect(Collectors.toList());
         Collections.reverse(l);
@@ -144,7 +143,7 @@ public class M_ArrayTests {
     */
     @Test
     void arraySortTest() {
-        int[] a = { 5, 3, 2, 4, 1 };
+        int[] a = {5, 3, 2, 4, 1};
         // TODO:
 
         System.out.println(a);
@@ -152,7 +151,7 @@ public class M_ArrayTests {
 
     @Test
     public void arraySortTestA() {
-        int[] a = { 5, 3, 2, 4, 1 };
+        int[] a = {5, 3, 2, 4, 1};
         Arrays.sort(a);
 
         System.out.println(Arrays.toString(a));
@@ -164,15 +163,15 @@ public class M_ArrayTests {
     */
     @Test
     void arrayReverseSortTest() {
-        int[] a = { 5, 3, 2, 4, 1 };
-        Integer[] A = { 5, 3, 2, 4, 1 };
+        int[] a = {5, 3, 2, 4, 1};
+        Integer[] A = {5, 3, 2, 4, 1};
         // TODO:
 
     }
 
     @Test
     public void arrayReverseSortTestA() {
-        int[] a = { 5, 3, 2, 4, 1 };
+        int[] a = {5, 3, 2, 4, 1};
         Arrays.sort(a);
         for (int i = 0; i < a.length / 2; i++) {
             int t = a[i];
@@ -185,7 +184,7 @@ public class M_ArrayTests {
 
     @Test
     public void arrayReverseSortTestB() {
-        int[] a = { 5, 3, 2, 4, 1 };
+        int[] a = {5, 3, 2, 4, 1};
         Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).forEach(e -> System.out.print(e + " "));
     }
 

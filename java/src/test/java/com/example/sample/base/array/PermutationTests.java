@@ -1,4 +1,4 @@
-package com.example.sample.base.algo;
+package com.example.sample.base.array;
 
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;

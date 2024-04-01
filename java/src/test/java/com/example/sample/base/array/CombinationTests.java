@@ -1,4 +1,4 @@
-package com.example.sample.base.algo;
+package com.example.sample.base.array;
 
 import org.junit.jupiter.api.Test;
 
@@ -60,10 +60,14 @@ public class CombinationTests {
     @Test
     public void fastestTwoIndexCombinationInSingleArray() {
         // recursive way is so slow than just for loop
+        int len = 4;
+        // TODO: print all combination of two index
+    }
 
-        // combination = {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
-        String[] data = {"a", "b", "c", "d"}; // n = 4
-        int len = data.length;
+    @Test
+    public void fastestTwoIndexCombinationInSingleArrayA() {
+        // recursive way is so slow than just for loop
+        int len = 4;
         for (int i = 0; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
                 System.out.println(i + ", " + j);
@@ -72,8 +76,15 @@ public class CombinationTests {
     }
 
     @Test
-    public void fastestMatchingTwoIndexCombinationInSingleArray2() {
-        // recursive way is so slow than just for loop
+    public void fastestTwoIndexCombinationInSingleArrayMatching() {
+        // find all matches in half and little bit more loop 
+        int len = 4;
+        // TODO: print all combination of two index
+    }
+
+    @Test
+    public void fastestTwoIndexCombinationInSingleArrayMatchingA() {
+        // find all matches in half and little bit more loop 
         int len = 4;
         for (int i = 0; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
