@@ -52,6 +52,7 @@ public class ArrayBasicsTests {
     */
     int[] arrayCopy(int[] a) {
         // TODO:
+
         return new int[a.length];
     }
 
@@ -146,7 +147,7 @@ public class ArrayBasicsTests {
         int[] a = {5, 3, 2, 4, 1};
         // TODO:
 
-        System.out.println(a);
+        System.out.println(Arrays.toString(a));
     }
 
     @Test
@@ -164,13 +165,23 @@ public class ArrayBasicsTests {
     @Test
     void arrayReverseSortTest() {
         int[] a = {5, 3, 2, 4, 1};
-        Integer[] A = {5, 3, 2, 4, 1};
+        int[] b = null;
         // TODO:
 
+        System.out.println(Arrays.toString(b));
     }
+
 
     @Test
     public void arrayReverseSortTestA() {
+        int[] a = {5, 3, 2, 4, 1};
+        int[] b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
+
+        System.out.println(Arrays.toString(b));
+    }
+
+    @Test
+    public void arrayReverseSortTestB() {
         int[] a = {5, 3, 2, 4, 1};
         Arrays.sort(a);
         for (int i = 0; i < a.length / 2; i++) {
@@ -180,12 +191,6 @@ public class ArrayBasicsTests {
         }
 
         System.out.println(Arrays.toString(a));
-    }
-
-    @Test
-    public void arrayReverseSortTestB() {
-        int[] a = {5, 3, 2, 4, 1};
-        Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).forEach(e -> System.out.print(e + " "));
     }
 
     /**
@@ -230,6 +235,31 @@ public class ArrayBasicsTests {
         System.out.println(count);
     }
 
+
+    @ParameterizedTest
+    @MethodSource("provideLength")
+    void twoIndexCombination(int len) {
+        int count = 0;
+        // TODO:
+
+        System.out.println(count);
+    }
+
+    /* Answer */
+    @ParameterizedTest
+    @MethodSource("provideLength")
+    void twoIndexCombinationA(int len) {
+        int count = 0;
+
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                System.out.println(String.format("%d, %d", i, j));
+                count++;
+            }
+        }
+
+        System.out.println(count);
+    }
 
     /**
     * Quest:
