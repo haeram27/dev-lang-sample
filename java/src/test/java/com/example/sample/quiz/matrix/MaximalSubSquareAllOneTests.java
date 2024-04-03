@@ -1,4 +1,4 @@
-package com.example.sample.quiz;
+package com.example.sample.quiz.matrix;
 
 import java.util.stream.Stream;
 
