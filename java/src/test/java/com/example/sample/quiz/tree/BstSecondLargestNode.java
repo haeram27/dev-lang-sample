@@ -13,21 +13,93 @@ public class BstSecondLargestNode {
         }
     }
 
-    Node largest;
-    Node parent;
+    void smallestValueNodeInBst(Node root) {
+
+        System.out.println("largest: ");
+    }
+
+    // find largest value in BST
+    void largestValueNodeInBst(Node root) {
+
+        System.out.println("largest: ");
+    }
 
     // find second largest value in BST
-    void secondLargestNodeInBstA(Node root) {
+    void secondLargestValueNodeInBst(Node root) {
+
+
+        System.out.println("second largest: ");
+    }
+
+    /*
+    @formatter: off
+            10
+         /     \
+        5        20
+      /   \    /
+     1     7  15   
+    @formatter: on    
+    */
+    @Test
+    public void run() {
+        // creating a binary tree and entering the nodes
+        Node root = new Node(10);
+        root.left = new Node(5);
+        root.right = new Node(20);
+        root.left.left = new Node(1);
+        root.left.right = new Node(5);
+        root.right.left = new Node(15);
+
+        smallestValueNodeInBstA(root);
+        largestValueNodeInBstA(root);
+        secondLargestValueNodeInBstA(root);
+    }
+
+
+    void smallestValueNodeInBstA(Node root) {
         if (root == null)
             return;
 
-        if (root.right != null) {
-            parent = root;
-            secondLargestNodeInBstA(root.right);
-        } else if (root.left != null) {
-            parent = root;
-            secondLargestNodeInBstA(root.left);
+        while (root.left != null) {
+            root = root.left;
         }
+
+        System.out.println("largest: " + root.data);
+    }
+
+    // find largest value in BST
+    void largestValueNodeInBstA(Node root) {
+        if (root == null)
+            return;
+
+        while (root.right != null) {
+            root = root.right;
+        }
+
+        System.out.println("largest: " + root.data);
+    }
+
+    // find second largest value in BST
+    void secondLargestValueNodeInBstA(Node root) {
+        if (root == null)
+            return;
+
+        Node parent = null;
+        while (root.right != null) {
+            parent = root;
+            root = root.right;
+        }
+
+        int val = 0;
+        if (root.left != null) {
+            val = root.left.data;
+        } else if (parent != null) {
+            val = parent.data;
+        } else {
+            val = -1;
+        }
+
+        System.out.println("second largest: " + val);
     }
 
     /*
@@ -49,7 +121,8 @@ public class BstSecondLargestNode {
         root.left.right = new Node(5);
         root.right.left = new Node(15);
 
-        secondLargestNodeInBstA(root);
-        System.out.println(parent.data);
+        smallestValueNodeInBstA(root);
+        largestValueNodeInBstA(root);
+        secondLargestValueNodeInBstA(root);
     }
 }
