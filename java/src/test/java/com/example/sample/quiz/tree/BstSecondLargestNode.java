@@ -14,19 +14,21 @@ public class BstSecondLargestNode {
     }
 
     void smallestValueNodeInBst(Node root) {
+        // TODO:
 
-        System.out.println("largest: ");
+        System.out.println("smallest: ");
     }
 
     // find largest value in BST
     void largestValueNodeInBst(Node root) {
+        // TODO:
 
         System.out.println("largest: ");
     }
 
     // find second largest value in BST
     void secondLargestValueNodeInBst(Node root) {
-
+        // TODO:
 
         System.out.println("second largest: ");
     }
@@ -64,7 +66,7 @@ public class BstSecondLargestNode {
             root = root.left;
         }
 
-        System.out.println("largest: " + root.data);
+        System.out.println("smallest: " + root.data);
     }
 
     // find largest value in BST
@@ -90,16 +92,14 @@ public class BstSecondLargestNode {
             root = root.right;
         }
 
-        int val = 0;
+        int second = -1;
         if (root.left != null) {
-            val = root.left.data;
+            second = root.left.data;
         } else if (parent != null) {
-            val = parent.data;
-        } else {
-            val = -1;
+            second = parent.data;
         }
 
-        System.out.println("second largest: " + val);
+        System.out.println("second largest: " + second);
     }
 
     /*
