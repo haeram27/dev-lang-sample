@@ -2,6 +2,7 @@ package com.example.sample.base.array;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,13 @@ public class ArrayBasicsTests {
     void primitiveArrayToList() {
         int a[] = {1, 2, 3, 4, 5};
         // TODO:
+        List<Integer> list = null;
+
+        list.forEach(e -> System.out.print(e + " "));
+        System.out.println();
+
+        Collections.reverse(list);
+        list.forEach(e -> System.out.print(e + " "));
     }
 
     @Test
@@ -94,6 +102,7 @@ public class ArrayBasicsTests {
         int[] a = {1, 2, 3, 4, 5};
         // TODO:
 
+        System.out.println(Arrays.toString(a));
     }
 
     @Test
@@ -130,13 +139,24 @@ public class ArrayBasicsTests {
     }
 
     @Test
-    void reverseArrayC() {
+    public void reverseArrayC() {
+        int[] a = {1, 2, 3, 4, 5};
+        // TODO:
+        var b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).toArray(Integer[]::new);
+        var c = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
+        System.out.println(Arrays.toString(b));
+    }
+
+
+    @Test
+    void reverseArrayD() {
         int[] a = {1, 2, 3, 4, 5};
 
         var l = Arrays.stream(a).boxed().collect(Collectors.toList());
         Collections.reverse(l);
         l.forEach(e -> System.out.print(e + " "));
     }
+
 
     /**
     * Quest:
@@ -200,11 +220,11 @@ public class ArrayBasicsTests {
     private static Stream<Arguments> provideLength() {
         // @formatter:off
         return Stream.of(
-            Arguments.of(3),
-            Arguments.of(4),
-            Arguments.of(5),
-            Arguments.of(6),
-            Arguments.of(7));
+            Arguments.of(3),  // AllSubSet(6), Comb(3)
+            Arguments.of(4),  // AllSubSet(10), Comb(6)
+            Arguments.of(5),  // AllSubSet(15), Comb(10)
+            Arguments.of(6),  // AllSubSet(21), Comb(15)
+            Arguments.of(7)); // AllSubSet(28), Comb(21)
         // @formatter:on
     }
 
