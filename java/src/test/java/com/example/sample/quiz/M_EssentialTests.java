@@ -74,7 +74,7 @@ public class M_EssentialTests {
 
     @Test
     public void stringReverseTestA() {
-        System.out.println(new StringBuilder(s).reverse());
+        System.out.println(new StringBuilder(s).reverse().toString());
     }
 
     @Test
