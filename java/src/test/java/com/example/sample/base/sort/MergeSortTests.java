@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 public class MergeSortTests {
 
+    /*
+    * !!! useful sort algorithms are insertion, merge, quick, dualal pivot quick
+    */
+
     // divide array 
     void mergeSort(int[] a, int len) {
         if (len < 2)

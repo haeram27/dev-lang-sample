@@ -1,10 +1,18 @@
 package com.example.sample.base.sort;
 
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 public class QuickSortTests {
+    void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    /*
+    * !!! useful sort algorithms are insertion, merge, quick, dualal pivot quick
+    */
     void quickSort(int[] arr, int begin, int end) {
         if (begin >= end)
             return;
@@ -39,15 +47,9 @@ public class QuickSortTests {
         return i; // resturn pivot's index
     }
 
-    void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
-    }
-
     @Test
     public void run() {
-        int[] arr = { 9, 5, 1, 0, 6, 2, 3, 4, 7, 8 };
+        int[] arr = {9, 5, 1, 0, 6, 2, 3, 4, 7, 8};
         System.out.println("Before sorting");
         System.out.println(Arrays.toString(arr));
 
