@@ -6,13 +6,13 @@ class Node {
     int data;
     Node next;
 
-    Node() {
-    }
+    Node() {}
 
     Node(int data) {
         this.data = data;
     }
 }
+
 
 public class TwoSingleListSumTests {
     // https://leetcode.com/problems/add-two-numbers/description/
@@ -56,7 +56,7 @@ public class TwoSingleListSumTests {
         l2 = a;
         printNode(l2);
 
-        Node n = nodeSumTestA(l1, l2);
+        Node n = nodeSumTest(l1, l2);
         printNode(n);
     }
 
@@ -91,7 +91,7 @@ public class TwoSingleListSumTests {
         dummy = null;
         printNode(l2);
 
-        Node n = nodeSumTestA(l1, l2);
+        Node n = nodeSumTest(l1, l2);
         printNode(n);
     }
 
