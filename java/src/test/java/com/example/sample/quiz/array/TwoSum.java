@@ -1,4 +1,4 @@
-package com.example.sample.quiz.twonumber;
+package com.example.sample.quiz.array;
 
 import java.util.stream.Stream;
 
