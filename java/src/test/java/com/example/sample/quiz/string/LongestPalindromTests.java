@@ -1,7 +1,6 @@
 package com.example.sample.quiz.string;
 
 import java.util.stream.Stream;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,7 +21,7 @@ public class LongestPalindromTests {
 
     @ParameterizedTest
     @MethodSource("argSupplier")
-    void logestPalindrom(String s) {
+    void longestPalindrom(String s) {
 
         String p = null;
         // TODO:
@@ -33,11 +32,15 @@ public class LongestPalindromTests {
     /* Answer */
     @ParameterizedTest
     @MethodSource("argSupplier")
-    void logestPalindromA(String s) {
+    void longestPalindromA(String s) {
         String p = null;
 
-        // TODO:
-        int begin = 0, max = 0;
+        /*
+         * HINT:
+         * Bruteforce
+         * from i and i+1, spread j to left, r to right and compare char[l]==char[r]
+         */
+        int begin = 0, end = 0, palen = 0, max = 0;
         int len = s.length();
         char[] a = s.toCharArray();
 
@@ -51,10 +54,14 @@ public class LongestPalindromTests {
                 l--;
                 r++;
             }
+            l++;
+            r--;
+            palen = r - l + 1;
 
-            if (r - l - 1 > max) {
-                max = r - l - 1;
-                begin = l + 1;
+            if (palen > max) {
+                max = palen;
+                begin = l;
+                end = r;
             }
 
             // find even number palindrom
@@ -64,14 +71,18 @@ public class LongestPalindromTests {
                 l--;
                 r++;
             }
+            l++;
+            r--;
+            palen = r - l + 1;
 
-            if (r - l - 1 > max) {
-                max = r - l - 1;
-                begin = l + 1;
+            if (palen > max) {
+                max = palen;
+                begin = l;
+                end = r;
             }
         }
 
-        p = s.substring(begin, begin + max);
+        p = s.substring(begin, end + 1);
 
         System.out.println(p);
     }
@@ -81,7 +92,7 @@ public class LongestPalindromTests {
 
     @ParameterizedTest
     @MethodSource("argSupplier")
-    void logestPalindromB(String s) {
+    void longestPalindromB(String s) {
         if (s == null || s.length() < 2) {
             System.out.println(s);
             return;
@@ -105,7 +116,7 @@ public class LongestPalindromTests {
         }
         idx = r;
 
-        // find odd number palindrom from iniial idx
+        // find odd number palindrom from initial idx
         while (l - 1 >= 0 && r + 1 < len && a[l - 1] == a[r + 1]) {
             l--;
             r++;

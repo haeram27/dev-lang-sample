@@ -66,7 +66,7 @@ public class KnapsackTests {
                 if (w < iw) {
                     maxv[i][w] = maxv[i - 1][w];
                     // if current available weight of knapsack(w) is greater or equal than current items weight(iw)
-                    // then determine whether put i-th item or not
+                    // then determine whether put i-th item into knapsack or not
                 } else {
                     maxv[i][w] = Math.max(maxv[i - 1][w], maxv[i - 1][w - iw] + iv);
                 }

@@ -1,7 +1,6 @@
-package com.example.sample.quiz.matrix;
+package com.example.sample.quiz.dp;
 
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 
 public class MaximalSubSquareAllOneTests {
@@ -138,8 +137,8 @@ public class MaximalSubSquareAllOneTests {
                 if (M[r][c] == 0) {
                     S[r][c] = 0;
                 } else {
-                    S[r][c] = Stream.of(S[r][c - 1], S[r - 1][c], S[r - 1][c - 1]).min((o1, o2) -> o1 - o2).orElse(0)
-                            + 1;
+                    S[r][c] =
+                            Stream.of(S[r][c - 1], S[r - 1][c], S[r - 1][c - 1]).min((o1, o2) -> o1 - o2).orElse(0) + 1;
 
                     if (S[r][c] > max) {
                         max = S[r][c];
