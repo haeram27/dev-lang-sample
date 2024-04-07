@@ -17,7 +17,7 @@ public class SimpleSortTests {
     }
 
     /*
-     * !!! useful sort algorithms are insertion, merge, quick, dualal pivot quick
+     * !!! useful sort algorithms are insertion, merge, quick, dual pivot quick
      */
     void insertionSort(int a[]) {
         // TODO:
