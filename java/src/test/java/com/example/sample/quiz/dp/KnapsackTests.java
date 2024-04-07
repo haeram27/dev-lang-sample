@@ -1,7 +1,9 @@
 package com.example.sample.quiz.dp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.stream.Stream;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,9 +13,9 @@ public class KnapsackTests {
     private static Stream<Arguments> argsSupplier() {
         return Stream.of(
         // @formatter:off
-         // Arguments.of(items[][], answer(value))
-         // items[number of items][available weight of knapsack] row == 0
-         // items[weight of each item][value of each item] row > 0_, answer(value))
+        // Arguments.of(items[][], answer(value))
+        // items[number of items][max available weight of knapsack] row == 0
+        // items[weight of each item][value of each item] row > 0_, answer(value))
             Arguments.of(new int[][]{{4, 7}, {6, 13}, {4, 8}, {3, 6}, {5, 12}}, 14)
         // @formatter:on
         );
@@ -72,6 +74,17 @@ public class KnapsackTests {
                 }
             }
         }
+        // @formatter:off
+        /* maxv[item index][knapsac weights]
+           answer is maxv[4][7]
+            -   1   2   3   4   5   6   7
+          ---------------------------------
+         -| 0   0   0   0   0   0   0   0 
+         1| 0   0   0   0   0   0  13  13 
+         2| 0   0   0   0   8   8  13  13 
+         3| 0   0   0   6   8   8  13  14 
+         4| 0   0   0   6   8  12  13  14
+         */
 
         printm(maxv);
         assertEquals(target, maxv[n][maxw]);

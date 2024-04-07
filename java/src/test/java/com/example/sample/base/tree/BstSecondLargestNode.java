@@ -1,4 +1,4 @@
-package com.example.sample.quiz.tree;
+package com.example.sample.base.tree;
 
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +56,6 @@ public class BstSecondLargestNode {
         largestValueNodeInBstA(root);
         secondLargestValueNodeInBstA(root);
     }
-
 
     void smallestValueNodeInBstA(Node root) {
         if (root == null)

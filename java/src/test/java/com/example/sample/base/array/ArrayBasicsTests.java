@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,7 +33,7 @@ public class ArrayBasicsTests {
     */
     @Test
     void primitiveArrayToList() {
-        int a[] = {1, 2, 3, 4, 5};
+        int a[] = { 1, 2, 3, 4, 5 };
         // TODO:
         List<Integer> list = null;
 
@@ -45,7 +46,7 @@ public class ArrayBasicsTests {
 
     @Test
     void primitiveArrayToListA() {
-        int a[] = {1, 2, 3, 4, 5};
+        int a[] = { 1, 2, 3, 4, 5 };
         var list = Arrays.stream(a).boxed().collect(Collectors.toList());
         list.forEach(e -> System.out.print(e + " "));
         System.out.println();
@@ -68,7 +69,7 @@ public class ArrayBasicsTests {
     public void arrayCopyTest() {
         long start = System.nanoTime();
 
-        int[] a = {1, 2, 3, 4, 5};
+        int[] a = { 1, 2, 3, 4, 5 };
         var b = arrayCopy(a);
         System.out.println(Arrays.toString(b));
         System.out.println(a);
@@ -99,7 +100,7 @@ public class ArrayBasicsTests {
 
     @Test
     public void reverseArrayTest() {
-        int[] a = {1, 2, 3, 4, 5};
+        int[] a = { 1, 2, 3, 4, 5 };
         // TODO:
 
         System.out.println(Arrays.toString(a));
@@ -107,7 +108,7 @@ public class ArrayBasicsTests {
 
     @Test
     void reverseArrayA() {
-        int[] a = {1, 2, 3, 4, 5};
+        int[] a = { 1, 2, 3, 4, 5 };
         int len = a.length;
 
         // just swap item 0 with item n-1, 1 with n-2, ...
@@ -124,15 +125,15 @@ public class ArrayBasicsTests {
 
     @Test
     void reverseArrayB() {
-        int[] a = {1, 2, 3, 4, 5};
+        int[] a = { 1, 2, 3, 4, 5 };
         int len = a.length;
 
         // just swap item 0 with item last-1, 1 with last-2, ...
-        for (int i = 0, j = len - 1; i < j; i++, j--) {
+        for (int l = 0, r = len - 1; l < r; l++, r--) {
             // swap
-            int temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
+            int temp = a[l];
+            a[l] = a[r];
+            a[r] = temp;
         }
 
         System.out.println(Arrays.toString(a));
@@ -140,23 +141,21 @@ public class ArrayBasicsTests {
 
     @Test
     public void reverseArrayC() {
-        int[] a = {1, 2, 3, 4, 5};
+        int[] a = { 1, 2, 3, 4, 5 };
         // TODO:
         var b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).toArray(Integer[]::new);
         var c = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
         System.out.println(Arrays.toString(b));
     }
 
-
     @Test
     void reverseArrayD() {
-        int[] a = {1, 2, 3, 4, 5};
+        int[] a = { 1, 2, 3, 4, 5 };
 
         var l = Arrays.stream(a).boxed().collect(Collectors.toList());
         Collections.reverse(l);
         l.forEach(e -> System.out.print(e + " "));
     }
-
 
     /**
     * Quest:
@@ -164,7 +163,7 @@ public class ArrayBasicsTests {
     */
     @Test
     void arraySortTest() {
-        int[] a = {5, 3, 2, 4, 1};
+        int[] a = { 5, 3, 2, 4, 1 };
         // TODO:
 
         System.out.println(Arrays.toString(a));
@@ -172,7 +171,7 @@ public class ArrayBasicsTests {
 
     @Test
     public void arraySortTestA() {
-        int[] a = {5, 3, 2, 4, 1};
+        int[] a = { 5, 3, 2, 4, 1 };
         Arrays.sort(a);
 
         System.out.println(Arrays.toString(a));
@@ -184,17 +183,16 @@ public class ArrayBasicsTests {
     */
     @Test
     void arrayReverseSortTest() {
-        int[] a = {5, 3, 2, 4, 1};
+        int[] a = { 5, 3, 2, 4, 1 };
         int[] b = null;
         // TODO:
 
         System.out.println(Arrays.toString(b));
     }
 
-
     @Test
     public void arrayReverseSortTestA() {
-        int[] a = {5, 3, 2, 4, 1};
+        int[] a = { 5, 3, 2, 4, 1 };
         int[] b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
 
         System.out.println(Arrays.toString(b));
@@ -202,7 +200,7 @@ public class ArrayBasicsTests {
 
     @Test
     public void arrayReverseSortTestB() {
-        int[] a = {5, 3, 2, 4, 1};
+        int[] a = { 5, 3, 2, 4, 1 };
         Arrays.sort(a);
         for (int i = 0; i < a.length / 2; i++) {
             int t = a[i];
@@ -255,7 +253,6 @@ public class ArrayBasicsTests {
         System.out.println(count);
     }
 
-
     @ParameterizedTest
     @MethodSource("provideLength")
     void twoIndexCombination(int len) {
@@ -287,18 +284,17 @@ public class ArrayBasicsTests {
     */
     @Test
     void mergeTwoSortedArrays() {
-        int a[] = {1, 3, 5};
-        int b[] = {2, 4, 6};
+        int a[] = { 1, 3, 5 };
+        int b[] = { 2, 4, 6 };
         // TODO:
-
 
         //System.out.println(Arrays.toString(c));
     }
 
     @Test
     void mergeTwoSortedArraysA() {
-        int a[] = {1, 3, 5};
-        int b[] = {2, 4, 6};
+        int a[] = { 1, 3, 5 };
+        int b[] = { 2, 4, 6 };
         // TODO:
         var alen = a.length;
         var blen = b.length;
