@@ -2,17 +2,16 @@ package com.example.sample.base.ds;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 public class LinkedHashMapTests {
 
     @Test
     public void run() {
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("1", "a");
         map.put("2", "b");
 
@@ -28,22 +27,20 @@ public class LinkedHashMapTests {
         });
         System.out.println("-".repeat(10));
 
-        map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .forEach(e -> {
-                    System.out.println("k::" + e.getKey());
-                    System.out.println("v::" + e.getValue());
-                });
+        map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).forEach(e -> {
+            System.out.println("k::" + e.getKey());
+            System.out.println("v::" + e.getValue());
+        });
         System.out.println("-".repeat(10));
 
-        map.entrySet().stream().sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
-                .forEach(e -> {
-                    System.out.println("k::" + e.getKey());
-                    System.out.println("v::" + e.getValue());
-                });
+        map.entrySet().stream().sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue())).forEach(e -> {
+            System.out.println("k::" + e.getKey());
+            System.out.println("v::" + e.getValue());
+        });
         System.out.println("-".repeat(10));
 
-        map.entrySet().stream().sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
-                .collect(Collectors.toList()).forEach(e -> {
+        map.entrySet().stream().sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue())).collect(Collectors.toList())
+                .forEach(e -> {
                     System.out.println("k::" + e.getKey());
                     System.out.println("v::" + e.getValue());
                 });
