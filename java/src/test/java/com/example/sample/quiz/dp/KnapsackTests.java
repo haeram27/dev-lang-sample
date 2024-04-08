@@ -1,9 +1,7 @@
 package com.example.sample.quiz.dp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.stream.Stream;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -42,7 +40,7 @@ public class KnapsackTests {
 
     @ParameterizedTest
     @MethodSource("argsSupplier")
-    void answer(int[][] input, int target) {
+    void solution(int[][] input, int answer) {
         int n = input[0][0]; // number of items
         int maxw = input[0][1]; // max weight of given knapsack
         int[][] maxv = new int[n + 1][maxw + 1]; // max value in a knapsack table of each condition
@@ -85,9 +83,10 @@ public class KnapsackTests {
          3| 0   0   0   6   8   8  13  14 
          4| 0   0   0   6   8  12  13  14
          */
+        // @formatter:on
 
         printm(maxv);
-        assertEquals(target, maxv[n][maxw]);
+        assertEquals(answer, maxv[n][maxw]);
     }
 
 }
