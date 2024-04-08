@@ -21,6 +21,10 @@ public class PrimeTests {
     boolean isPrimeA(int x) {
         if (x <= 1)
             return false;
+        else if (x == 2)
+            return true;
+        else if (x % 2 == 0)
+            return false;
 
         // sqrt(x) is square root of x
         for (int i = 3; i <= Math.sqrt(x); i += 2) {
@@ -29,6 +33,12 @@ public class PrimeTests {
         }
 
         return true;
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {3, 6, 7, 11, 14})
+    void runIsPrimeA(int num) {
+        System.out.println(String.format("%d %s", num, isPrimeA(num)));
     }
 
     /* Sieve of Eratosthenes */
