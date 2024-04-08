@@ -13,7 +13,7 @@ public class PrimeTests {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 3, 6, 7, 11, 14 })
+    @ValueSource(ints = {3, 6, 7, 11, 14})
     void runIsPrime(int num) {
         System.out.println(String.format("%d %s", num, isPrime(num)));
     }
@@ -22,6 +22,7 @@ public class PrimeTests {
         if (x <= 1)
             return false;
 
+        // sqrt(x) is square root of x
         for (int i = 2; i <= Math.sqrt(x); i++) {
             if (x % i == 0)
                 return false;
@@ -71,7 +72,7 @@ public class PrimeTests {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 1000, 50000 })
+    @ValueSource(ints = {1000, 50000})
     void runGetChe(int num) {
         getChe(num);
     }
