@@ -12,6 +12,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         System.out.println();
     }
 
+    /* QUIZ */
     // TODO: implement combination() Under Here
     <T> void combination(T[] data, T[] out, int r, int depth, int start) {}
 
@@ -29,6 +30,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         combination(data, out, r, 0, 0);
     }
 
+    /* ANSWER */
     /**
     * @brief combination
     *
@@ -72,6 +74,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         combinationA(data, out, r, 0, 0);
     }
 
+    /* QUIZ */
     @Test
     public void fastestTwoIndexCombinationInSingleArray() {
         // recursive way is so slow than just for loop
@@ -79,6 +82,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         // TODO: print all combination of two index
     }
 
+    /* ANSWER */
     @Test
     public void fastestTwoIndexCombinationInSingleArrayA() {
         // recursive way is so slow than just for loop
@@ -91,6 +95,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         }
     }
 
+    /* QUIZ */
     @Test
     public void fastestTwoIndexCombinationInSingleArrayMatching() {
         // find all matches in half and little bit more loop 
@@ -98,6 +103,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         // TODO: print all combination of two index
     }
 
+    /* ANSWER */
     @Test
     public void fastestTwoIndexCombinationInSingleArrayMatchingA() {
         // find all matches in half and little bit more loop 
@@ -106,24 +112,6 @@ public class CombinationTests extends EvaluatedTimeTests {
             for (int j = i + 1; j < len; j++) {
                 System.out.println(i + ", " + j);
                 System.out.println((len - 1 - i) + ", " + (len - 1 - j));
-            }
-        }
-    }
-
-    @Test
-    public void ThreeIndexCombinationInSingleArrayMatchingA() {
-        // find all matches in half and little bit more loop 
-        int len = 4;
-        int i, j, k;
-        for (i = 0; i < len - 2; i++) {
-            j = i + 1;
-            k = len - 1;
-            while (j < k) {
-                System.out.println(String.format("%d %d %d", i, j, k));
-                if (i % 2 == 0) // condition SHOULD be changed for problem
-                    j++;
-                if (i % 2 != 0) // condition SHOULD be changed for problem
-                    k--;
             }
         }
     }

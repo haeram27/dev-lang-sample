@@ -1,4 +1,4 @@
-package com.example.sample.quiz.array;
+package com.example.sample.quiz.greedy;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class ThreeSum {
+public class ThreeSumGreedy {
     /*
         Quest: https://leetcode.com/problems/3sum/description/
         
