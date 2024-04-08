@@ -2,12 +2,11 @@ package com.example.sample.quiz.array;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class LongestSubstringWithoutRepeatingChar {
+public class LongestSubArrayAllElemFrequencyAsOneTests {
     private static Stream<Arguments> argsSupplier() {
         return Stream.of(
         // @formatter:off
@@ -29,8 +28,9 @@ public class LongestSubstringWithoutRepeatingChar {
     @MethodSource("argsSupplier")
     void quest(String s, int answer) {
         int max = 0;
+        // TODO:
 
-        System.out.println(max);
+        System.out.println(max + " " + answer);
     }
 
     @ParameterizedTest
@@ -50,6 +50,6 @@ public class LongestSubstringWithoutRepeatingChar {
             max = Math.max(max, (r - l + 1));
         }
 
-        System.out.println(max);
+        System.out.println(max + " " + answer);
     }
 }
