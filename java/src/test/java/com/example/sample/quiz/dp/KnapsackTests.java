@@ -54,24 +54,21 @@ public class KnapsackTests {
         }
 
         // i is item
-        for (int i = 1; i < n + 1; i++) {
-            // w is max weight for knapsack(1~maxw)
-            for (int w = 1; w < maxw + 1; w++) {
+        for (int i = 1; i < maxv.length; i++) {
+            // w is max weight case for knapsack(1~maxw)
+            for (int w = 1; w < maxv[0].length; w++) {
                 int iw = input[i][0]; // current item's weight
                 int iv = input[i][1]; // current item's value
 
                 // if current available weight of knapsack(w) is smaller than current items weight(iw)
                 // then can not put curren item to current knapsack
                 // and keep previous items case's value
-                if (w < iw) {
-                    maxv[i][w] = maxv[i - 1][w];
-                    // if current available weight of knapsack(w) is greater or equal than current items weight(iw)
-                    // then determine whether put i-th item into knapsack or not
-                } else {
-                    maxv[i][w] = Math.max(maxv[i - 1][w], maxv[i - 1][w - iw] + iv);
-                }
+                // if current available weight of knapsack(w) is greater or equal than current items weight(iw)
+                // then determine whether put i-th item into knapsack or not
+                maxv[i][w] = (iw > w) ? maxv[i - 1][w] : Math.max(maxv[i - 1][w], maxv[i - 1][w - iw] + iv);
             }
         }
+
         // @formatter:off
         /* maxv[item index][knapsac weights]
            answer is maxv[4][7]
