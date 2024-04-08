@@ -23,10 +23,10 @@ public class SingleLinkedListTests {
 
     /* quest */
     /* Function to reverse the linked list */
-    Node reverse(Node node) {
+    Node reverse(Node head) {
         // TODO:
 
-        return node; // head;
+        return head; // head;
     }
 
     @Test
@@ -36,7 +36,7 @@ public class SingleLinkedListTests {
         head.next.next = new Node(3);
         head.next.next.next = new Node(2);
 
-        Node r = reverseA(head);
+        Node r = reverse(head);
 
         printList(r);
     }
