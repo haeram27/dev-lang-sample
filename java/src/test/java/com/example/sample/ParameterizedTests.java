@@ -2,11 +2,11 @@ package com.example.sample;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.Month;
 import java.util.EnumSet;
 import java.util.stream.Stream;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -56,7 +56,7 @@ public class ParameterizedTests {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 1, 3, 5, -3, 15, Integer.MAX_VALUE }) // six numbers
+    @ValueSource(ints = {1, 3, 5, -3, 15, Integer.MAX_VALUE}) // six numbers
     void valueSourceIntTest(int number) {
         assertTrue(isOdd(number));
     }
@@ -68,7 +68,7 @@ public class ParameterizedTests {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "", "  " })
+    @ValueSource(strings = {"", "  "})
     void isBlank_ShouldReturnTrueForNullOrBlankStrings(String input) {
         assertTrue(Strings.isBlank(input));
     }
@@ -93,7 +93,7 @@ public class ParameterizedTests {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = { "  ", "\t", "\n" })
+    @ValueSource(strings = {"  ", "\t", "\n"})
     void isBlank_ShouldReturnTrueForAllTypesOfBlankStrings(String input) {
         assertTrue(Strings.isBlank(input));
     }
@@ -109,15 +109,15 @@ public class ParameterizedTests {
     }
 
     @ParameterizedTest
-    @EnumSource(value = Month.class, names = { "APRIL", "JUNE", "SEPTEMBER", "NOVEMBER" })
+    @EnumSource(value = Month.class, names = {"APRIL", "JUNE", "SEPTEMBER", "NOVEMBER"})
     void someMonths_Are30DaysLong(Month month) {
         final boolean isALeapYear = false;
         assertEquals(30, month.length(isALeapYear));
     }
 
     @ParameterizedTest
-    @EnumSource(value = Month.class, names = { "APRIL", "JUNE", "SEPTEMBER", "NOVEMBER",
-            "FEBRUARY" }, mode = EnumSource.Mode.EXCLUDE)
+    @EnumSource(value = Month.class, names = {"APRIL", "JUNE", "SEPTEMBER", "NOVEMBER", "FEBRUARY"},
+            mode = EnumSource.Mode.EXCLUDE)
     void exceptFourMonths_OthersAre31DaysLong(Month month) {
         final boolean isALeapYear = false;
         assertEquals(31, month.length(isALeapYear));
@@ -135,7 +135,7 @@ public class ParameterizedTests {
      */
     // default delimeter: comma
     @ParameterizedTest
-    @CsvSource({ "test,TEST", "tEst,TEST", "Java,JAVA" })
+    @CsvSource({"test,TEST", "tEst,TEST", "Java,JAVA"})
     void toUpperCase_ShouldGenerateTheExpectedUppercaseValue(String input, String expected) {
         String actualValue = input.toUpperCase();
         assertEquals(expected, actualValue);
@@ -143,7 +143,7 @@ public class ParameterizedTests {
 
     // delimeter: colon
     @ParameterizedTest
-    @CsvSource(value = { "test:test", "tEst:test", "Java:java" }, delimiter = ':')
+    @CsvSource(value = {"test:test", "tEst:test", "Java:java"}, delimiter = ':')
     void toLowerCase_ShouldGenerateTheExpectedLowercaseValue(String input, String expected) {
         String actualValue = input.toLowerCase();
         assertEquals(expected, actualValue);
@@ -214,7 +214,6 @@ public class ParameterizedTests {
     /*
     * @ArgumentsSource :  Custom ArgumentsProvider interface
     */
-    /* */
     class BlankStringsArgumentsProvider implements ArgumentsProvider {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
@@ -235,4 +234,17 @@ public class ParameterizedTests {
         assertTrue(Strings.isBlank(input));
     }
 
+    /*
+     * Timeout Annotation
+     */
+    @Test
+    @Timeout(value = 3, threadMode = Timeout.ThreadMode.SEPARATE_THREAD) // Deafault TimeUnit.SECONDS
+    //@Timeout(value = 3, unit = TimeUnit.MILLISECONDS, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+    void timeOutTest() {
+        try {
+            Thread.sleep(6000);
+        } catch (Exception e) {
+
+        }
+    }
 }

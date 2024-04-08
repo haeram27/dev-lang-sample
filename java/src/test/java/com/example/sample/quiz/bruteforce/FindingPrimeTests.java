@@ -1,4 +1,4 @@
-package com.example.sample.quiz.etc;
+package com.example.sample.quiz.bruteforce;
 
 import java.util.HashSet;
 import org.junit.jupiter.api.Timeout;
@@ -13,8 +13,8 @@ public class FindingPrimeTests {
      */
 
     @ParameterizedTest
-    @Timeout(value = 3, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     @ValueSource(strings = {"17", "011"}) // 3, 2
+    @Timeout(value = 3, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     public void solution(String numbers) {
         HashSet<Integer> set = new HashSet<>();
         permutation("", numbers, set);
