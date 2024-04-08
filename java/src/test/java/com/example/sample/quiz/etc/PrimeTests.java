@@ -23,7 +23,7 @@ public class PrimeTests {
             return false;
 
         // sqrt(x) is square root of x
-        for (int i = 2; i <= Math.sqrt(x); i++) {
+        for (int i = 3; i <= Math.sqrt(x); i += 2) {
             if (x % i == 0)
                 return false;
         }
@@ -36,11 +36,12 @@ public class PrimeTests {
         int i;
         int[] arr = new int[num + 1];
 
+        // 0 and 1 is not prime
         if (num <= 1)
             return;
 
         // init array
-        // start i is 2 because 0, 1 is not prime
+        // start i is 2
         for (i = 2; i <= num; i++) {
             arr[i] = i;
         }
