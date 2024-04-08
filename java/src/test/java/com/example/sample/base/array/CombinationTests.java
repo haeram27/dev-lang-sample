@@ -1,7 +1,6 @@
 package com.example.sample.base.array;
 
 import org.junit.jupiter.api.Test;
-
 import com.example.sample.EvaluatedTimeTests;
 
 public class CombinationTests extends EvaluatedTimeTests {
@@ -14,15 +13,14 @@ public class CombinationTests extends EvaluatedTimeTests {
     }
 
     // TODO: implement combination() Under Here
-    <T> void combination(T[] data, T[] out, int r, int depth, int start) {
-    }
+    <T> void combination(T[] data, T[] out, int r, int depth, int start) {}
 
     @Test
     public void run() {
         int r = 3;
         // combination, r==2 : {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
         // combination, r==3 : {{a,b,c}, {a,b,d}, {a,c,d}, {b,c,d}}
-        String[] data = { "a", "b", "c", "d" }; // n = 4
+        String[] data = {"a", "b", "c", "d"}; // n = 4
         String[] out = new String[r];
 
         System.out.println("\n[combination recursive]===================");
@@ -65,7 +63,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         int r = 2;
         // combination, r==2 : {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
         // combination, r==3 : {{a,b,c}, {a,b,d}, {a,c,d}, {b,c,d}}
-        String[] data = { "a", "b", "c", "d" }; // n = 4
+        String[] data = {"a", "b", "c", "d"}; // n = 4
         String[] out = new String[r];
 
         System.out.println("\n[combination recursive]===================");
@@ -122,8 +120,10 @@ public class CombinationTests extends EvaluatedTimeTests {
             k = len - 1;
             while (j < k) {
                 System.out.println(String.format("%d %d %d", i, j, k));
-                j++;
-                k--;
+                if (i % 2 == 0) // condition SHOULD be changed for problem
+                    j++;
+                if (i % 2 != 0) // condition SHOULD be changed for problem
+                    k--;
             }
         }
     }
