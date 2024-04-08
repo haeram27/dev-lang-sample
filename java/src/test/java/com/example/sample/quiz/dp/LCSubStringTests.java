@@ -32,24 +32,21 @@ public class LCSubStringTests {
     void solution(String s1, String s2) {
         int[][] LCS = new int[s1.length() + 1][s2.length() + 1];
 
-        int max = 0, maxi = 0, maxj = 0;
-        for (int i = 1; i <= s1.length(); i++) {
-            for (int j = 1; j <= s2.length(); j++) {
-                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
-                    LCS[i][j] = LCS[i - 1][j - 1] + 1;
-                    if (max < LCS[i][j]) {
-                        max = LCS[i][j];
-                        maxi = i;
-                        maxj = j;
+        int max = 0, maxr = 0, maxc = 0;
+        for (int r = 1; r <= s1.length(); r++) {
+            for (int c = 1; c <= s2.length(); c++) {
+                if (s1.charAt(r - 1) == s2.charAt(c - 1)) {
+                    LCS[r][c] = LCS[r - 1][c - 1] + 1;
+                    if (max < LCS[r][c]) {
+                        max = LCS[r][c];
+                        maxr = r;
+                        maxc = c;
                     }
                 }
             }
         }
+
         System.out.println(Arrays.deepToString(LCS).replace("],", "],\n"));
-
-        System.out.println(max);
+        System.out.println(String.format("max: %d, maxr: %d, maxc: %d", max, maxr, maxc));
     }
-
-
-
 }
