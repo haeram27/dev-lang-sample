@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class InsertionSortTests {
 
-    void print(int[] a) {
+    void printa(int[] a) {
         for (var e : a) {
             System.out.print(e + " ");
         }
@@ -17,13 +17,13 @@ public class InsertionSortTests {
     void insertionSort(int a[]) {
         // TODO:
 
-        print(a);
+        printa(a);
     }
 
     @Test
     public void run() {
         // TODO Auto-generated method stub
-        int a[] = { 68, 32, 31, 26, 14, 9, 7, 2 };
+        int a[] = {68, 32, 31, 26, 14, 9, 7, 2};
 
         insertionSort(a.clone());
     }
@@ -60,7 +60,7 @@ public class InsertionSortTests {
             a[j + 1] = k;
         }
 
-        print(a);
+        printa(a);
     }
 
     void insertionSortWithWhile(int a[]) {
@@ -81,13 +81,13 @@ public class InsertionSortTests {
             a[j + 1] = k;
         }
 
-        print(a);
+        printa(a);
     }
 
     @Test
     public void runA() {
         // TODO Auto-generated method stub
-        int a[] = { 68, 32, 31, 26, 14, 9, 7, 2 };
+        int a[] = {68, 32, 31, 26, 14, 9, 7, 2};
 
         insertionSortA(a.clone());
         insertionSortWithWhile(a.clone());
