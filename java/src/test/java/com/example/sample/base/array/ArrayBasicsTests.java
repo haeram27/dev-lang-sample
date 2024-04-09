@@ -12,20 +12,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class ArrayBasicsTests {
     /**
-    * # median between two integer
-    * mid = (lo+hi)/2
-    *
-    * # median for array index
-    * 
-    * ## median of entire index
-    * mid = array.length/2
-    * for(i=0; i<mid; i++)
-    * 
-    * ## median of index range
-    * mid = (lo+hi+1)/2
-    * for(i=lo; i<mid; i++)
+        ## antipode(opposite position) of index
+            len-1-i
+    
+        ## length(number of element) from left index(lo) to right index(hi)
+            hi-lo+1
+    
+        ## mid index between two index
+            (hi+lo+1)/2
+    
+        ## mid index of entire array
+            len/2
     */
-
 
     /**
     * Quest:

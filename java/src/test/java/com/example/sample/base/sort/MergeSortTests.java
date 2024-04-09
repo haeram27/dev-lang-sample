@@ -43,10 +43,7 @@ public class MergeSortTests {
         // insert item until each index reaches to the end of l or r size
         // after this while(), one of l or r's index is completely consumed.
         while (i < llen && j < rlen) {
-            if (l[i] <= r[j])
-                a[k++] = l[i++];
-            else
-                a[k++] = r[j++];
+            a[k++] = (l[i] < r[j]) ? l[i++] : r[j++];
         }
 
         // consume l array if there is remaining index
