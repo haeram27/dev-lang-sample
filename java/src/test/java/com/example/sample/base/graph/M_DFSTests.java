@@ -69,25 +69,25 @@ public class M_DFSTests {
         }
 
         // !!! ReverseAdjecentOrder makes same order of recursive call
-        void DFSTraversalReverseAdjecentOrder(int vertex) {
-            boolean visited[] = new boolean[numberOfVertex];
+        void DFSTraversalReverseAdjecentOrder(int s, int n, List<List<Integer>> g) {
+            boolean visited[] = new boolean[n];
             ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
             // initialize stack with start point
-            visited[vertex] = true;
-            stack.offerFirst(vertex);
+            visited[s] = true;
+            stack.push(s);
 
             while (!stack.isEmpty()) {
-                int cur = stack.poll();
+                int cur = stack.pop();
                 System.out.print(cur + " ");
 
-                List<Integer> adjacents = new ArrayList<>(adj.get(cur));
+                List<Integer> adjacents = new ArrayList<>(g.get(cur));
                 Collections.reverse(adjacents);
 
                 for (int next : adjacents) {
                     if (!visited[next]) {
                         visited[next] = true;
-                        stack.offerFirst(next);
+                        stack.push(next);
                     }
                 }
             }
@@ -99,7 +99,7 @@ public class M_DFSTests {
         }
 
         void DFS() {
-            for (int start = 0; start < numberOfVertex; ++start) {
+            for (int start = 0; start < numberOfVertex; start++) {
                 DFSTraversal(start, numberOfVertex, adj);
             }
         }
