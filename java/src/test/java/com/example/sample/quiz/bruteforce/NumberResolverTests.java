@@ -31,7 +31,7 @@ public class NumberResolverTests {
     }
 
     /* answer */
-    boolean result;
+    boolean isResolved;
     int target;
 
     boolean numberResolverA(int[] a, int n) {
@@ -40,7 +40,7 @@ public class NumberResolverTests {
             int[] out = new int[r];
             combA(a, out, r, 0, 0);
         }
-        return result;
+        return isResolved;
     }
 
     void combA(int[] data, int[] out, int r, int depth, int start) {
@@ -51,7 +51,7 @@ public class NumberResolverTests {
             }
 
             if (sum == target)
-                result = true;
+                isResolved = true;
 
             return;
         }
@@ -59,7 +59,7 @@ public class NumberResolverTests {
         for (int i = start; i < data.length; i++) {
             out[depth] = data[i];
             combA(data, out, r, depth + 1, i + 1);
-            if (result == true)
+            if (isResolved == true)
                 break;
         }
     }
