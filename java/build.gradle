@@ -34,7 +34,6 @@ dependencies {
  * gradle test --rerun --tests 'Hello*.hello'
  * # clean all tests result cache before run tests
  * gradle test --rerun-tasks --tests 'Hello*.hello'
- * gradle cleanTest test --tests 'Hello*.hello'
  */
 test {
 	useJUnitPlatform()
