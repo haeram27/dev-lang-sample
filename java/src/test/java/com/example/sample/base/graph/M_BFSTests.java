@@ -11,7 +11,7 @@ public class M_BFSTests {
         private int numberOfVertex;
         private List<List<Integer>> adj; // adjacency list
 
-        /** Constructor*/
+        /** Constructor **/
         Graph(int size) {
             // initialize number of vertexes
             numberOfVertex = size;
