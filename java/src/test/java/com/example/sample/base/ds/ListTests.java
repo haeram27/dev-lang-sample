@@ -2,7 +2,6 @@ package com.example.sample.base.ds;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 
 public class ListTests {

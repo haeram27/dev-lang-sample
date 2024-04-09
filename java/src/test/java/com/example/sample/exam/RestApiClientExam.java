@@ -33,9 +33,9 @@ public class RestApiClientExam {
         final HttpClient client = HttpClient.newHttpClient();
         //final HttpClient client = HttpClient.newBuilder().connectTimeout(?).proxy(?).build();
 
-        final HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-                .header("Content-Type", "application/json").header("Accept", "application/json")
-                .version(HttpClient.Version.HTTP_1_1).build();
+        final HttpRequest request =
+                HttpRequest.newBuilder().uri(URI.create(url)).header("Content-Type", "application/json")
+                        .header("Accept", "application/json").version(HttpClient.Version.HTTP_1_1).build();
 
         final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -72,9 +72,9 @@ public class RestApiClientExam {
         //final HttpClient client = HttpClient.newBuilder().connectTimeout(?).proxy(?).build();
         final HttpRequest.BodyPublisher bp = HttpRequest.BodyPublishers.ofString(data);
 
-        final HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-                .header("Content-Type", "application/json").header("Accept", "application/json")
-                .version(HttpClient.Version.HTTP_1_1).POST(bp).build();
+        final HttpRequest request =
+                HttpRequest.newBuilder().uri(URI.create(url)).header("Content-Type", "application/json")
+                        .header("Accept", "application/json").version(HttpClient.Version.HTTP_1_1).POST(bp).build();
 
         final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 

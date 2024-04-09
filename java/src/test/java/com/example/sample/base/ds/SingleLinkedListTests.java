@@ -48,7 +48,7 @@ public class SingleLinkedListTests {
         Node next = null;
 
         while (cur != null) {
-            //next = cnext = prev = cur = next
+            // next = cur.next = prev = cur = next
             next = cur.next; // next will be current
             cur.next = prev;
             prev = cur; // for next loop, in last loop prev

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Test;
 
 public class M_EssentialTests {
@@ -17,7 +16,7 @@ public class M_EssentialTests {
 
     @Test
     public void getMaxTest() {
-        int a[] = { 1, 2, 3, 4, 5 };
+        int a[] = {1, 2, 3, 4, 5};
 
         Integer A = 1;
         Integer B = 2;
@@ -33,7 +32,7 @@ public class M_EssentialTests {
 
     @Test
     public void getMaxTestA() {
-        int a[] = { 1, 2, 3, 4, 5 };
+        int a[] = {1, 2, 3, 4, 5};
 
         Integer A = 1;
         Integer B = 2;
@@ -46,7 +45,7 @@ public class M_EssentialTests {
 
     @Test
     public void primitiveArrayDescSort() {
-        int a[] = { 1, 2, 3, 4, 5 };
+        int a[] = {1, 2, 3, 4, 5};
         var sorted = a;
 
         // TODO:
@@ -56,7 +55,7 @@ public class M_EssentialTests {
 
     @Test
     public void primitiveArrayDescSortA() {
-        int a[] = { 1, 2, 3, 4, 5 };
+        int a[] = {1, 2, 3, 4, 5};
         var sorted = a;
 
         // boxed() = int -> Integer

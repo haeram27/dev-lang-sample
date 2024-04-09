@@ -8,14 +8,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class ParseProperties {
 
     @ParameterizedTest
-    @ValueSource(strings = { "./test.properties" })
+    @ValueSource(strings = {"./test.properties"})
     public static void run(String path) {
         if (Optional.ofNullable(path).isEmpty() || path.isBlank()) {
             System.out.println("invalid file path");
