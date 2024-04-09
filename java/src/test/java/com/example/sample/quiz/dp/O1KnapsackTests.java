@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class KnapsackTests {
+public class O1KnapsackTests {
 
     private static Stream<Arguments> argsSupplier() {
         return Stream.of(
