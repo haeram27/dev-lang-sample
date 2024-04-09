@@ -1,5 +1,8 @@
 package com.example.sample.base.array;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import com.example.sample.EvaluatedTimeTests;
 
@@ -24,7 +27,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         String[] data = {"a", "b", "c", "d"}; // n = 4
         String[] out = new String[r];
 
-        System.out.println("\n[combination recursive]===================");
+        System.out.println("\n[combination recursive]====");
 
         /* !!!! combination caller !!!! */
         combination(data, out, r, 0, 0);
@@ -68,11 +71,47 @@ public class CombinationTests extends EvaluatedTimeTests {
         String[] data = {"a", "b", "c", "d"}; // n = 4
         String[] out = new String[r];
 
-        System.out.println("\n[combination recursive]===================");
+        System.out.println("\n[combination recursive]====");
 
         /* !!!! combination caller !!!! */
         combinationA(data, out, r, 0, 0);
     }
+
+    /* Collect combinations using HashSet*/
+    public void combinationC(String[] data, String[] out, int r, int depth, int start, HashSet<String> set) {
+        //System.out.println(String.format("depth=%d, start=%d", depth, start));
+        if (depth == r) {
+            set.add(Arrays.stream(out).collect((Collectors.joining())));
+            return;
+        }
+
+        /**
+         * depth : index of out[], level of combination selecting tree
+         * i : index for data[] to be out[depth], i can be controlled by for() and start
+         */
+        for (int i = start; i < data.length; i++) {
+            // data[i] is selected for current depth
+            out[depth] = data[i];
+            // data[i] can NOT be select in next depth because pass i+1 as start
+            combinationC(data, out, r, depth + 1, i + 1, set);
+        }
+    }
+
+    @Test
+    public void runC() {
+        HashSet<String> set = new HashSet<>();
+        int r = 2;
+        String[] data = {"a", "b", "c", "d"}; // n = 4
+        String[] out = new String[r];
+
+        System.out.println("\n[combination recursive]====");
+
+        /* !!!! combination caller !!!! */
+        combinationC(data, out, r, 0, 0, set);
+        set.forEach(e -> System.out.println(e));
+        System.out.println(set.size());
+    }
+
 
     /* QUIZ */
     @Test
