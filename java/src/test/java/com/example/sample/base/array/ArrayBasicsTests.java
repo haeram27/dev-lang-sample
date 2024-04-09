@@ -234,6 +234,7 @@ public class ArrayBasicsTests {
     @MethodSource("provideLength")
     void allSubSet(int len) {
         int count = 0;
+        int s, e; // e is not included in subset(substring)
 
         System.out.println(count);
     }
@@ -245,7 +246,7 @@ public class ArrayBasicsTests {
         int count = 0;
 
         // [s, e) = {s <= x < e}
-        // s is opened(include) index
+        // s is opened(NOT include) index
         for (int s = 0; s < len; ++s) {
             // e is closed(NOT include) index
             for (int e = s + 1; e < len + 1; ++e) {
@@ -305,20 +306,15 @@ public class ArrayBasicsTests {
         int[] c = new int[alen + blen];
         int i = 0, j = 0, k = 0;
 
-        while (i < alen && j < blen) {
-            if (a[i] <= b[j])
-                c[k++] = a[i++];
-            else
-                c[k++] = b[j++];
+        while (i < a.length && j < b.length) {
+            c[k++] = (a[i] < b[j]) ? a[i++] : b[j++];
         }
 
-        // consume l array if there is remaining index
-        while (i < alen) {
+        while (i < a.length) {
             c[k++] = a[i++];
         }
 
-        // consume r array if there is remaining index
-        while (j < blen) {
+        while (j < b.length) {
             c[k++] = b[j++];
         }
 
