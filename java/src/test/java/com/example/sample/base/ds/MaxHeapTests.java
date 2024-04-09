@@ -70,7 +70,7 @@ public class MaxHeapTests {
 
     @Test
     public void run() {
-        int[] arr = { 2, 7, 9, 14, 14, 26, 31, 32, 68 };
+        int[] arr = {2, 7, 9, 14, 14, 26, 31, 32, 68};
         for (int i = 0; i < arr.length; ++i) {
             offer(arr[i]);
         }

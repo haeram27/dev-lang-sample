@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class ThreeSumGreedy {
+public class ThreeSumGreedyTests {
     /*
         Quest: https://leetcode.com/problems/3sum/description/
         

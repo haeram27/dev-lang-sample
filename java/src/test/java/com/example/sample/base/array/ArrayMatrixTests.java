@@ -1,4 +1,4 @@
-package com.example.sample.base.ds;
+package com.example.sample.base.array;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -7,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class M_MatrixTests {
+public class ArrayMatrixTests {
     /**
     * # median between two integer
     * mid = (lo+hi)/2

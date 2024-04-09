@@ -79,12 +79,16 @@ public class ArrayBasicsTests {
     }
 
     int[] arrayCopyA(int[] a) {
+        return a.clone();
+    }
+
+    int[] arrayCopyB(int[] a) {
         // Arrays.copyOf() only copy 1st dimension(row)
         var b = Arrays.copyOf(a, a.length);
         return b;
     }
 
-    int[] arrayCopyB(int[] a) {
+    int[] arrayCopyC(int[] a) {
         var b = new int[a.length];
         for (int i = 0; i < a.length; i++) {
             b[i] = a[i];

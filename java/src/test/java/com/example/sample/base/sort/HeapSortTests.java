@@ -75,7 +75,7 @@ public class HeapSortTests {
 
     @Test
     public void run() {
-        int a[] = { 12, 11, 13, 5, 6, 7 };
+        int a[] = {12, 11, 13, 5, 6, 7};
 
         HeapSortTests ob = new HeapSortTests();
         ob.sort(a);
