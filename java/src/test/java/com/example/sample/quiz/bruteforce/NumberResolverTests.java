@@ -30,7 +30,9 @@ public class NumberResolverTests {
         System.out.println(result);
     }
 
-    /* answer */
+    /* answer
+     * hint: combination entire index
+     */
     boolean isResolved;
     int target;
 
