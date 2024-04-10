@@ -1,4 +1,4 @@
-package com.example.sample.quiz.string;
+package com.example.sample.quiz.map;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
-public class M_WordGroupingTests {
+public class WordGroupingTests {
     /* 
         make group of token consist of same alphabets
         and print each group in each line

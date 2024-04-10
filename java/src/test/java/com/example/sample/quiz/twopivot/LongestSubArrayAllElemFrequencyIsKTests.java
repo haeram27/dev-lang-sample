@@ -1,4 +1,4 @@
-package com.example.sample.quiz.array;
+package com.example.sample.quiz.twopivot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class LongestSubArrayAllElemFrequencyIsKTests {
         System.out.println();
     }
 
-    private static Stream<Arguments> maxSubArrayLengthArgsSupplier() {
+    private static Stream<Arguments> maxSubArrayLengthargSupplier() {
         return Stream.of(
         // @formatter:off
          // Arguments.of(nums[], k, expected)
@@ -36,7 +36,7 @@ public class LongestSubArrayAllElemFrequencyIsKTests {
      * find longest sub array's length, frequency of each elements SHOULD be less or equal 'k'
      */
     @ParameterizedTest
-    @MethodSource("maxSubArrayLengthArgsSupplier")
+    @MethodSource("maxSubArrayLengthargSupplier")
     public void maxSubarrayLength(int[] nums, int k, int expected) {
         int max = 0;
 
@@ -49,7 +49,7 @@ public class LongestSubArrayAllElemFrequencyIsKTests {
      * find longest sub array's length, frequency of each elements SHOULD be less or equal 'k'
      */
     @ParameterizedTest
-    @MethodSource("maxSubArrayLengthArgsSupplier")
+    @MethodSource("maxSubArrayLengthargSupplier")
     public void maxSubarrayLengthA(int[] nums, int k, int expected) {
         int max = 0;
         int l = 0, r = 0; //left, right

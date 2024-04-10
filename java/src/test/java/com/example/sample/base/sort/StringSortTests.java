@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
-public class M_StringSortTests {
+public class StringSortTests {
     String s = "abcdeghijklmn";
     String s1 = "abcdeg hijklmn";
 

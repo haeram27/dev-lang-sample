@@ -6,8 +6,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+/* Longest Sub String */
 public class LCSubStringTests {
-    private static Stream<Arguments> argsSupplier() {
+    private static Stream<Arguments> argSupplier() {
         return Stream.of(
         // @formatter:off
          // Arguments.of(nums[], k, expected)
@@ -18,7 +19,7 @@ public class LCSubStringTests {
     }
 
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void lcSubstring(String s1, String s2) {
         int max = 0;
         // TODO:
@@ -28,7 +29,7 @@ public class LCSubStringTests {
     }
 
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void solution(String s1, String s2) {
         int[][] LCS = new int[s1.length() + 1][s2.length() + 1];
 

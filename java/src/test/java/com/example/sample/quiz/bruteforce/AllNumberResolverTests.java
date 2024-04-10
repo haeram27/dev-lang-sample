@@ -7,9 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class NumberResolverTests {
+public class AllNumberResolverTests {
 
-    private static Stream<Arguments> argsSupplier() {
+    private static Stream<Arguments> argSupplier() {
         return Stream.of(
         // @formatter:off
             Arguments.of(new int[]{3, 7, 1, 2, 8}, 5)
@@ -21,7 +21,7 @@ public class NumberResolverTests {
      * retuen if it is possible to make number n with numbers in array a.
      */
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     @Timeout(value = 3, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     void numberResolver(int[] a, int n) {
         boolean result = false;

@@ -1,4 +1,4 @@
-package com.example.sample.quiz.string;
+package com.example.sample.quiz.twopivot;
 
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;

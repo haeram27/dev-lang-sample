@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class O1KnapsackTests {
 
-    private static Stream<Arguments> argsSupplier() {
+    private static Stream<Arguments> argSupplier() {
         return Stream.of(
         // @formatter:off
         // Arguments.of(items[][], answer(value))
@@ -32,14 +32,14 @@ public class O1KnapsackTests {
      * Quest: https://www.acmicpc.net/problem/12865
      */
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void quest(int[][] input, int target) {
         // TODO:
 
     }
 
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void solution(int[][] input, int answer) {
         int n = input[0][0]; // number of items
         int maxw = input[0][1]; // max weight of given knapsack

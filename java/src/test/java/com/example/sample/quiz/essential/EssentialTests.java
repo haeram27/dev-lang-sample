@@ -1,4 +1,4 @@
-package com.example.sample.quiz;
+package com.example.sample.quiz.essential;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
-public class M_EssentialTests {
+public class EssentialTests {
     String s = "abcdeghijklmn";
     String s1 = "abcdeg hijklmn";
 
@@ -165,10 +165,10 @@ public class M_EssentialTests {
 
         // TODO: start
         // use new ArrayList(Collection), Set -> List
-        var list1 = new ArrayList<Map.Entry<String, List<Integer>>>();
+        var list1 = new ArrayList<Map.Entry<String, List<Integer>>>(m.entrySet());
 
         // use Map.entrySet().stream()
-        var list2 = new ArrayList<Map.Entry<String, List<Integer>>>();
+        var list2 = m.entrySet().stream().collect(Collectors.toList());
         // TODO: end
 
         list1.forEach(e -> {

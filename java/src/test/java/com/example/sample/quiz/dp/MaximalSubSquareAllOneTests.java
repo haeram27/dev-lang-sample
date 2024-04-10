@@ -5,6 +5,17 @@ import org.junit.jupiter.api.Test;
 
 public class MaximalSubSquareAllOneTests {
 
+    void printm(int[][] m) {
+        int r = 0, c = 0, rlen = m.length, clen = m[0].length;
+        for (r = 0; r < rlen; r++) {
+            for (c = 0; c < clen; c++) {
+                System.out.print(m[r][c] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     void printMaxSubSquareTest(int[][] m) {
         // TODO under here
         int rlen = 0; // TODO
@@ -48,7 +59,7 @@ public class MaximalSubSquareAllOneTests {
     /* Driver code */
     @Test
     void run() {
-        int[][] m = {
+        int[][] m1 = {
             // @formatter:off
             {0, 1, 1, 0, 1},
             {1, 1, 0, 1, 0},
@@ -58,8 +69,29 @@ public class MaximalSubSquareAllOneTests {
             {0, 0, 0, 0, 0}
             // @formatter:on
         };
+        printMaxSubSquareTest(m1);
 
-        printMaxSubSquareTest(m);
+        int m2[][] = {
+            // @formatter:off
+            {1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1}
+            // @formatter:on
+        };
+        printMaxSubSquareTest(m2);
     }
 
     /**
@@ -154,13 +186,7 @@ public class MaximalSubSquareAllOneTests {
         System.out.println();
 
         /* Print result */
-        for (r = 0; r < rlen; r++) {
-            for (c = 0; c < clen; c++) {
-                System.out.print(S[r][c] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
+        printm(S);
 
         /* Print maximal sub-matrix in M of all 1 */
         for (r = maxr; r > maxr - max; r--) {
@@ -175,8 +201,7 @@ public class MaximalSubSquareAllOneTests {
     /* Driver code */
     @Test
     void runAnswer() {
-
-        int[][] M = {
+        int[][] m1 = {
             // @formatter:off
             {0, 1, 1, 0, 1},
             {1, 1, 0, 1, 0},
@@ -186,8 +211,28 @@ public class MaximalSubSquareAllOneTests {
             {0, 0, 0, 0, 0}
             // @formatter:on
         };
+        printMaxSubSquareTestA(m1);
 
-        printMaxSubSquareTestA(M);
+        int m2[][] = {
+            // @formatter:off
+            {1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1}
+            // @formatter:on
+        };
+        printMaxSubSquareTestA(m2);
     }
-
 }

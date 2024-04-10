@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
-public class ListTests {
+public class ArrayListTests {
     @Test
     public void run() {
         // #### modifiable, flexible length

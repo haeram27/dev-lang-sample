@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import org.junit.jupiter.api.Test;
 
-public class M_TreeTraversalTests {
+public class TreeTraversalTests {
     /* Class to represent Tree node */
     class Node {
         int data;

@@ -1,4 +1,4 @@
-package com.example.sample.quiz.list;
+package com.example.sample.quiz.linkedlist;
 
 import org.junit.jupiter.api.Test;
 

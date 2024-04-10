@@ -1,13 +1,13 @@
-package com.example.sample.quiz.array;
+package com.example.sample.quiz.bruteforce;
 
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class TwoSum {
+public class TwoNumberResolverTests {
 
-    private static Stream<Arguments> argsSupplier() {
+    private static Stream<Arguments> argSupplier() {
         return Stream.of(
         // @formatter:off
          // Arguments.of(nums[],target)
@@ -23,16 +23,16 @@ public class TwoSum {
      * Quest: https://leetcode.com/problems/two-sum/description/
      *   check there is combination of two number which has value of target
      *   @return print two index of array have values can make target number
-     * Hint: All combination of two index in a array
+     * Hint: combination two index
      */
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void quest(int[] a, int target) {
         // TODO:
     }
 
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void answer(int[] a, int target) {
         var len = a.length;
         for (int i = 0; i < len; i++) {

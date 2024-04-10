@@ -1,4 +1,4 @@
-package com.example.sample.quiz.greedy;
+package com.example.sample.quiz.twopivot;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -45,7 +45,7 @@ public class ThreeSumGreedyTests {
         -105 <= nums[i] <= 105
     */
 
-    private static Stream<Arguments> argsSupplier() {
+    private static Stream<Arguments> argSupplier() {
         return Stream.of(
         // @formatter:off
             // Arguments.of(nums[],target)
@@ -58,39 +58,39 @@ public class ThreeSumGreedyTests {
     }
 
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     void quest(int[] nums) {
         // TODO:
     }
 
     @ParameterizedTest
-    @MethodSource("argsSupplier")
+    @MethodSource("argSupplier")
     public void threeSum(int[] nums) {
-        Arrays.sort(nums);
+        Arrays.sort(nums); // need sort!!! Greedy
         Set<List<Integer>> set = new HashSet<>();
-        int i = 0, j = 0, k = 0;
+        int i = 0, l = 0, r = 0;
         for (i = 0; i < nums.length - 2; i++) {
-            j = i + 1;
-            k = nums.length - 1;
-            while (j < k) {
-                int sum = nums[i] + nums[j] + nums[k];
+            l = i + 1;
+            r = nums.length - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
                 if (sum == 0) {
-                    set.add(Arrays.asList(nums[i], nums[j], nums[k]));
-                    while (j < k && nums[j] == nums[j + 1])
-                        j++;
-                    while (j < k && nums[k] == nums[k - 1])
-                        k--;
-                    j++;
-                    k--;
+                    set.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    while (l < r && nums[l] == nums[l + 1])
+                        l++;
+                    while (l < r && nums[r] == nums[r - 1])
+                        r--;
+                    l++;
+                    r--;
                 } else if (sum < 0)
-                    j++;
+                    l++;
                 else
-                    k--;
+                    r--;
             }
         }
 
-        set.forEach(l -> {
-            l.forEach(e -> System.out.print(e + " "));
+        set.forEach(list -> {
+            list.forEach(e -> System.out.print(e + " "));
             System.out.println();
         });
     }
