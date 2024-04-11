@@ -128,8 +128,7 @@ public class CombinationTests extends EvaluatedTimeTests {
         int len = 4;
         for (int i = 0; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
-                System.out.print(i);
-                System.out.println(j);
+                System.out.println(i + " " + j);
             }
         }
     }

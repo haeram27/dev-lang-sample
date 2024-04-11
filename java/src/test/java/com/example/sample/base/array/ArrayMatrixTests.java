@@ -399,7 +399,7 @@ public class ArrayMatrixTests {
     int[][] reverseClockwiseRotateN(int[][] m, int times) {
         // TODO:
 
-        return new int[m.length][m[0].length];
+        return m;
     }
 
     @Test
@@ -415,17 +415,12 @@ public class ArrayMatrixTests {
 
     int[][] reverseClockwiseRotateNA(int[][] matrix, int times) {
         int len = matrix.length;
-        int[][] source = new int[len][len];
         int[][] rotated = new int[len][len];
 
-        for (int i = 0; i < len; i++) {
-            for (int j = 0; j < len; j++) {
-                source[i][j] = matrix[i][j];
-            }
-        }
+        times %= 4;
 
         // 4 times rotation is same with original square matrix
-        for (int t = 1; t <= times % 4; t++) {
+        for (int t = 0; t < times; t++) {
             for (int r = 0; r < len; ++r) {
                 for (int c = 0; c < len; ++c) {
                     // len-1-i == antipode of index i in array
@@ -434,9 +429,9 @@ public class ArrayMatrixTests {
                 }
             }
 
-            for (int i = 0; i < len; i++) {
-                for (int j = 0; j < len; j++) {
-                    source[i][j] = rotated[i][j];
+            for (int r = 0; r < len; ++r) {
+                for (int c = 0; c < len; ++c) {
+                    matrix[r][c] = rotated[r][c];
                 }
             }
         }
