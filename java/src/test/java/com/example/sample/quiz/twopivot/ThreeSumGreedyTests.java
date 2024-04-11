@@ -52,7 +52,6 @@ public class ThreeSumGreedyTests {
                 Arguments.of(new int[]{-1, 0, 1, 2, -1, -4}),
                 Arguments.of(new int[]{0, 1, 1}),
                 Arguments.of(new int[]{0, 0, 0})
-
             // @formatter:on
         );
     }
