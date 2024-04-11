@@ -14,18 +14,16 @@ public class LongestPalindromTests {
     private static Stream<Arguments> argSupplier() {
         // @formatter:off
         return Stream.of(
-            Arguments.of("babad"),
-            Arguments.of("cbba"));
+            Arguments.of("babad"), // bab
+            Arguments.of("cbba")); // bb
         // @formatter:on
     }
 
     @ParameterizedTest
     @MethodSource("argSupplier")
     void longestPalindrom(String s) {
-
         String p = null;
         // TODO:
-
         System.out.println(p);
     }
 
