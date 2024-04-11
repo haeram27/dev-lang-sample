@@ -8,6 +8,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 /* Longest Sub String */
 public class LCSubStringTests {
+    void printm(int[][] m) {
+        int r = 0, c = 0, rlen = m.length, clen = m[0].length;
+        for (r = 0; r < rlen; r++) {
+            for (c = 0; c < clen; c++) {
+                System.out.print(m[r][c] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     private static Stream<Arguments> argSupplier() {
         return Stream.of(
         // @formatter:off
@@ -18,6 +29,7 @@ public class LCSubStringTests {
         );
     }
 
+    /* QUIZ */
     @ParameterizedTest
     @MethodSource("argSupplier")
     void lcSubstring(String s1, String s2) {
@@ -28,6 +40,7 @@ public class LCSubStringTests {
         System.out.println(max);
     }
 
+    /* ANSER */
     @ParameterizedTest
     @MethodSource("argSupplier")
     void solution(String s1, String s2) {
