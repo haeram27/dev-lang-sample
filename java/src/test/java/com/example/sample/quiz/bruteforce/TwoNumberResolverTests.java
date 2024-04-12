@@ -35,14 +35,20 @@ public class TwoNumberResolverTests {
     @MethodSource("argSupplier")
     void answer(int[] a, int target) {
         var len = a.length;
+
+        System.out.println("====================");
+        // @formatter:off
+        label: 
+        // @formatter:on
         for (int i = 0; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
                 if (a[i] + a[j] == target) {
-                    System.out.println(i + ", " + j);
-                    return;
+                    System.out.println(String.format("%d(%d) %d(%d)", i, a[i], j, a[j]));
+                    break label;
                 } else if (a[len - 1 - i] + a[len - 1 - j] == target) {
-                    System.out.println((len - 1 - i) + ", " + (len - 1 - j));
-                    return;
+                    System.out.println(
+                            String.format("%d(%d) %d(%d)", len - 1 - i, a[len - 1 - i], len - 1 - j, a[len - 1 - j]));
+                    break label;
                 }
             }
         }
