@@ -142,15 +142,6 @@ public class ArrayBasicsTests {
     }
 
     @Test
-    public void reverseArrayC() {
-        int[] a = {1, 2, 3, 4, 5};
-        // TODO:
-        var b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).toArray(Integer[]::new);
-        var c = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
-        System.out.println(Arrays.toString(b));
-    }
-
-    @Test
     void reverseArrayD() {
         int[] a = {1, 2, 3, 4, 5};
 
