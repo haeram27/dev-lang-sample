@@ -1,0 +1,74 @@
+{
+    "body": {
+        "policy_hips_ips_mgmt": {
+            "mode": "deny",
+            "name": "테스트623",
+            "enable": false,
+            "behavior": [],
+            "signature": [],
+            "additional": {
+                "user": [],
+                "default": []
+            },
+            "frag_check": true,
+            "predefined": {
+                "user": [],
+                "default": [
+                    {
+                        "cve": "CVE-2019-1443",
+                        "raw": false,
+                        "sid": 13071,
+                        "name": "Microsoft SharePoint CVE-2019-1443 Information Disclosure-2",
+                        "alarm": false,
+                        "action": "block",
+                        "period": 1,
+                        "severity": "medium",
+                        "blockTime": 1,
+                        "direction": "ie,ei,ii",
+                        "threshold": 1,
+                        "blockAction": "packetblock",
+                        "description": "",
+                        "lastModified": "1970-01-01T09:00:00.000Z",
+                        "protectionArea": "Client Side Application",
+                        "recommendation": true,
+                        "applicationType": "Web Server Microsoft SharePoint",
+                        "vulnerabilityId": 4121
+                    },
+                    {
+                        "cve": "CVE-2019-6739",
+                        "raw": false,
+                        "sid": 13070,
+                        "name": "Malwarebytes Anti-Malware URI Handler Remote Code Execution-3",
+                        "alarm": false,
+                        "action": "block",
+                        "period": 1,
+                        "severity": "high",
+                        "blockTime": 1,
+                        "direction": "ie,ei,ii",
+                        "threshold": 1,
+                        "blockAction": "packetblock",
+                        "description": "",
+                        "lastModified": "1970-01-01T09:00:00.000Z",
+                        "protectionArea": "Server Side Application",
+                        "recommendation": true,
+                        "applicationType": "Security Solution Anti-Malware",
+                        "vulnerabilityId": 4081
+                    }
+                ]
+            },
+            "tcp_seg_check": true,
+            "url_obf_check": true,
+            "recommendation": {
+                "method": "application",
+                "analysis": [],
+                "env_analysis": false
+            },
+            "user_signature": [],
+            "recommendationpack": []
+        }
+    },
+    "header": {
+        "type": "POLICY_HIPS_IPS_MGMT",
+        "version": "1"
+    }
+}

@@ -4,6 +4,7 @@ import java.util.Base64;
 import org.junit.jupiter.api.Test;
 
 public class Base64Tests {
+
     @Test
     void base64Test() {
         byte[] originalBytes = new byte[] {(byte) 255, (byte) 128, (byte) 64, (byte) 32, (byte) 16, (byte) 8, (byte) 4,
