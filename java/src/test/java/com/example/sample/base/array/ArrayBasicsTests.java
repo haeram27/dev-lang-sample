@@ -1,8 +1,8 @@
 package com.example.sample.base.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class ArrayBasicsTests {
     void primitiveArrayToList() {
         int a[] = {1, 2, 3, 4, 5};
         // TODO:
-        List<Integer> list = null;
+        var list = new ArrayList<>();
 
         list.forEach(e -> System.out.print(e + " "));
         System.out.println();
@@ -45,12 +45,21 @@ public class ArrayBasicsTests {
     @Test
     void primitiveArrayToListA() {
         int a[] = {1, 2, 3, 4, 5};
-        var list = Arrays.stream(a).boxed().collect(Collectors.toList());
-        list.forEach(e -> System.out.print(e + " "));
+
+        var l1 = Arrays.stream(a).boxed().collect(Collectors.toList());
+        l1.forEach(e -> System.out.print(e + " "));
         System.out.println();
 
-        Collections.reverse(list);
-        list.forEach(e -> System.out.print(e + " "));
+        Collections.reverse(l1);
+        l1.forEach(e -> System.out.print(e + " "));
+        System.out.println();
+
+        // legarcy  boxing
+        var l2 = new ArrayList<Integer>();
+        for (var e : a)
+            l2.add(e);
+        l2.forEach(e -> System.out.print(e + " "));
+        System.out.println();
     }
 
     /**

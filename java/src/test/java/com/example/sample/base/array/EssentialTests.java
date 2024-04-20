@@ -1,4 +1,4 @@
-package com.example.sample.quiz.essential;
+package com.example.sample.base.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
