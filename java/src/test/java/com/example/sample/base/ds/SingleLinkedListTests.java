@@ -47,7 +47,9 @@ public class SingleLinkedListTests {
         Node prev = null;
         Node next = null;
 
+        // key: for loop, final insertion is cur=next;
         while (cur != null) {
+            // n = cn = p = c = n
             // next = cur.next = prev = cur = next
             next = cur.next; // next will be current
             cur.next = prev;
