@@ -13,16 +13,16 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class ArrayBasicsTests {
     /**
         ## antipode(opposite position) of index
-            len-1-i
+            antipode = len-1-i
     
         ## length(number of element) from left index(lo) to right index(hi)
-            hi-lo+1
+            len = hi-lo+1
     
         ## mid index between two index
-            (hi+lo+1)/2
+            mid = (hi+lo+1)/2
     
         ## mid index of entire array
-            len/2
+            mid = len/2
     */
 
     /**
