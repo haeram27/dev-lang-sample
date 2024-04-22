@@ -116,27 +116,31 @@ public class ArrayMatrixTests {
         System.out.println(String.format("Process time: %d nsec", System.nanoTime() - start));
     }
 
-    int[][] matrixDeepCopyA(int[][] a) {
-        var rlen = a.length;
-        var clen = a[0].length;
+
+    @Test
+    void matrixDeepCopyA() {
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
+        var rlen = matrix.length;
+        var clen = matrix[0].length;
 
         // shallow copy
         // Arrays.copyOf() only copy 1st dimension(row)
-        var shallow = Arrays.copyOf(a, a.length);
+        var shallow = Arrays.copyOf(matrix, matrix.length);
+        printm(shallow);
 
         // deep copy
         var deepA = new int[rlen][clen];
         for (int r = 0; r < rlen; r++) {
             for (int c = 0; c < clen; c++) {
-                deepA[r][c] = a[r][c];
+                deepA[r][c] = matrix[r][c];
             }
         }
+        printm(deepA);
 
         // deep copy
         // Arrays.copyOf() only copy 1st dimension(row)
-        var deepB = Arrays.stream(a).map(row -> Arrays.copyOf(row, row.length)).toArray(int[][]::new);
-
-        return deepA;
+        var deepB = Arrays.stream(matrix).map(row -> Arrays.copyOf(row, row.length)).toArray(int[][]::new);
+        printm(deepA);
     }
 
     /**
@@ -437,5 +441,15 @@ public class ArrayMatrixTests {
         }
 
         return rotated;
+    }
+
+    void printm(int[][] m) {
+        for (int r = 0; r < m.length; r++) {
+            for (int c = 0; c < m[0].length; c++) {
+                System.out.print(String.format("%02d ", m[r][c]));
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
