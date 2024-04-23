@@ -24,10 +24,10 @@ public class EssentialTests {
 
         // TODO:
         // print max of a[]
-        System.out.println(Arrays.stream(a).max().orElse(0));
+        System.out.println(a);
 
         // print max among A, B, C
-        System.out.println(Stream.of(A, B, C).max(Integer::compareTo).orElse(0));
+        System.out.println(A + B + C);
     }
 
     @Test
@@ -39,7 +39,6 @@ public class EssentialTests {
         Integer C = 3;
 
         // TODO:
-        System.out.println(Arrays.stream(a).min().orElse(0));
         System.out.println(Arrays.stream(a).max().orElse(0));
         System.out.println(Stream.of(A, B, C).min(Integer::compareTo).orElse(0));
         System.out.println(Stream.of(A, B, C).max(Integer::compare).orElse(0));
