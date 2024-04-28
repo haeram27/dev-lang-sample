@@ -1,3 +1,5 @@
+# temporarily directory
+.tmp/
 
 # Build directory and Executable result
 build/
