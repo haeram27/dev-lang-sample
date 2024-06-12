@@ -105,6 +105,55 @@ public class JacksonTests {
         }
     }
 
+    // gradle test --rerun-tasks --tests 'JacksonTests.upateValueUsingMap'
+    @Test
+    public void upateValueUsingMap() {
+
+        // @formatter:off
+        /*
+        {
+            "name": "John Doe",
+            "age": 30,
+            "email": "john.doe@example.com",
+            "role": "admin"
+        }
+        */
+        // @formatter:on
+
+        String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"role\":\"admin\"}";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            // deserialize: json string -> java object(Map)
+            Map<String, Object> map = objectMapper.readValue(jsonString, Map.class);
+
+            // read map object
+            String name = (String) map.get("name");
+            int age = (Integer) map.get("age");
+            String email = (String) map.get("email");
+            String role = (String) map.get("role");
+
+            // print
+            System.out.println("Name: " + name);
+            System.out.println("Age: " + age);
+            System.out.println("Email: " + email);
+            System.out.println("Role: " + role);
+
+            // update map
+            map.put("name", "Meh Jong");
+            map.put("age", 20);
+            map.put("email", "meh.jong@example.com");
+            map.put("role", "user");
+
+            // serialize: java object(map) -> json string
+            System.out.println(objectMapper.writeValueAsString(map));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // gradle test --rerun-tasks --tests 'JacksonTests.upateValueUsingJsonNode'
     @Test
     public void upateValueUsingJsonNode() {
