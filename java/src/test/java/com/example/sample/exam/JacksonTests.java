@@ -149,6 +149,10 @@ public class JacksonTests {
             // serialize: java object(map) -> json string
             System.out.println(objectMapper.writeValueAsString(map));
 
+            map.remove("role");
+            System.out.println(map.toString());
+            System.out.println(objectMapper.writeValueAsString(map));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
