@@ -2,9 +2,49 @@ package com.example.sample.exam;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class StreamTests {
+    /** Methods to make Stream
+        # primitive
+        IntStream IntStream.of(int t)
+        IntStream IntStream.of(int... values)
+        LongStream LongStream.of(long t)
+        LongStream LongStream.of(long... values)
+        DoubleStream DoubleStream.of(double t)
+        DoubleStream DoubleStream.of(double... values)
+        
+        # String
+        IntStream {String}.chars()
+        IntStream {String}.codePoints()
+        
+        # Arrays
+        Stream<T> Arrays.stream(T[] array)
+        Stream<T> Arrays.stream(T[] array, int startInclusive, int endExclusive)
+        IntStream Arrays.stream(int[] array)
+        IntStream Arrays.stream(int[] array, int startInclusive, int endExclusive)
+        LongStream Arrays.stream(long[] array)
+        LongStream Arrays.stream(long[] array, int startInclusive, int endExclusive)
+        DoubleStream Arrays.stream(double[] array)
+        DoubleStream Arrays.stream(double[] array, int startInclusive, int endExclusive)
+        
+        # Collection(List, Set)
+        Stream<E> {Collection}.stream()
+        Stream<E> {Collection}.parallelStream()
+        Stream<E> {Map}.entrySet().stream()
+        
+        # Stream
+        Stream<T> Stream.of(T t)
+        Stream<T> Stream.of(T... values)
+        Stream<T> Stream.ofNullable(T t)
+        Stream<T> Stream.empty()
+        Stream<T> Stream.iterate(final T seed, final UnaryOperator<T> f)
+        Stream<T> Stream.generate(Supplier<? extends T> s)
+        Stream<T> Stream.builder().add(T t).build()
+        Stream<T> Stream.concat(Stream<? extends T> a, Stream<? extends T> b)
+    */
+
     @Test
     public void run() {
 

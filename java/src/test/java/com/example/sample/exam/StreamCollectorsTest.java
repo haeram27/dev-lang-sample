@@ -3,11 +3,13 @@ package com.example.sample.exam;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 
 public class StreamCollectorsTest {
@@ -50,6 +52,27 @@ public class StreamCollectorsTest {
             )
         // @formatter:on
         ).forEach((k, v) -> {
+            System.out.print("k:" + k);
+            System.out.print(", v:" + v);
+            System.out.println();
+        });
+    }
+
+    @Test
+    public void CopyMapBytoMapTest() {
+        HashMap<String, String> o = new HashMap<>();
+        o.put("k1", "v1");
+        o.put("k2", "v2");
+
+        var n = o.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+        n.put("k2", "v3");
+
+        o.forEach((k, v) -> {
+            System.out.print("k:" + k);
+            System.out.print(", v:" + v);
+            System.out.println();
+        });
+        n.forEach((k, v) -> {
             System.out.print("k:" + k);
             System.out.print(", v:" + v);
             System.out.println();
