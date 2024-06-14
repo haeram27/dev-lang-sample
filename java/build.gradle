@@ -4,8 +4,13 @@ plugins {
 }
 
 ext {
-	junitBomVersion = '5.10.2'
+    lombokVersion = '1.18.32'
+    log4j2Version = '2.23.1'
+    slf4jVersion = '2.0.13'
     jacksonBomVersion = '2.17.1'
+	junitBomVersion = '5.10.2'
+    apacheCompressVersion = '1.26.2'
+    apacheTikaVersion = '2.9.2'
 }
 
 group = 'com.example'
@@ -16,15 +21,23 @@ java {
 }
 
 configurations {
-	all {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
 
 dependencies {
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"  // SLF4J API
+    implementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"  // Log4j2 API
+    implementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"  // Log4j2 Core
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"  // Log4j2 SLF4J Binding
+
+    implementation "org.apache.commons:commons-compress:${apacheCompressVersion}"
+    implementation "org.apache.tika:tika-core:${apacheTikaVersion}"
+
     // platform adds BOM as dependency so that group of library related in BOM is used in same version  
 	implementation platform("com.fasterxml.jackson:jackson-bom:${jacksonBomVersion}")
     implementation 'com.fasterxml.jackson.core:jackson-core'
@@ -32,9 +45,18 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
 	testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
 	testImplementation 'org.junit.jupiter:junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"  // SLF4J API
+    testImplementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"  // Log4j2 API
+    testImplementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"  // Log4j2 Core
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"  // Log4j2 SLF4J Binding
+    testImplementation "org.apache.commons:commons-compress:${apacheCompressVersion}"
 	testImplementation platform("com.fasterxml.jackson:jackson-bom:${jacksonBomVersion}")
     testImplementation 'com.fasterxml.jackson.core:jackson-core'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
