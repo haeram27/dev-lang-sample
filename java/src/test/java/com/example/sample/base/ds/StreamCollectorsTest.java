@@ -1,4 +1,4 @@
-package com.example.sample.exam;
+package com.example.sample.base.ds;
 
 import java.util.ArrayList;
 import java.util.Arrays;
