@@ -52,7 +52,7 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"  // SLF4J API
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"  // SLF4J API
     testImplementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"  // Log4j2 API
     testImplementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"  // Log4j2 Core
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"  // Log4j2 SLF4J Binding
