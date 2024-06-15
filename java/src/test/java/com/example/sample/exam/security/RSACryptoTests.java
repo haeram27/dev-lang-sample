@@ -10,10 +10,13 @@ import javax.crypto.Cipher;
 
 import org.junit.jupiter.api.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/package-summary.html
  */
 
+@Slf4j
 public class RSACryptoTests {
     private static final String ALGORITHM = "RSA";
 
@@ -32,11 +35,11 @@ public class RSACryptoTests {
 
         // Base64로 인코딩된 암호문 출력
         String encodedCiphertext = Base64.getEncoder().encodeToString(ciphertext);
-        System.out.println("Encrypted: " + encodedCiphertext);
+        log.info("Encrypted: " + encodedCiphertext);
 
         // 복호화
         String decryptedText = decrypt(ciphertext, privateKey);
-        System.out.println("Decrypted: " + decryptedText);
+        log.info("Decrypted: " + decryptedText);
     }
 
     public static byte[] encrypt(String plaintext, PublicKey key) throws Exception {

@@ -9,6 +9,8 @@ import javax.crypto.spec.GCMParameterSpec;
 
 import org.junit.jupiter.api.Test;
 
+import com.example.sample.util.RandomUtil;
+
 import lombok.extern.slf4j.Slf4j;
 
 /*
@@ -29,18 +31,17 @@ public class AESCryptoTests {
 
         // 암호화
         String plaintext = "Hello, World!";
-        byte[] iv = new byte[12]; // IV는 12바이트 길이
-        log.info("bytes: {}", Base64.getEncoder().encodeToString(iv));
+        byte[] iv = RandomUtil.getInstance().getRandomBytes(12);
+        log.info("iv: {}", iv);
         byte[] ciphertext = encrypt(plaintext, secretKey, iv);
-        log.info("bytes: {}", Base64.getEncoder().encodeToString(iv));
 
         // Base64로 인코딩된 암호문 출력
         String encodedCiphertext = Base64.getEncoder().encodeToString(ciphertext);
-        System.out.println("Encrypted: " + encodedCiphertext);
+        log.info("Encrypted: " + encodedCiphertext);
 
         // 복호화
         String decryptedText = decrypt(ciphertext, secretKey, iv);
-        System.out.println("Decrypted: " + decryptedText);
+        log.info("Decrypted: " + decryptedText);
     }
 
     public static byte[] encrypt(String plaintext, SecretKey key, byte[] iv) throws Exception {
