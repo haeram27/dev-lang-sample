@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+@SuppressWarnings("unchecked")
 public final class CollectionUtil {
 
     private CollectionUtil() {

@@ -43,9 +43,8 @@
         <!-- Root(Default) Setting                                               -->
         <!-- =================================================================== -->
         <!-- off, fatal, error, warn, info, debug, trace, all -->
-        <Root level="off">
+        <Root level="all">
             <AppenderRef ref="console"/>
-            <AppenderRef ref="file"/>
         </Root>
 
         <!-- =================================================================== -->
@@ -65,68 +64,5 @@
             <AppenderRef ref="file" />
         </Logger>
         -->
-
-        <!-- =================================================================== -->
-        <!-- App                                                                 -->
-        <!-- =================================================================== -->
-        <Logger name="com.example.springwebex" level="all" additivity="false">
-            <AppenderRef ref="console" />
-        </Logger>
-
-        <!-- =================================================================== -->
-        <!-- SPRING                                                              -->
-        <!-- =================================================================== -->
-        <Logger name="org.springframework.boot" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="org.springframework.core" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="org.springframework.beans" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="org.springframework.context" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="org.springframework.web" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-
-        <!-- =================================================================== -->
-        <!-- JDBC                                                                -->
-        <!-- =================================================================== -->
-        <Logger name="org.springframework.jdbc" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="jdbc.sqltiming" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="jdbc.sqlonly" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="jdbc.connection" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="jdbc.resultset" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="jdbc.audit" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
-        <Logger name="jdbc.resultsettable" level="error" additivity="false">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="file" />
-        </Logger>
     </Loggers>
 </Configuration>

@@ -4,6 +4,8 @@ plugins {
 }
 
 ext {
+    groupPath = "com.example.sample"
+    javaMainClass = "${groupPath}.SampleApplication"
     lombokVersion = '1.18.32'
     log4j2Version = '2.23.1'
     slf4jVersion = '2.0.13'
@@ -30,10 +32,10 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"  // SLF4J API
-    implementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"  // Log4j2 API
-    implementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"  // Log4j2 Core
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"  // Log4j2 SLF4J Binding
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"
+    implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j2Version}"
 
     implementation "org.apache.commons:commons-compress:${apacheCompressVersion}"
     implementation "org.apache.tika:tika-core:${apacheTikaVersion}"
@@ -52,16 +54,28 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"  // SLF4J API
-    testImplementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"  // Log4j2 API
-    testImplementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"  // Log4j2 Core
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"  // Log4j2 SLF4J Binding
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testImplementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j2Version}"
+
     testImplementation "org.apache.commons:commons-compress:${apacheCompressVersion}"
 	testImplementation platform("com.fasterxml.jackson:jackson-bom:${jacksonBomVersion}")
     testImplementation 'com.fasterxml.jackson.core:jackson-core'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind'
     testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+}
+
+
+task runWithJavaExec(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = javaMainClass    // refer ext var as just value
+
+    dependsOn 'clean', 'assemble'
+    assemble.mustRunAfter clean
 }
 
 /*
