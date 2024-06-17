@@ -40,9 +40,9 @@ public class JacksonTests {
 
         try {
             // JSON 배열 문자열을 List로 변환
-            List<Map<String, Object>> list = objectMapper.readValue(jsonArrayString,
-                    new TypeReference<List<Map<String, Object>>>() {
-                    });
+            // @formatter:off
+            List<Map<String, Object>> list = objectMapper.readValue(jsonArrayString, new TypeReference<List<Map<String, Object>>>(){});
+            // @formatter:on
 
             // List에서 데이터 접근
             for (Map<String, Object> map : list) {
@@ -86,7 +86,9 @@ public class JacksonTests {
 
         try {
             // JSON 문자열을 Map으로 변환
-            Map<String, Object> map = objectMapper.readValue(jsonString, Map.class);
+            // @formatter:off
+            Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
+            // @formatter:on
 
             // Map에서 데이터 접근
             String name = (String) map.get("name");
@@ -126,7 +128,9 @@ public class JacksonTests {
 
         try {
             // deserialize: json string -> java object(Map)
-            Map<String, Object> map = objectMapper.readValue(jsonString, Map.class);
+            // @formatter:off
+            Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
+            // @formatter:on
 
             // read map object
             String name = (String) map.get("name");
