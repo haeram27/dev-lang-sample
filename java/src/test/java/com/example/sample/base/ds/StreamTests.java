@@ -74,7 +74,7 @@ public class StreamTests {
             Stream<T>      takeWhile(Predicate<? super T> predicate)
             Stream<T>      dropWhile(Predicate<? super T> predicate)
     
-            # Stream.terminal operations
+        # Stream.terminal operations
             <R,A> R        collect(Collector<? super T,A,R> collector)
             <R> R          collect(Supplier<R> supplier, BiConsumer<R,? super T> accumulator, BiConsumer<R,R> combiner)
     
