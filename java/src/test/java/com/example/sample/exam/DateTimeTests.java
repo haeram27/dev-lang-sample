@@ -132,6 +132,7 @@ public class DateTimeTests extends EvaluatedTimeTests {
     }
 
     /*
+     * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/format/DateTimeFormatter.html
      * # DateTimeFormatter (ISO8601 Date/Time foramt)
      * uuuu-MM-ddTHH:mm:ss.SSSSSSSSS<ZoneOffset>[<ZoneId>]
      * 2024-07-31T13:51:33.110172867+09:00[Asia/Seoul]
@@ -139,10 +140,10 @@ public class DateTimeTests extends EvaluatedTimeTests {
      * DateTimeFormatter.ISO_LOCAL_DATE_TIME;  // '2011-12-03T10:15:30'
      * DateTimeFormatter.ISO_OFFSET_DATE_TIME; // '2011-12-03T10:15:30+01:00'
      * DateTimeFormatter.ISO_ZONED_DATE_TIME;  // '2011-12-03T10:15:30+01:00[Europe/Paris]'
+     * DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSX"); // "2011-12-03T10:15:30.123Z"
      */
     @Test
     public void dateTimeFormatTest() {
-        // https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/format/DateTimeFormatter.html
         System.out.println(
                 LocalDateTime.parse("2024-05-13T14:15:16.123456789",
                         DateTimeFormatter.ISO_LOCAL_DATE_TIME));
