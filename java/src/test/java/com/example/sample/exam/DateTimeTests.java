@@ -1,5 +1,6 @@
 package com.example.sample.exam;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -112,18 +114,36 @@ public class DateTimeTests extends EvaluatedTimeTests {
      */
     @Test
     public void instantTest() {
+        /* Generate Instant */
+        System.out.println(Instant.now());
+        System.out.println(Instant.parse("2024-08-02T00:38:29.616Z"));
+        System.out.println(Date.from(Instant.parse("2024-08-02T00:38:29.616Z")));
+        // Instant.atZone(ZoneId) change time to ZondId timezone 
+        System.out.println(Instant.parse("2024-08-02T00:38:29.616Z").atZone(ZoneId.of("Asia/Seoul")));
 
         long epochMillisNowL = LocalDateTime.now()
                 .toInstant(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).getOffset()).toEpochMilli();
 
         long epochMillisNowZ = ZonedDateTime.now().toInstant().toEpochMilli();
 
+        /* compare Instant: Below two method use same internal method(Clock.currentInstant()) */
+        Instant instantFromSystemClock = Clock.systemDefaultZone().instant();
+        Instant instantFromInstance = Instant.now();
+        System.out.println(instantFromSystemClock);
+        System.out.println(instantFromInstance);
+
+        /* Instant > ZonedDateTime */
+        ZonedDateTime zonedDateTimeFromInstantUTC = Clock.systemUTC().instant().atZone(ZoneOffset.UTC);
+        ZonedDateTime zonedDateTimeFromInstantLocal = Clock.systemDefaultZone().instant()
+                .atZone(ZoneId.systemDefault());
+        System.out.println(zonedDateTimeFromInstantUTC);
+        System.out.println(zonedDateTimeFromInstantLocal);
+
+        /* ZonedDateTime > Instant */
         Instant instantNowZ = Instant
                 .ofEpochMilli(ZonedDateTime.now(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
-        // atZone() transform instant value from UTC to designated timezone
-        ZonedDateTime zonedDateTimeZ = instantNowZ.atZone(ZoneOffset.UTC);
-
+        /* LocalDateTime > Instant > ZonedDateTime */
         Instant instantNowL = Instant.ofEpochMilli(LocalDateTime.now()
                 .toInstant(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).getOffset())
                 .toEpochMilli());
