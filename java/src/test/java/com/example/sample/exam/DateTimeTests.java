@@ -82,9 +82,11 @@ public class DateTimeTests extends EvaluatedTimeTests {
     }
 
     /*
-     * ZoneOffset : String expression of time offset
-     * e.g. "Z", "+09:00"
      * ZoneOffset extends ZoneId
+     * ZoneOffset = ZoneId + Timezone offset string
+     * 
+     * time offset = String expression of gap from UTC
+     *    e.g. "Z", "+09:00"
      */
     @Test
     public void zoneOffsetTest() {
@@ -126,10 +128,12 @@ public class DateTimeTests extends EvaluatedTimeTests {
 
         long epochMillisNowZ = ZonedDateTime.now().toInstant().toEpochMilli();
 
-        /* compare Instant: Below two method use same internal method(Clock.currentInstant()) */
-        Instant instantFromSystemClock = Clock.systemDefaultZone().instant();
+        /* compare Instant: Below methods use same internal method(Clock.currentInstant()) */
+        Instant instantFromClockSystemTz = Clock.systemDefaultZone().instant();
+        Instant instantFromClockUtcTz = Clock.systemUTC().instant();
         Instant instantFromInstance = Instant.now();
-        System.out.println(instantFromSystemClock);
+        System.out.println(instantFromClockSystemTz);
+        System.out.println(instantFromClockUtcTz);
         System.out.println(instantFromInstance);
 
         /* Instant > ZonedDateTime */
@@ -206,6 +210,22 @@ public class DateTimeTests extends EvaluatedTimeTests {
         System.out.println(ZonedDateTime.ofInstant(Instant.ofEpochMilli(localTimestamp), ZoneId.systemDefault()));
     }
 
+    @Test
+    public void localDateTimeToInstant() {
+        // ZoneOffset is child of ZoneId
+        // Every type of DATETIME class can be converted through Instant
+        var zid = "Asia/Seoul";
+        var fromLocalTime = LocalDateTime.parse("2024-07-01T01:01:01");
+        var toLocalTime = LocalDateTime.parse("2024-08-01T01:01:01");
+        var fromInstant = fromLocalTime.toInstant(ZoneId.of(zid).getRules().getOffset(fromLocalTime));
+        var toInstant = toLocalTime.toInstant(ZoneId.of(zid).getRules().getOffset(toLocalTime));
+
+        System.out.println(fromInstant);
+        System.out.println(toInstant);
+        System.out.println(ZonedDateTime.ofInstant(fromInstant, ZoneOffset.UTC).toString());
+        System.out.println(ZonedDateTime.ofInstant(toInstant, ZoneOffset.UTC).toString());
+    }
+
     // OffsetDateTime = LocalDateTime + ZoneOffset
     @Test
     public void offsetDateTimeTest() {
@@ -232,5 +252,20 @@ public class DateTimeTests extends EvaluatedTimeTests {
 
         // transform timezone only (localtime x)
         System.out.println(zoneTime.withZoneSameLocal(ZoneId.of("Asia/Seoul"))); // 2024-05-13T21:31:41+09:00[Asia/Seoul]
+    }
+
+    @Test
+    public void dateTest() {
+        // Date.from(Instant)
+        Date fromInstant = Date.from(Instant.parse("2024-08-02T00:38:29.616Z"));
+
+        Date fromLDT = Date.from(LocalDateTime.parse("2024-08-01T04:50:09.511",
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME).atZone(ZoneOffset.UTC).toInstant());
+
+        Date fromODT = Date.from(OffsetDateTime.parse("2024-08-01T04:50:09.511+09:00",
+                DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant());
+
+        Date fromZDT = Date.from(ZonedDateTime.parse("2024-08-01T04:50:09.511+09:00[Asia/Seoul]",
+                DateTimeFormatter.ISO_ZONED_DATE_TIME).toInstant());
     }
 }
