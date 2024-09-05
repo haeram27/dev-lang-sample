@@ -3,13 +3,13 @@ package com.example.sample.exam;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.jupiter.api.Test;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JacksonTests {
 
@@ -36,7 +36,7 @@ public class JacksonTests {
 
         String jsonArrayString = "[{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\"},{\"name\":\"Jane Smith\",\"age\":25,\"email\":\"jane.smith@example.com\"}]";
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
         try {
             // JSON 배열 문자열을 List로 변환
@@ -82,7 +82,7 @@ public class JacksonTests {
 
         String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"roles\":[\"admin\",\"user\"]}";
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
         try {
             // JSON 문자열을 Map으로 변환
@@ -124,7 +124,7 @@ public class JacksonTests {
 
         String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"role\":\"admin\"}";
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
         try {
             // deserialize: json string -> java object(Map)
@@ -201,7 +201,7 @@ public class JacksonTests {
                 + "}"
                 + "}";
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
         try {
             JsonNode rootNode = objectMapper.readTree(jsonString);

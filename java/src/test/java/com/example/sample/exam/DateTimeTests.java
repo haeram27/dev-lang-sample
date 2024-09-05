@@ -11,9 +11,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-
 import org.junit.jupiter.api.Test;
-
 import com.example.sample.EvaluatedTimeTests;
 
 public class DateTimeTests extends EvaluatedTimeTests {
@@ -153,6 +151,12 @@ public class DateTimeTests extends EvaluatedTimeTests {
                 .toEpochMilli());
         // atZone() transform instant value from UTC to designated timezone
         ZonedDateTime zonedDateTimeL = instantNowL.atZone(ZoneOffset.UTC);
+    }
+
+    @Test
+    public void instantToString() {
+        var offsetDateTime = OffsetDateTime.ofInstant(Instant.now(), ZoneOffset.UTC);
+        System.out.println(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(offsetDateTime));
     }
 
     /*
