@@ -1,0 +1,120 @@
+plugins {
+	id 'java'
+	id 'application' //for #gradle tasks
+}
+
+ext {
+    groupPath = "com.example.sample"
+    javaMainClass = "${groupPath}.SampleApplication"
+    lombokVersion = '1.18.32'
+    log4j2Version = '2.23.1'
+    slf4jVersion = '2.0.13'
+    jacksonBomVersion = '2.17.1'
+	junitBomVersion = '5.10.2'
+    apacheCompressVersion = '1.26.2'
+    apacheTikaVersion = '2.9.2'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+dependencies {
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"
+    implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j2Version}"
+
+    implementation "org.apache.commons:commons-compress:${apacheCompressVersion}"
+    implementation "org.apache.tika:tika-core:${apacheTikaVersion}"
+
+    // platform adds BOM as dependency so that group of library related in BOM is used in same version  
+	implementation platform("com.fasterxml.jackson:jackson-bom:${jacksonBomVersion}")
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+	testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testImplementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j2Version}"
+
+    testImplementation "org.apache.commons:commons-compress:${apacheCompressVersion}"
+	testImplementation platform("com.fasterxml.jackson:jackson-bom:${jacksonBomVersion}")
+    testImplementation 'com.fasterxml.jackson.core:jackson-core'
+    testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+}
+
+task commonExamTask(type: GradleBuild) {
+    println 'this is commonExamTask'
+}
+
+// https://docs.gradle.org/current/userguide/tutorial_using_tasks.html
+// $ gradle runWithJavaExec
+task runWithJavaExec(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = javaMainClass    // refer ext var as just value
+
+    // clean and assemble tasks run before this task but they will run simultaneously
+    dependsOn 'clean', 'assemble'
+    // set order of dependsOn: clean task SHOULD run before assemble
+    assemble.mustRunAfter clean
+}
+
+
+tasks.named('runWithJavaExec') {
+    doFirst {
+        println '### start [runWithJavaExec]'
+    }
+
+    doLast {
+        println '### end [runWithJavaExec]'
+    }
+}
+
+
+/*
+ * # clean a specific test result cache before run test
+ * gradle test --rerun --tests 'Hello*.hello'
+ * # clean all tests result cache before run tests
+ * gradle test --rerun-tasks --tests 'Hello*.hello'
+ */
+test {
+	useJUnitPlatform()
+	testLogging {
+		showStandardStreams = true
+		showCauses = true
+		showExceptions = true
+		showStackTraces = true
+		exceptionFormat = 'full'
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+	}
+}
+
+jar {
+	enabled = false
+}
