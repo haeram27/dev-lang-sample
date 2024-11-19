@@ -1,4 +1,4 @@
-package com.example.sample.exam;
+package com.example.sample.exam.concurrency;
 
 import java.util.Collection;
 import java.util.List;
@@ -54,6 +54,7 @@ public class ThreadPoolTests {
         long oneHundredMicroSeconds = 100_000;
         long startedAt = System.nanoTime();
         while (System.nanoTime() - startedAt <= oneHundredMicroSeconds) {
+            Thread.sleep(0, 10_000);
         }
 
         return "Done";
@@ -62,7 +63,7 @@ public class ThreadPoolTests {
     @Test
     void cachedThreadPoolTest() {
 
-        Collection<Callable<String>> tasks = IntStream.rangeClosed(1, 1_000).mapToObj(i -> task).toList();
+        Collection<Callable<String>> tasks = IntStream.rangeClosed(1, 20).mapToObj(i -> task).toList();
 
         // ExecutorService predefinedCachedThreadPool = Executors.newCachedThreadPool();
         ExecutorService cachedPool = customCachedThreadPool();
