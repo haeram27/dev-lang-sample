@@ -74,8 +74,6 @@ public class SocketTests extends EvaluatedTimeTests {
     private static SSLSocket createSSLSocket(String host, int port, boolean keepAlive, int connectionTimeout, int readTimeout)
             throws Exception {
         TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
-            // allows all certificate
-
             @Override
             public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
                 // do nothing
