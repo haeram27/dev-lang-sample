@@ -5,9 +5,9 @@ ARG app_uid
 ARG mongo_ver
 ARG pgsql_ver
 
-COPY buildtemp/docker-ce-rhel.repo /etc/yum.repos.d/
-COPY buildtemp/mongodb-org-redhat-9.repo /etc/yum.repos.d/
-COPY buildtemp/pgdg-redhat-all.repo /etc/yum.repos.d/
+#COPY buildtemp/docker-ce-rhel.repo /etc/yum.repos.d/
+#COPY buildtemp/mongodb-org-redhat-9.repo /etc/yum.repos.d/
+#COPY buildtemp/pgdg-redhat-all.repo /etc/yum.repos.d/
 
 
 RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
@@ -20,32 +20,39 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     chown ${app_uid}:${app_uid} /nosql -R && \
     dnf clean all && \
     dnf install --allowerasing -y \
+    autoconf automake gettext libtool make pkgconfig \
+## for build pgbouncer: start
+#    libevent libevent-devel openssl-devel \
+## for build pgbouncer: end
     procps \
     bzip2 \
     chrony \
     cronie \
     curl \
+    git \
     rsyslog \
     strace \
     sudo \
     tree \
     wget \
-    zip \
+    which \
+    zip
+
 ####--- redis
-    redis \
+# RUN dnf install --allowerasing -y redis
+
 ####--- mongodb
-    mongodb-org-${mongo_ver} mongodb-org-mongos-${mongo_ver} mongodb-org-server-${mongo_ver} mongodb-org-tools-${mongo_ver}
+# RUN dnf install --allowerasing -y \
+#    mongodb-org-${mongo_ver} mongodb-org-mongos-${mongo_ver} mongodb-org-server-${mongo_ver} mongodb-org-tools-${mongo_ver}
 
 ####--- postgres
-RUN dnf -qy module disable postgresql && \
-    dnf install --allowerasing -y \
-    pgbouncer \
-    postgresql-odbc \
-    postgresql${pgsql_ver} postgresql${pgsql_ver}-contrib postgresql${pgsql_ver}-libs postgresql${pgsql_ver}-server
+# RUN dnf -qy module disable postgresql && \
+#    dnf install --allowerasing -y pgbouncer postgresql-odbc \
+#    postgresql${pgsql_ver} postgresql${pgsql_ver}-contrib postgresql${pgsql_ver}-libs postgresql${pgsql_ver}-server && \
+#    chown postgres: /database -R
 
 ####--- clean up packages and systemsd
 RUN dnf -y clean all && \
-    chown postgres: /database -R && \
     (cd /lib/systemd/system/sysinit.target.wants/ && for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done) && \
     rm -f /lib/systemd/system/multi-user.target.wants/* && \
     rm -f /etc/systemd/system/*.wants/* && \
