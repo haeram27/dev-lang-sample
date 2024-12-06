@@ -1,5 +1,5 @@
 #!/bin/bash
-IMAGE_NAME=h27-rocky
+IMAGE_NAME=h27rocky
 
 docker image rm ${IMAGE_NAME}:9.5 &>/dev/null
 

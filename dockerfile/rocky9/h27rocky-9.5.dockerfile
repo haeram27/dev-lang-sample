@@ -30,6 +30,7 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     cronie \
     curl \
     git \
+    perl \
     rsyslog \
     strace \
     sudo \
