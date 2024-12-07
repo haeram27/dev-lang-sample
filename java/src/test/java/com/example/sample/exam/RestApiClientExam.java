@@ -93,6 +93,8 @@ public class RestApiClientExam {
             jsonObj = new HashMap<>();
             jsonObj.put("message", response.body());
         }
+
+        Socket socket = new Socket();
         return jsonObj;
     }
 }
