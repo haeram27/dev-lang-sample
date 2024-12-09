@@ -5,12 +5,10 @@ ARG app_uid
 ARG mongo_ver
 ARG pgsql_ver
 
+COPY buildtemp/epel-el9-x64.repo /etc/yum.repos.d/
 #COPY buildtemp/docker-ce-rhel.repo /etc/yum.repos.d/
 #COPY buildtemp/mongodb-org-redhat-9.repo /etc/yum.repos.d/
 #COPY buildtemp/pgdg-redhat-all.repo /etc/yum.repos.d/
-
-RUN printf "[epel]\nname=Extra Packages for Enterprise Linux 9 - \$basearch\nbaseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64\nenabled=1\ngpgcheck=0\n\n" > /etc/yum.repos.d/epel.repo
-
 
 RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     ls /tmp/host && \
