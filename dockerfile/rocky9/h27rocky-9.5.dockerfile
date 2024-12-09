@@ -9,6 +9,8 @@ ARG pgsql_ver
 #COPY buildtemp/mongodb-org-redhat-9.repo /etc/yum.repos.d/
 #COPY buildtemp/pgdg-redhat-all.repo /etc/yum.repos.d/
 
+RUN printf "[epel]\nname=Extra Packages for Enterprise Linux 9 - \$basearch\nbaseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64\nenabled=1\ngpgcheck=0\n\n" > /etc/yum.repos.d/epel.repo
+
 
 RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     ls /tmp/host && \
@@ -20,9 +22,12 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     chown ${app_uid}:${app_uid} /nosql -R && \
     dnf clean all && \
     dnf install --allowerasing -y \
-    autoconf automake gettext libtool make pkgconfig \
+    autoconf automake gettext libtool make pkgconfig openssl-devel \
 ## for build pgbouncer: start
-#    libevent libevent-devel openssl-devel \
+#    libevent \
+#    libevent-devel \
+## for build 
+     jemalloc-devel \
 ## for build pgbouncer: end
     procps \
     bzip2 \
