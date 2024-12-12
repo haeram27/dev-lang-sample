@@ -30,9 +30,10 @@ NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 # LOGS
 ##############
 LOG_FILE=${LOG_FILE:-/dev/null}
-R='\033[0;31m'  # RED
-G='\033[0;32m'  # GREEN
-N='\033[0m'     # NORMAL (NO COLOR)
+R='\033[0;31m'
+G='\033[0;32m'
+B='\033[0;34m'
+N='\033[0m'
 
 # syntax) echo_log "my messages"
 # syntax) var=$(echo; ls /); echo_log "$var"
@@ -183,13 +184,9 @@ tests() {
   read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
   echo ""
   if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo ${TPTRED}Hello World${TPTNORM}
-    echo ${TPTGREEN}Hello World${TPTNORM}
-    echo ${TPTYELLOW}Hello World${TPTNORM}
-    echo ${TPTBLUE}Hello World${TPTNORM}
-    echo ${TPTPURPLE}Hello World${TPTNORM}
-    echo ${TPTCYAN}Hello World${TPTNORM}
-    echo ${TPTWHITE}Hello World${TPTNORM}
+    echo_log "Hello World"
+    echo_success "Hello World"
+    echo_failed "Hello World"
   else
     echo $REPLY
   fi
