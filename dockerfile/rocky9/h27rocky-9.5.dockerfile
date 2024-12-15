@@ -20,13 +20,17 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     chown ${app_uid}:${app_uid} /nosql -R && \
     dnf clean all && \
     dnf install --allowerasing -y \
-    autoconf automake gettext libtool make pkgconfig openssl-devel \
+    autoconf automake gettext libtool make pkgconfig \
+## for build common
+     jemalloc-devel \
 ## for build pgbouncer: start
+#    openssl-devel \
 #    libevent \
 #    libevent-devel \
-## for build 
-     jemalloc-devel \
 ## for build pgbouncer: end
+## for build openssl: start
+     zlib-devel \
+## for build openssl: end
     procps \
     bzip2 \
     chrony \
