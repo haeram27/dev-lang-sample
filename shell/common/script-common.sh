@@ -107,6 +107,21 @@ HELP
 }
 
 
+tests() {
+  echo_log ${FUNCNAME} "$@"
+
+  read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
+  echo ""
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo_log "Hello World"
+    echo_success "Hello World"
+    echo_failed "Hello World"
+  else
+    echo $REPLY
+  fi
+}
+
+
 gettime() {
   echo_log ${FUNCNAME} "$@"
 
@@ -121,33 +136,6 @@ gettime() {
   fi
 }
 
-
-rest_request() {
-  echo_log ${FUNCNAME} "$@"
-
-  RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
-  REQ_TIMEOUT=2
-  if [[ -z $1 ]]; then
-    HTTP_URL='http://www.google.com'
-  else
-    HTTP_URL=$1
-  fi
-   
-  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
-  CURL_RET=$?
-  if [[ ${CURL_RET} -eq 0 ]]; then
-    if [[ "${HTTP_CODE}" == "200" ]]; then
-      ## do something with ${RESP_FILE}
-      echo ${RESP_FILE}; cat ${RESP_FILE};
-    else
-      echo ${TPTRED}warning${TPTNORM}: httpcode is ${TPTRED}${HTTP_CODE}${TPTNORM} >&2
-    fi
-  else
-    echo ${TPTRED}error${TPTNORM}: curl returns ${TPTRED}${CURL_RET}${TPTNORM} >&2
-  fi
-
-  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
-}
 
 
 retry_cmd() {
@@ -178,32 +166,47 @@ retry_cmd() {
 }
 
 
-tests() {
+##############
+# http handling
+##############
+rest_request() {
   echo_log ${FUNCNAME} "$@"
 
-  read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
-  echo ""
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo_log "Hello World"
-    echo_success "Hello World"
-    echo_failed "Hello World"
+  RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+  REQ_TIMEOUT=2
+  if [[ -z $1 ]]; then
+    HTTP_URL='http://www.google.com'
   else
-    echo $REPLY
+    HTTP_URL=$1
   fi
+   
+  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
+  CURL_RET=$?
+  if [[ ${CURL_RET} -eq 0 ]]; then
+    if [[ "${HTTP_CODE}" == "200" ]]; then
+      ## do something with ${RESP_FILE}
+      echo ${RESP_FILE}; cat ${RESP_FILE};
+    else
+      echo warning: httpcode is ${HTTP_CODE} >&2
+    fi
+  else
+    echo error: curl returns ${CURL_RET} >&2
+  fi
+
+  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
 }
 
 
-_is_sourced() {
-    # https://unix.stackexchange.com/a/215279
-    local executed_script=$( basename ${0#-} )
-    local this_script=$( basename ${BASH_SOURCE} )
-    if [[ ${executed_script} = ${this_script} ]] ; then
-        # echo "this script is executed independently"
-        return 1 
-    fi
-
-    # echo "this script is sourced by executed_script"
-    return 0
+##############
+# file handling
+##############
+# remove lines has pattern in files
+FILE_PATH="test.txt"
+PATTERN="^fs\.inotify\.max_user_watches"
+remove_pattern_line_in_files() {
+  if grep -qE "${PATTERN}" "${FILE_PATH}"; then
+    sed -i "/${PATTERN}/d" "${FILE_PATH}"; then
+  fi
 }
 
 
@@ -212,27 +215,41 @@ _is_sourced() {
 ##############
 # Usage: ./script.sh -h
 _main() {
-   # IMODE(instruction) option is to seclect start function 
-   # VMODE(variable) option is to set flag variable of this script
-   while getopts "thuq\?" opt
-   do
-     case ${opt} in
-     h|\?) IMODE="imod.help" ;;
-     t) IMODE="imod.time" ;;
-     q) IMODE="imod.rest" ;;
-     u) echo "turn on UTC mode"
-         VMODE_TIMEUTC="yes" ;;
-     esac
-   done
+  # IMODE(instruction) option is to seclect start function 
+  # VMODE(variable) option is to set flag variable of this script
+  while getopts "thuq\?" opt
+  do
+    case ${opt} in
+    h|\?) IMODE="imod.help" ;;
+    t) IMODE="imod.time" ;;
+    q) IMODE="imod.rest" ;;
+    u) echo "turn on UTC mode"
+        VMODE_TIMEUTC="yes" ;;
+    esac
+  done
    
-   #echo "IMODE=${IMODE}"
-   case $IMODE in
-     "imod.help") help ;;
-     "imod.test") tests ;;
-     "imod.time") gettime ;;
-     "imod.rest") rest_request;;
-     *) exit 1 ;;
-   esac
+  #echo "IMODE=${IMODE}"
+  case $IMODE in
+    "imod.help") help ;;
+    "imod.test") tests ;;
+    "imod.time") gettime ;;
+    "imod.rest") rest_request;;
+    *) exit 1 ;;
+  esac
+}
+
+# check this script is excuted with source or not
+_is_sourced() {
+  # https://unix.stackexchange.com/a/215279
+  local executed_script=$( basename ${0#-} )
+  local this_script=$( basename ${BASH_SOURCE} )
+  if [[ ${executed_script} = ${this_script} ]] ; then
+    # echo "this script is executed independently"
+    return 1 
+  fi
+
+  # echo "this script is sourced by executed_script"
+  return 0
 }
 
 if ! _is_sourced; then
