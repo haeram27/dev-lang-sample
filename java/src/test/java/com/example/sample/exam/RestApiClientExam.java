@@ -94,7 +94,6 @@ public class RestApiClientExam {
             jsonObj.put("message", response.body());
         }
 
-        Socket socket = new Socket();
         return jsonObj;
     }
 }

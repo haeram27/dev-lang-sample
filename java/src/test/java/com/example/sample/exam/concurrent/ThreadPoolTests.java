@@ -1,4 +1,4 @@
-package com.example.sample.exam.concurrency;
+package com.example.sample.exam.concurrent;
 
 import java.util.Collection;
 import java.util.List;
