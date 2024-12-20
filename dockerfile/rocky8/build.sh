@@ -1,6 +1,6 @@
 #!/bin/bash
 IMAGE_NAME=h27rocky
-OS_VERSION=9.5
+OS_VERSION=8.7
 docker image rm ${IMAGE_NAME}:${OS_VERSION} &>/dev/null
 
 export DOCKER_BUILDKIT=1

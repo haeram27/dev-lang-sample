@@ -1,11 +1,11 @@
-FROM rockylinux/rockylinux:9.5
+FROM rockylinux/rockylinux:8.7
 ARG app_home
 ARG app_user
 ARG app_uid
 ARG mongo_ver
 ARG pgsql_ver
 
-COPY buildtemp/epel-el9-x64.repo /etc/yum.repos.d/
+#COPY buildtemp/epel-el9-x64.repo /etc/yum.repos.d/
 #COPY buildtemp/docker-ce-rhel.repo /etc/yum.repos.d/
 #COPY buildtemp/mongodb-org-redhat-9.repo /etc/yum.repos.d/
 #COPY buildtemp/pgdg-redhat-all.repo /etc/yum.repos.d/
@@ -18,22 +18,24 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     mkdir -p /database && \
     mkdir -p /nosql && \
     chown ${app_uid}:${app_uid} /nosql -R && \
-### install .repo file management tool and enable "devel" repo in .repo files to install xxx-devel package
+## install epel repo - https://wiki.rockylinux.org/rocky/repo/#community-approved-repositories
+    dnf install -y epel-release && \
+## install .repo file management tool and enable "devel" repo in .repo files to install xxx-devel package
     dnf install -y dnf-plugins-core && dnf config-manager --enable devel && \
     dnf clean all && dnf update -y && \
     yum groupinstall -y "Development Tools" && \
     dnf install --allowerasing -y \
     unixODBC-devel \
-### for build common
+## for build common
     jemalloc-devel \
-### for build pgbouncer: start
+## for build pgbouncer: start
 #    openssl-devel \
 #    libevent \
 #    libevent-devel \
-### for build pgbouncer: end
-### for build openssl: start
+## for build pgbouncer: end
+## for build openssl: start
     zlib-devel \
-### for build openssl: end
+## for build openssl: end
     procps \
     bzip2 \
     chrony \

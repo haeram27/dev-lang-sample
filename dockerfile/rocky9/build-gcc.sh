@@ -1,10 +1,11 @@
 #!/bin/bash
-IMAGE_NAME=h27rocky
+IMAGE_NAME=gcc-rocky
 OS_VERSION=9.5
 docker image rm ${IMAGE_NAME}:${OS_VERSION} &>/dev/null
 
 export DOCKER_BUILDKIT=1
 docker build \
+    --progress=plain \
     --no-cache \
     --build-arg app_home=/opt/myapp \
     --build-arg app_user=myapp \
