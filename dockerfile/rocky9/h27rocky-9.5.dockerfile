@@ -18,18 +18,21 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     mkdir -p /database && \
     mkdir -p /nosql && \
     chown ${app_uid}:${app_uid} /nosql -R && \
-    dnf clean all && \
+## install .repo file management tool and enable "devel" repo in .repo files to install xxx-devel package
+    dnf install -y dnf-plugins-core && dnf config-manager --enable devel && \
+    dnf clean all && dnf update -y && \
+    yum groupinstall -y "Development Tools" && \
     dnf install --allowerasing -y \
-    autoconf automake gettext libtool make pkgconfig \
+    unixODBC-devel \
 ## for build common
-     jemalloc-devel \
+    jemalloc-devel \
 ## for build pgbouncer: start
 #    openssl-devel \
 #    libevent \
 #    libevent-devel \
 ## for build pgbouncer: end
 ## for build openssl: start
-     zlib-devel \
+    zlib-devel \
 ## for build openssl: end
     procps \
     bzip2 \
