@@ -13,9 +13,9 @@ RUN dnf install -y dnf-plugins-core && dnf config-manager --enable devel && \
     dnf clean all && dnf update -y && \
 #### build-tools
     dnf groupinstall -y "Development Tools" && \
-    dnf install -y cmake \
+    dnf install -y --allowerasing cmake \
 #### utils
-        bzip2 chrony cronie curl git perl procps psmisc rsyslog strace sudo tree wget which \
+        bzip2 chrony cronie git perl procps psmisc rsyslog strace sudo tree wget which \
 #### common-dep
         jemalloc-devel pcre-devel unixODBC-devel dialog-devel libcurl-devel zlib-devel libxml2-devel libpcap-devel \
 #### curl
