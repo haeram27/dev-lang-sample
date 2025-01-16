@@ -47,7 +47,26 @@ $ make -j16$ make -j16
     /path/to/ssl/openssl.cnf
     /path/to/ssl/certs/
 
+--api=x.y[.z]
+    https://github.com/openssl/openssl/blob/master/INSTALL.md#api-level
+    Build the OpenSSL libraries(libssl.so/a libcrypto.so/a NOT openssl executable) to support
+    the API for the specified version.
+    WARNING!
+    This api option only affects to libraries(libssl.so/a libcrypto.so/a NOT openssl executable).
+    Api version option defines MAX(limited) LEVEL of library api, so if you set as 1.1
+    then opessl libraries has apis level 1.1 and below only. 
+    openssl executable can NOT find apis over api level of 1.1 with this libraries.
+    openssl excutable alway find it's release verion of api
+    so that excutable can NOT run normally with limited libraries. 
+    
+    If "no-deprecated" option is also given with --api option,
+    then deprecated apis under designated version are not supported.
+    For example,
+    --api=1.1 no-deprecated
 
+refers for version migration
+    https://docs.openssl.org/3.4/man7/ossl-guide-migration
+    https://wiki.openssl.org/index.php/OpenSSL_3.0#Other_notable_deprecations_and_changes
 
 <> curl build (version 8.11.1)
 $ git clone --depth 1 --branch curl-8_11_1 https://github.com/curl/curl.git curl-8.11.1
