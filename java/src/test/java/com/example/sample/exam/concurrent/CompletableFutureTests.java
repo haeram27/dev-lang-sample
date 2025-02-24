@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CompletableFutureTests {
     
     @Test
-    public void supplyAsycTest() {
+    public void supplyAsyncTest() {
         ExecutorService es = Executors.newSingleThreadExecutor();
         try {
                 CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
