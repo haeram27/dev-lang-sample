@@ -6,7 +6,7 @@ set -x
 # run this script in a container
 ################
 # docker run --rm -it -v ${PWD}:/work -w /work gcc-rocky:9.5 bash
-# ./build-oss-cppm.sh 2>&1 | tee build.log
+# ./build-oss-cppm.sh 2>&1 | tee build.logP
 
 ################
 # mutable
@@ -30,8 +30,8 @@ MONGOCDRV_GIT_TAG=1.29.1
 
 # haproxy
 BUILD_HAPROXY=yes
-HAPROXY_VERSION=3.0.7
-HAPROXY_GIT_TAG=v3.0.0
+HAPROXY_VERSION=3.0.6
+HAPROXY_GIT_TAG=v${HAPROXY_VERSION}
 
 # collect
 COLLECT_LIBS=yes
@@ -166,7 +166,7 @@ fi
 # haproxy
 if [[ ${BUILD_HAPROXY} = "yes" ]]; then
     if [[ ! -d ${HAPROXY_DIR} ]]; then
-        git clone --depth 1 --branch ${HAPROXY_GIT_TAG} https://github.com/haproxy/haproxy.git ${HAPROXY_DIR}
+        git clone --depth 1 --branch ${HAPROXY_GIT_TAG} https://git.haproxy.org/git/haproxy-3.0.git/ ${HAPROXY_DIR}
     fi
 
     if [[ -d ${HAPROXY_DIR} ]]; then
