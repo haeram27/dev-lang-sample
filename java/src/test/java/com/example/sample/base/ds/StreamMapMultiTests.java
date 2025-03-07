@@ -24,24 +24,53 @@ public class StreamMapMultiTests {
     */
 
     @Test
-    public void mapMultiStringTest() {
+    public void mapMultiArrayTest() {
 
-        List<String> sentences = List.of("hello world", "java stream");
+        String[] sentences = {"abc 123", "def 456"};
 
         // flatMap SHOULD return new stream instance per element of source stream
-        sentences.stream()
-                .flatMap(sentence -> Stream.of(sentence.split("\\s+")))
-                .forEach(System.out::println); // "hello" "world" "java" "stream"
+        Stream.of(sentences).flatMap(sentence -> Stream.of(sentence.split("")))
+                .forEach(System.out::print); // "a" "b" "c" " " "1" "2" "3" "d" "e" "f" " " "4" "5" "6"
+
+        System.out.println();
 
         // mapMulti() is advanced version of flatMap()
-        // mapMulti do NOT need to create new stream instance
-        sentences.stream()
-                .mapMulti((sentence, consumer) -> {
-                    for (String word : sentence.split("\\s+")) {
-                        consumer.accept(word);
-                    }
-                })
-                .forEach(System.out::println); // "hello" "world" "java" "stream"
+        // mapMulti do NOT need to create and return new intermediate stream instance
+        // use consumer.accept() to emit elements
+        Stream.of(sentences).mapMulti((sentence, consumer) -> {
+            for (char character : sentence.toCharArray()) {
+                consumer.accept(String.valueOf(character));
+            }
+        }).forEach(System.out::print); // "a" "b" "c" " " "1" "2" "3" "d" "e" "f" " " "4" "5" "6"
+        System.out.println();
+        
+        String[] additionalSentences = {"Hello World!", "Java 17", "Test 123"};
+        Stream.of(additionalSentences).mapMulti((sentence, consumer) -> {
+            for (char character : sentence.toCharArray()) {
+                consumer.accept(String.valueOf(character));
+            }
+        }).forEach(System.out::print);
+        System.out.println();
+
+        String[] emojiSentences = {"😀 😃 😄", "🤣 😂 😅"};
+        Stream.of(emojiSentences).mapMulti((sentence, consumer) -> {
+            for (char character : sentence.toCharArray()) {
+                consumer.accept(String.valueOf(character));
+            }
+        }).forEach(System.out::print);
+
+        Stream.of(sentences)
+            .flatMap(sentence -> Stream.of(sentence.split("\\s+")))
+            .forEach(System.out::println); // "abc" "123" "def" "456"
+
+        // mapMulti() is advanced version of flatMap()
+        // mapMulti do NOT need to create and return new intermediate stream instance
+        // use consumer.accept() to emit elements
+        Stream.of(sentences).mapMulti((sentence, consumer) -> {
+            for (String word : sentence.split("\\s+")) {
+                consumer.accept(word);
+            }
+        }).forEach(System.out::println); // "abc" "123" "def" "456"
     }
 
     @Test
@@ -54,7 +83,9 @@ public class StreamMapMultiTests {
         // flatMap SHOULD return new stream instance per element of source stream
         listlist.stream()
                 .flatMap(List::stream)
-                .forEach(System.out::println); // 3 4 1 2
+                .sorted()
+                .forEach(System.out::print); // 1 2 3 4
+                System.out.println();
 
         // mapMulti() is advanced version of flatMap()
         // mapMulti do NOT need to create new stream instance
@@ -64,7 +95,9 @@ public class StreamMapMultiTests {
                         consumer.accept(i);
                     }
                 })
-                .forEach(System.out::println); // 3 4 1 2
+                .sorted()
+                .forEach(System.out::print); // 1 2 3 4
+                System.out.println();
     }
 
     @Test
