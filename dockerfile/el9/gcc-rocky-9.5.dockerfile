@@ -21,12 +21,13 @@ RUN dnf install -y dnf-plugins-core && dnf config-manager --enable devel && \
 #### curl
         libpsl-devel \
 #### pgbouncer: start
-#    openssl-devel \
-#    libevent \
-#    libevent-devel \
-### pgbouncer: end
+#       openssl-devel \
+#       libevent \
+#       libevent-devel \
+#### redis: start
+         tcl \
 #### END of packages
-     zip
+         zip
 
 
 ####--- redis
