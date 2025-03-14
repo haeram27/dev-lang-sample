@@ -167,6 +167,66 @@ retry_cmd() {
 
 
 ##############
+# parse config file
+##############
+parse-config-test() {
+    # config with key and value
+    local version_config="version=1.0.23"
+    local test_version=$(echo $version_config | grep -oP '(?<=^version=)[.\d]+(?=\s*$)')
+    echo $test_version
+
+    local word_config="word=helloworld"
+    local test_word=$(echo $word_config | grep -oP '(?<=^word=)\w+(?=\s*$)')
+    echo $test_word
+
+    # config with delimiter
+    local db_config="rdb-oltp|127.0.0.1|9999"
+    local test_port=$(echo $db_config | awk -F '|' '{print $3}')
+    echo $test_port
+}
+
+
+##############
+# generate automatically git message with time
+##############
+git-repo-push () {
+        if [ -n "${GIT_REPO_PATH}" ]
+        then
+                echo "GIT_REPO_PATH=${GIT_REPO_PATH}"
+                pushd ${GIT_REPO_PATH} &> /dev/null
+                if git st &> /dev/null
+                then
+                        git add .
+                        git cmm "$(date -u --rfc-3339=ns)"
+                        git ps
+                else
+                        echo "GIT_REPO_PATH is NOT git repository"
+                fi
+                popd &> /dev/null
+        else
+                echo "GIT_REPO_PATH is empty"
+        fi
+}
+
+git-repo-pull () {
+        if [ -n "${GIT_REPO_PATH}" ]
+        then
+                echo "GIT_REPO_PATH=${GIT_REPO_PATH}"
+                pushd ${GIT_REPO_PATH} &> /dev/null
+                if git st &> /dev/null
+                then
+                        git pull
+                else
+                        echo "GIT_REPO_PATH is NOT git repository"
+                fi
+                popd &> /dev/null
+        else
+                echo "GIT_REPO_PATH is empty"
+        fi
+}
+
+
+##############
 # http handling
 ##############
 rest_request() {
