@@ -7,7 +7,7 @@ ARG pgsql_ver
 
 COPY buildtemp/epel-el9-x64.repo /etc/yum.repos.d/
 #COPY buildtemp/docker-ce-rhel.repo /etc/yum.repos.d/
-#COPY buildtemp/mongodb-org-redhat-9.repo /etc/yum.repos.d/
+COPY buildtemp/mongodb-org-7-redhat-9.repo /etc/yum.repos.d/
 #COPY buildtemp/pgdg-redhat-all.repo /etc/yum.repos.d/
 
 RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
@@ -49,18 +49,23 @@ RUN --mount=type=bind,source=buildtemp,target=/tmp/host \
     which \
     zip
 
+
 ####--- redis
 # RUN dnf install --allowerasing -y redis
+
 
 ####--- mongodb
 # RUN dnf install --allowerasing -y \
 #    mongodb-org-${mongo_ver} mongodb-org-mongos-${mongo_ver} mongodb-org-server-${mongo_ver} mongodb-org-tools-${mongo_ver}
+RUN dnf install -y mongodb-org-${mongo_ver}
+
 
 ####--- postgres
 # RUN dnf -qy module disable postgresql && \
 #    dnf install --allowerasing -y pgbouncer postgresql-odbc \
 #    postgresql${pgsql_ver} postgresql${pgsql_ver}-contrib postgresql${pgsql_ver}-libs postgresql${pgsql_ver}-server && \
 #    chown postgres: /database -R
+
 
 ####--- clean up packages and systemsd
 RUN dnf -y clean all && \
@@ -72,6 +77,7 @@ RUN dnf -y clean all && \
     rm -f /lib/systemd/system/sockets.target.wants/*initctl* && \
     rm -f /lib/systemd/system/basic.target.wants/* && \
     rm -f /lib/systemd/system/anaconda.target.wants/*
+
 
 # set login-user at runtime
 USER ${app_user}
