@@ -53,7 +53,7 @@ echo_log() {
 }
 
 echo_success() {
-  if is_tty; then
+  if isatty; then
     echo_log "${G}[SUCCESS]${N} $1"
   else
     echo_log "[SUCCESS] $1"
@@ -61,7 +61,7 @@ echo_success() {
 }
 
 echo_failed() {
-  if is_tty; then
+  if isatty; then
     echo_log "${R}[FAILED]${N} $1"
   else
     echo_log "[FAILED] $1"
@@ -69,7 +69,7 @@ echo_failed() {
 }
 
 echo_fatal() {
-  if is_tty; then
+  if isatty; then
     echo_log "${R}[FATAL]${N} $1"
   else
     echo_log "[FATAL] $1"
