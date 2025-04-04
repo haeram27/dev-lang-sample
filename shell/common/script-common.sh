@@ -29,32 +29,58 @@ NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 ##############
 # LOGS
 ##############
-LOG_FILE=${LOG_FILE:-/dev/null}
-R='\033[0;31m'
-G='\033[0;32m'
+# syntax) echo_log "my messages"
+: ${LOG_FILE:=/dev/null}
+R='\033[0;31m'  # RED
+G='\033[0;32m'  # GREEN
 B='\033[0;34m'
-N='\033[0m'
+N='\033[0m'     # NORMAL (NO COLOR)
+
+
+# if stdout is tty or pseudo-tty then return 0 (true)
+isatty() {
+  if [[ -t 1 ]]; then
+    return 0    # true
+  else
+    return 1    # false
+  fi
+}
 
 # syntax) echo_log "my messages"
 # syntax) var=$(echo; ls /); echo_log "$var"
 echo_log() {
-  echo -e "$(date --rfc-3339=ns) $1" | tee -a ${LOG_FILE}
+  echo -e "$(date --rfc-3339=seconds) $1" | tee -a ${LOG_FILE}
 }
 
 echo_success() {
-  echo_log "${G}[SUCCESS]${N} $1"
+  if is_tty; then
+    echo_log "${G}[SUCCESS]${N} $1"
+  else
+    echo_log "[SUCCESS] $1"
+  fi
 }
 
 echo_failed() {
-  echo_log "${R}[FAILED]${N} $1"
+  if is_tty; then
+    echo_log "${R}[FAILED]${N} $1"
+  else
+    echo_log "[FAILED] $1"
+  fi
 }
 
 echo_fatal() {
-  echo_log "${R}[FATAL]${N} $1"
-  exit 1
+  if is_tty; then
+    echo_log "${R}[FATAL]${N} $1"
+  else
+    echo_log "[FATAL] $1"
+  fi
+  exit 255
 }
 
 
+##############
+# COMMON
+##############
 # root checking
 check_root_euid() {
   if [[ ${EUID} -ne 0 ]]; then
