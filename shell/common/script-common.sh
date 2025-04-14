@@ -89,6 +89,14 @@ check_root_euid() {
   fi
 }
 
+# make space size 1 and leave printable character 
+sanitize_space() {
+  echo "$1" |
+    tr -d '\r\n' |
+    tr -cd '[:print:]' |
+    xargs
+}
+
 
 # short:: VAR=${VAR:-default}
 check_var_unset_or_null_default() {
