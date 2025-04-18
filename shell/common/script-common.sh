@@ -68,6 +68,14 @@ echo_failed() {
   fi
 }
 
+echo_error() {
+  if is_tty; then
+    echo_log "${R}[ERROR]${N} $1"
+  else
+    echo_log "[ERROR] $1"
+  fi
+}
+
 echo_fatal() {
   if is_tty; then
     echo_log "${R}[FATAL]${N} $1"
