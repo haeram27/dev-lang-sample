@@ -16,6 +16,9 @@ curl과 mongoc driver는 빌드시 openssl library를 참조함
 ----------------------------
 | mongo-c-driver |    O    |
 ----------------------------
+| haproxy        |    O    |
+----------------------------
+
 
 
 <> openssl build (since 3.x.x)
