@@ -12,7 +12,7 @@ AND datname = 'mydatabase';
 -- DROP USER <username>
 -- -> to explicit command
 -- REASSIGN OWNED BY <olduser> TO <newuser>
-reassign owned by testuser to postgres;
+REASSIGN owned by testuser to postgres;
 DROP OWNED BY testuser;
 --------------------------------------------------------------
 
@@ -20,8 +20,8 @@ DROP OWNED BY testuser;
 -- 2. user and database drop
 --------------------------------------------------------------
 REVOKE ALL PRIVILEGES ON DATABASE mydatabase FROM testuser;
-drop user testuser;
-drop database mydatabase;
+DROP user testuser;
+DROP database mydatabase;
 --------------------------------------------------------------
 
 --------------------------------------------------------------
