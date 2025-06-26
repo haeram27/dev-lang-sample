@@ -3,7 +3,7 @@ package com.example.sample.sniffet;
 import java.util.Base64;
 import org.junit.jupiter.api.Test;
 
-public class BitDayilyTimeTests {
+public class Time2BitRecordTests {
 
     void printb(byte[] b) {
         Byte B;

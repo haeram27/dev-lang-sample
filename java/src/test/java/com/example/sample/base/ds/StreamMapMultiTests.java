@@ -29,13 +29,14 @@ public class StreamMapMultiTests {
         String[] sentences = {"abc 123", "def 456"};
 
         // flatMap SHOULD return new stream instance per element of source stream
-        Stream.of(sentences).flatMap(sentence -> Stream.of(sentence.split("")))
-                .forEach(System.out::print); // "a" "b" "c" " " "1" "2" "3" "d" "e" "f" " " "4" "5" "6"
+        Stream.of(sentences)
+            .flatMap(sentence -> Stream.of(sentence.split("")))
+            .forEach(System.out::print); // "a" "b" "c" " " "1" "2" "3" "d" "e" "f" " " "4" "5" "6"
 
         System.out.println();
 
         // mapMulti() is advanced version of flatMap()
-        // mapMulti do NOT need to create and return new intermediate stream instance
+        // mapMulti do NOT need to create and return new interim stream instance
         // use consumer.accept() to emit elements
         Stream.of(sentences).mapMulti((sentence, consumer) -> {
             for (char character : sentence.toCharArray()) {
