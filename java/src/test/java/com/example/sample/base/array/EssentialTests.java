@@ -23,6 +23,7 @@ public class EssentialTests {
         Integer C = 3;
 
         // TODO:
+        // hint: use stream
         // print max of a[]
         System.out.println(a);
 
