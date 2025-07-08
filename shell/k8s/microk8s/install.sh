@@ -1,10 +1,10 @@
 #!/usr/bin bash
 
 check_root_euid() {
-  if [[ ${EUID} -ne 0 ]]; then
-    echo_failed "${FUNCNAME}: Please run this script as root"
-    exit 1
-  fi
+    if [[ ${EUID} -ne 0 ]]; then
+        echo_failed "${FUNCNAME}: Please run this script as root"
+        exit 1
+    fi
 }
 
 check_root_euid
@@ -24,7 +24,7 @@ FILE_PATH="/etc/sysctl.conf"
 PATTERN="^fs\.inotify\.max_user_watches"
 if grep -qE "$PATTERN" "$FILE_PATH"; then
     sed -i "/$PATTERN/d" "$FILE_PATH"; then
-    echo fs.inotify.max_user_watches=1048576 | sudo tee -a /etc/sysctl.conf
+    echo 'fs.inotify.max_user_watches=1048576' | sudo tee -a /etc/sysctl.conf
     sudo sysctl --system
 fi
 

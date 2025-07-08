@@ -131,11 +131,11 @@ check_command_exit_code() {
     #1 &&, || check current $?
     true && echo success || echo failed
     #2 check $? with test expression [[ ]]
-    true
+    :
     [[ $? -eq 0 ]] && echo success || echo failed
     #3 combine #2 as one line
     [[ $(
-        true &>/dev/null
+        ls &>/dev/null
         echo $?
     ) -eq 0 ]] && echo success || echo failed
 }
@@ -162,7 +162,7 @@ $(basename $0) Usage:
 HELP
 }
 
-tests() {
+readp_tests() {
     echo_log ${FUNCNAME} "$@"
 
     read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1
@@ -174,6 +174,15 @@ tests() {
     else
         echo $REPLY
     fi
+}
+
+readr_tests() {
+    echo_log ${FUNCNAME} "$@"
+
+    IFS='|' read -r var1 var2 var3 <<<"1|2|3"
+    echo ${var1}
+    echo ${var2}
+    echo ${var3}
 }
 
 gettime() {
@@ -196,11 +205,26 @@ gettime() {
     fi
 }
 
+is_exist_cmd() {
+    echo_log ${FUNCNAME} "$@"
+
+    local cmd=${1:-ls}
+
+    if command -v ${cmd} &>/dev/null; then
+        return 0
+    else
+        return 255
+    fi
+}
+
 retry_cmd() {
-    local retry_count=1
+    echo_log ${FUNCNAME} "$@"
+
     local max_retry=${1:-10}
     local sleep_interval=${2:-1}
     local funct=${3:-false}
+
+    local retry_count=1
 
     while :; do
         if [[ ${retry_count} -gt ${max_retry} ]]; then
@@ -283,13 +307,11 @@ git-repo-pull() {
 check_http_conn() {
     echo_log ${FUNCNAME} "$@"
 
-    local resp_file=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+    local http_url=${1:-'https://github.com'}
     local req_timeout=2
-    local http_url='https://github.com'
-    [[ -n $1 ]] && http_url=$1
 
     echo_log "try to connect ${http_url}"
-    local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" -o ${resp_file} ${http_url})
+    local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
     local curl_ret=$?
     if [[ ${curl_ret} -eq 0 ]]; then
         echo_log "resp: ${http_code}"
@@ -309,10 +331,9 @@ check_http_conn() {
 rest_request() {
     echo_log ${FUNCNAME} "$@"
 
+    local http_url=${1:-'http://www.google.com'}
     local resp_file=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
     local req_timeout=2
-    local http_url='https://github.com'
-    [[ -n $1 ]] && http_url=$1
 
     local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" -o ${resp_file} ${http_url})
     local curl_ret=$?
