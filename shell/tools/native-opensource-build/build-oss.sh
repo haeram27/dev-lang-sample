@@ -1,7 +1,6 @@
 #!/bin/bash
 set -x
 
-
 ################
 # run this script in a container
 ################
@@ -37,7 +36,6 @@ HAPROXY_GIT_TAG=v${HAPROXY_VERSION}
 COLLECT_LIBS=yes
 COLLECTION_ROOT_DIR=oss/server
 
-
 ################
 # immutable
 ################
@@ -48,12 +46,11 @@ CURL_DIR=curl-${CURL_VERSION}
 MONGOCDRV_DIR=mongo-c-driver-${MONGOCDRV_VERSION}
 HAPROXY_DIR=haproxy-${HAPROXY_VERSION}
 
-
 check_root_euid() {
-  if [[ ${EUID} -ne 0 ]]; then
-    echo "${FUNCNAME}: Please run this script as root"
-    exit 1
-  fi
+    if [[ ${EUID} -ne 0 ]]; then
+        echo "${FUNCNAME}: Please run this script as root"
+        exit 1
+    fi
 }
 check_root_euid
 
@@ -70,12 +67,12 @@ if [[ ${BUILD_OPENSSL} = "yes" ]]; then
         cd ${OPENSSL_DIR}
         git restore :/ && git clean -ffdx
         set -e
-    ## openssl config options
-    #        --prefix=/opt/myapp
-    #        --libdir=/opt/myapp/lib
-    #        --openssldir=/opt/myapp/conf/ssl
-    #        --api=3.0
-    #        -Wl,--enable-new-dtags,-rpath,<runtime.so.search.path>
+        ## openssl config options
+        #        --prefix=/opt/myapp
+        #        --libdir=/opt/myapp/lib
+        #        --openssldir=/opt/myapp/conf/ssl
+        #        --api=3.0
+        #        -Wl,--enable-new-dtags,-rpath,<runtime.so.search.path>
         ./config \
             --libdir=/opt/ahnlab/cpp/bin \
             --openssldir=/opt/ahnlab/cpp/bin \
@@ -102,14 +99,14 @@ if [[ ${BUILD_CURL} = "yes" ]]; then
         git restore :/ && git clean -ffdx
         mkdir out && cd out
         set -e
-    ## curl cmake options
-    #        -DCMAKE_INSTALL_RPATH=/opt/myapp/lib
-    # path to openssl: select 1 of 2 way
-    #        -DOPENSSL_ROOT_DIR=${OPENSSL_FULL_DIR}
-    # or
-    #        -DOPENSSL_INCLUDE_DIR=${OPENSSL_FULL_DIR}/include
-    #        -DOPENSSL_SSL_LIBRARY=${OPENSSL_FULL_DIR}/libssl.so
-    #        -DOPENSSL_CRYPTO_LIBRARY=${OPENSSL_FULL_DIR}/libcrypto.so
+        ## curl cmake options
+        #        -DCMAKE_INSTALL_RPATH=/opt/myapp/lib
+        # path to openssl: select 1 of 2 way
+        #        -DOPENSSL_ROOT_DIR=${OPENSSL_FULL_DIR}
+        # or
+        #        -DOPENSSL_INCLUDE_DIR=${OPENSSL_FULL_DIR}/include
+        #        -DOPENSSL_SSL_LIBRARY=${OPENSSL_FULL_DIR}/libssl.so
+        #        -DOPENSSL_CRYPTO_LIBRARY=${OPENSSL_FULL_DIR}/libcrypto.so
         cmake -DOPENSSL_ROOT_DIR=${OPENSSL_FULL_DIR} \
             -DCMAKE_INSTALL_RPATH=/opt/ahnlab/cpp/bin \
             ..
@@ -136,14 +133,14 @@ if [[ ${BUILD_MONGOCDRV} = "yes" ]]; then
         git restore :/ && git clean -ffdx
         mkdir out && cd out
         set -e
-    ## mongoc cmake options
-    #        -DCMAKE_INSTALL_RPATH=/opt/myapp/lib
-    # path to openssl: select 1 of 2 way
-    #        -DOPENSSL_ROOT_DIR=${OPENSSL_FULL_DIR}
-    # or
-    #        -DOPENSSL_INCLUDE_DIR=${OPENSSL_FULL_DIR}/include
-    #        -DOPENSSL_SSL_LIBRARY=${OPENSSL_FULL_DIR}/libssl.so
-    #        -DOPENSSL_CRYPTO_LIBRARY=${OPENSSL_FULL_DIR}/libcrypto.so
+        ## mongoc cmake options
+        #        -DCMAKE_INSTALL_RPATH=/opt/myapp/lib
+        # path to openssl: select 1 of 2 way
+        #        -DOPENSSL_ROOT_DIR=${OPENSSL_FULL_DIR}
+        # or
+        #        -DOPENSSL_INCLUDE_DIR=${OPENSSL_FULL_DIR}/include
+        #        -DOPENSSL_SSL_LIBRARY=${OPENSSL_FULL_DIR}/libssl.so
+        #        -DOPENSSL_CRYPTO_LIBRARY=${OPENSSL_FULL_DIR}/libcrypto.so
         cmake -DMONGOC_ENABLE_MONGODB_AWS_AUTH=OFF \
             -DENABLE_SASL=OFF -DENABLE_ZSTD=OFF \
             -DOPENSSL_ROOT_DIR=${OPENSSL_FULL_DIR} \
@@ -161,7 +158,6 @@ if [[ ${BUILD_MONGOCDRV} = "yes" ]]; then
         exit 1
     fi
 fi
-
 
 # haproxy
 if [[ ${BUILD_HAPROXY} = "yes" ]]; then
@@ -219,7 +215,6 @@ if [[ ${COLLECT_LIBS} = "yes" ]]; then
     mkdir -p ${COLLECTION_ROOT_DIR}/include/${OPENSSL_DIR}/${OS_TYPE}
     cp -r ${OPENSSL_DIR}/include/crypto ${COLLECTION_ROOT_DIR}/include/${OPENSSL_DIR}/${OS_TYPE}
     cp -r ${OPENSSL_DIR}/include/openssl ${COLLECTION_ROOT_DIR}/include/${OPENSSL_DIR}/${OS_TYPE}
-
 
     # curl
     if [[ ${BUILD_CURL} = "yes" ]]; then

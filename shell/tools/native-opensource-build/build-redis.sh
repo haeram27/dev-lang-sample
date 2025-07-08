@@ -1,6 +1,6 @@
 #!/bin/bash
-REDIS_VERSION=7.0.10
-VALKEY_VERSION=8.0.2
+: ${REDIS_VERSION:=7.0.10}
+: ${VALKEY_VERSION:=8.0.2}
 
 git cl --branch ${REDIS_VERSION} https://github.com/redis/redis.git redis-${REDIS_VERSION}
 #git cl --branch ${VALKEY_VERSION} https://github.com/valkey-io/valkey.git valkey-${VALKEY_VERSION}
@@ -19,5 +19,3 @@ ls -alR out
 
 tar zcvf redis-out-${REDIS_VERSION}.tgz out
 tar tf redis-out-${REDIS_VERSION}.tgz
-
-
