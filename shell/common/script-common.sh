@@ -283,27 +283,24 @@ git-repo-pull() {
 check_http_conn() {
     echo_log ${FUNCNAME} "$@"
 
-    RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
-    REQ_TIMEOUT=2
-    if [[ -z $1 ]]; then
-        HTTP_URL='https://github.com'
-    else
-        HTTP_URL=$1
-    fi
+    local resp_file=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+    local req_timeout=2
+    local http_url='https://github.com'
+    [[ -n $1 ]] && http_url=$1
 
-    echo_log "try to connect ${HTTP_URL}"
-    HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
-    CURL_RET=$?
-    if [[ ${CURL_RET} -eq 0 ]]; then
-        echo_log "resp: ${HTTP_CODE}"
+    echo_log "try to connect ${http_url}"
+    local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" -o ${resp_file} ${http_url})
+    local curl_ret=$?
+    if [[ ${curl_ret} -eq 0 ]]; then
+        echo_log "resp: ${http_code}"
         echo
-        if [[ "${HTTP_CODE}" == "200" || "${HTTP_CODE}" == "202" ]]; then
+        if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
             return 0
         else
             return 201 #curl ok, http nok
         fi
     else
-        echo_error "curl connection failed to ${HTTP_URL}"
+        echo_error "curl connection failed to ${http_url}"
         return 202 # curl nok
     fi
     return 255
@@ -312,29 +309,26 @@ check_http_conn() {
 rest_request() {
     echo_log ${FUNCNAME} "$@"
 
-    RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
-    REQ_TIMEOUT=2
-    if [[ -z $1 ]]; then
-        HTTP_URL='http://www.google.com'
-    else
-        HTTP_URL=$1
-    fi
+    local resp_file=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+    local req_timeout=2
+    local http_url='https://github.com'
+    [[ -n $1 ]] && http_url=$1
 
-    HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
-    CURL_RET=$?
-    if [[ ${CURL_RET} -eq 0 ]]; then
-        if [[ "${HTTP_CODE}" == "200" ]]; then
+    local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" -o ${resp_file} ${http_url})
+    local curl_ret=$?
+    if [[ ${curl_ret} -eq 0 ]]; then
+        if [[ "${http_code}" == "200" ]]; then
             ## do something with ${RESP_FILE}
-            echo ${RESP_FILE}
-            cat ${RESP_FILE}
+            echo ${resp_file}
+            cat ${resp_file}
         else
-            echo warning: httpcode is ${HTTP_CODE} >&2
+            echo warning: httpcode is ${http_code} >&2
         fi
     else
-        echo error: curl returns ${CURL_RET} >&2
+        echo error: curl returns ${curl_ret} >&2
     fi
 
-    [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
+    [[ -f ${resp_file} ]] && (rm -f ${resp_file} &>/dev/null)
 }
 
 ##############
