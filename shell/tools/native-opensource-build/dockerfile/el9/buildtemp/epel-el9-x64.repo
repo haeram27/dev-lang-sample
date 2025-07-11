@@ -1,0 +1,5 @@
+[epel-el9-x64]
+name=Extra Packages for Enterprise Linux 9
+baseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64
+enabled=1
+gpgcheck=0
