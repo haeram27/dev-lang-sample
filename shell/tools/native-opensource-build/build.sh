@@ -1,5 +1,5 @@
 #!/bin/bash
-: ${IMG_NAME:=gcc-rocky}
+: ${IMAGE_NAME:=gcc-rocky}
 : ${OS_VERSION:=9.5}
 
 check_http_conn() {
@@ -15,17 +15,23 @@ check_http_conn() {
         if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
             return 0
         else
-            return 201
+            return 101
         fi
     else
         echo "curl connection failed to ${http_url}"
-        return 202
+        return 102
     fi
-    return 255
+    return 125
 }
 
 if ! check_http_conn; then
-    echo "can NOT connect to oss remote repository"
-    exit 255
+    echo "Fatal: can NOT connect to internet"
+    exit 125
 fi
-docker run --rm -it -u0 -v ${PWD}:/oss -w /oss ${IMG_NAME}:${OS_VERSION} bash ./build-oss-cppm.sh
+
+if !docker image inspect ${IMAGE_NAME}:${OS_VERSION} &>/dev/null; then
+    echo "Fatal: container image ${IMAGE_NAME}:${OS_VERSION} does NOT exitst. please prepare image first."
+    exit 125
+fi
+
+docker run --rm -it -u0 -v ${PWD}:/oss -w /oss ${IMAGE_NAME}:${OS_VERSION} bash ./build-oss-cppm.sh
