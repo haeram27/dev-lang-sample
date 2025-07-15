@@ -79,7 +79,7 @@ check_root_euid() {
 : ${POSTGRES_PORT:="5432"}
 : ${POSTGRES_DBNAME:="postgres"}
 : ${POSTGRES_USER:="postgres"}
-: ${POSTGRES_PASSWD:="pgpasswd}"
+: ${POSTGRES_PASSWD:="pgpasswd"}
 
 : ${CONTAINER_MONGO:="mongos"}
 : ${MONGOS_IP:="127.0.0.1"}
@@ -87,7 +87,6 @@ check_root_euid() {
 : ${MONGO_DBNAME:="admin"}
 : ${MONGO_USER:="admin"}
 : ${MONGO_PASSWD:="admin"}
-
 
 #######################
 ## FUNC
@@ -99,21 +98,21 @@ is_postgres_available() {
     echo_log "waiting for postgres boot complete"
     while :; do
 
-    if [[ ${retry_count} -gt ${max_retry} ]]; then
-        echo_log "CRITICAL: failed to connect postgres database. retry count reached max"
-        echo_failed ${FUNCNAME}
-        exit 1
-    fi
+        if [[ ${retry_count} -gt ${max_retry} ]]; then
+            echo_log "CRITICAL: failed to connect postgres database. retry count reached max"
+            echo_failed ${FUNCNAME}
+            exit 1
+        fi
 
-    ret=$(PGPASSWORD=${db_password} psql -h ${db_server} -p ${db_port} -U ${db_user} -d ${db_database} -c "select 'alive'" &>/dev/null)
-    if [[ $? -eq 0 ]]; then
-        echo_success ${FUNCNAME}
-        return
-    fi
-    
-    echo_log "[${retry_count}] waiting for db ready to access..."
-    ((retry_count++))
-    sleep 2
+        ret=$(PGPASSWORD=${db_password} psql -h ${db_server} -p ${db_port} -U ${db_user} -d ${db_database} -c "select 'alive'" &>/dev/null)
+        if [[ $? -eq 0 ]]; then
+            echo_success ${FUNCNAME}
+            return
+        fi
+
+        echo_log "[${retry_count}] waiting for db ready to access..."
+        ((retry_count++))
+        sleep 2
     done
 }
 

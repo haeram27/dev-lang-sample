@@ -2,8 +2,8 @@
 : ${REDIS_VERSION:=7.0.10}
 : ${VALKEY_VERSION:=8.0.2}
 
-git cl --branch ${REDIS_VERSION} https://github.com/redis/redis.git redis-${REDIS_VERSION}
-#git cl --branch ${VALKEY_VERSION} https://github.com/valkey-io/valkey.git valkey-${VALKEY_VERSION}
+git clone --depth 1 --branch ${REDIS_VERSION} https://github.com/redis/redis.git redis-${REDIS_VERSION}
+#git clone --depth 1 --branch --branch ${VALKEY_VERSION} https://github.com/valkey-io/valkey.git valkey-${VALKEY_VERSION}
 
 cd redis-${REDIS_VERSION}
 docker run --rm -it -u0 -v ${PWD}:/oss -w /oss gcc-rocky:9.5 bash -c "make test -j16"
