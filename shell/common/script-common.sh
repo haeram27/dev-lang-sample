@@ -304,14 +304,14 @@ git-repo-pull() {
 ##############
 # http handling
 ##############
-check_http_conn() {
+http_conn_test() {
     echo_log ${FUNCNAME} "$@"
 
-    local http_url=${1:-'https://github.com'}
+    local http_url=${1:-'https://www.example.com'}
     local req_timeout=2
 
     echo_log "try to connect ${http_url}"
-    local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
+    local http_code=$(curl -fksSLo /dev/null --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
     local curl_ret=$?
     if [[ ${curl_ret} -eq 0 ]]; then
         echo_log "resp: ${http_code}"
@@ -328,25 +328,25 @@ check_http_conn() {
     return 255
 }
 
-rest_request() {
+http_rest_request() {
     echo_log ${FUNCNAME} "$@"
 
     local http_url=${1:-'http://www.google.com'}
     local resp_file=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
     local req_timeout=2
 
-    local http_code=$(curl -fksSL --connect-timeout ${req_timeout} -w "%{response_code}" -o ${resp_file} ${http_url})
+    local http_code=$(curl -fksSLo ${resp_file} --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
     local curl_ret=$?
     if [[ ${curl_ret} -eq 0 ]]; then
-        if [[ "${http_code}" == "200" ]]; then
+        if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
             ## do something with ${RESP_FILE}
             echo ${resp_file}
             cat ${resp_file}
         else
-            echo warning: httpcode is ${http_code} >&2
+            echo WARNING: httpcode is ${http_code} >&2
         fi
     else
-        echo error: curl returns ${curl_ret} >&2
+        echo ERROR: curl returns ${curl_ret} >&2
     fi
 
     [[ -f ${resp_file} ]] && (rm -f ${resp_file} &>/dev/null)
