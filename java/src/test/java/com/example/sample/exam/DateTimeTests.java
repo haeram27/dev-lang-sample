@@ -135,7 +135,7 @@ public class DateTimeTests extends EvaluatedTimeTests {
     @Test
     public void zoneOffsetTest() {
         // java.time.ZoneOffset extends ZoneId
-        // ZoneOffset.UTC == ZoneOffset.of("UTC")
+        // ZoneOffset.UTC == ZoneOffset.of("UTC") == ZoneOffset.of("Z")
         //    == ZoneId.of("UTC") == ZoneId.of("Z")
 
         ZoneOffset zoneOffsetUTC = ZoneOffset.UTC;
