@@ -53,6 +53,12 @@ public class DateTimeTests extends EvaluatedTimeTests {
      *     timezone info = ZoneId (timezone/city)
      *     support DST(Daylight Saving Time) rule applicable 
      *     for business logic (UI)
+     * 
+     * java.time.ZoneOffset extends ZoneId
+     *     ZoneOffset.UTC == ZoneId.of("UTC") == ZoneId.of("Z");
+     * 
+     * 
+     * 
      */
 
     @Test
@@ -128,6 +134,10 @@ public class DateTimeTests extends EvaluatedTimeTests {
      */
     @Test
     public void zoneOffsetTest() {
+        // java.time.ZoneOffset extends ZoneId
+        // ZoneOffset.UTC == ZoneOffset.of("UTC")
+        //    == ZoneId.of("UTC") == ZoneId.of("Z")
+
         ZoneOffset zoneOffsetUTC = ZoneOffset.UTC;
         ZoneOffset zoneOffsetUTCString = ZoneOffset.of("Z");
         ZoneOffset zoneOffsetString = ZoneOffset.of("+9");
@@ -192,7 +202,6 @@ public class DateTimeTests extends EvaluatedTimeTests {
         var ldt = LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC);
         System.out.println("LocalDateTime From Instant : " + ldt);
 
-
         System.out.println("\n\n");
         /* OffsetDateTime > Instant */
         var instantFromOffsetDateTime = OffsetDateTime.now(ZoneOffset.UTC).toInstant();
@@ -246,6 +255,25 @@ public class DateTimeTests extends EvaluatedTimeTests {
      */
     @Test
     public void dateTimeFormatTest() {
+
+        // format Instant to ISO DateTime String
+        System.out.println("ISO_INSTANT: " +
+            DateTimeFormatter.ISO_INSTANT.format(Instant.now()));
+
+        System.out.println("ISO_LOCAL_DATE_TIME: " +
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(
+                LocalDateTime.ofInstant(Instant.now(), ZoneOffset.systemDefault())));
+
+        System.out.println("ISO_OFFSET_DATE_TIME: " +
+            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(
+                OffsetDateTime.ofInstant(Instant.now(), ZoneOffset.systemDefault())));
+
+        System.out.println("ISO_ZONED_DATE_TIME: " +
+            DateTimeFormatter.ISO_ZONED_DATE_TIME.format(
+                ZonedDateTime.ofInstant(Instant.now(), ZoneOffset.systemDefault())));
+
+
+        // parse ISO DateTime String
         System.out.println(
                 LocalDateTime.parse("2024-05-13T14:15:16.123456789",
                         DateTimeFormatter.ISO_LOCAL_DATE_TIME));
