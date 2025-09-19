@@ -3,11 +3,14 @@ package com.example.sample.base.array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 
 public class EssentialTests {
@@ -16,7 +19,7 @@ public class EssentialTests {
 
     @Test
     public void getMaxTest() {
-        int a[] = {1, 2, 3, 4, 5};
+        int a[] = { 1, 2, 3, 4, 5 };
 
         Integer A = 1;
         Integer B = 2;
@@ -33,7 +36,7 @@ public class EssentialTests {
 
     @Test
     public void getMaxTestA() {
-        int a[] = {1, 2, 3, 4, 5};
+        int a[] = { 1, 2, 3, 4, 5 };
 
         Integer A = 1;
         Integer B = 2;
@@ -48,7 +51,7 @@ public class EssentialTests {
 
     @Test
     public void primitiveArrayDescSort() {
-        int a[] = {1, 2, 3, 4, 5};
+        int a[] = { 1, 2, 3, 4, 5 };
         var sorted = a;
 
         // TODO:
@@ -58,7 +61,7 @@ public class EssentialTests {
 
     @Test
     public void primitiveArrayDescSortA() {
-        int a[] = {1, 2, 3, 4, 5};
+        int a[] = { 1, 2, 3, 4, 5 };
         var sorted = a;
 
         // boxed() = int -> Integer
@@ -245,6 +248,61 @@ public class EssentialTests {
         m.entrySet().stream().sorted(Map.Entry.comparingByKey(Collections.reverseOrder())).forEach(e -> {
             System.out.println(e.getKey() + ":" + e.getValue());
         });
+    }
+
+    @Test
+    void mapSortByKeyAndCollect() {
+        Map<String, Integer> m = Map.of("b", 2, "a", 1, "C", 3);
+
+        // TODO:
+    }
+
+    @Test
+    void mapSortByKeyAndCollectA() {
+        Map<String, Integer> m = Map.of("b", 2, "a", 1, "C", 3);
+
+        // Ascending (case sensitive)
+        var sorted = m.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey()) // key Ascending
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue,
+                        (a, b) -> a, // merger, select first item when key collision 
+                        LinkedHashMap::new)); // LHM keeps order
+
+        System.out.println("Key, Ascending, CaseSensitive:");
+        System.out.println(sorted);
+
+        // Ascending (case insensitive)
+        var sortedIgnoreCase = m.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, LinkedHashMap::new));
+
+        System.out.println("Key, Ascending, CaseInsensitive:");
+        System.out.println(sortedIgnoreCase);
+
+        // Descending (case sensitive)
+        var sortedDesc = m.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, LinkedHashMap::new));
+
+        System.out.println("Key, Descending, CaseSensitive:");
+        System.out.println(sortedDesc);
+
+        /* using TreeMap */
+        var treeSortedDesc = new TreeMap<String, Integer>();
+        treeSortedDesc.putAll(m);
+        System.out.println("TreeMap, Key, Descending, CaseSensitive:");
+        treeSortedDesc.entrySet().forEach(e -> System.out.print(e));
+
+        var sortedDescIgnoreCase = m.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(String.CASE_INSENSITIVE_ORDER.reversed()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                    (a,b) -> a, LinkedHashMap::new));
+        /* using TreeMap */
+        // var sortedDescIgnoreCase = new TreeMap<>(String.CASE_INSENSITIVE_ORDER.reversed());
+        //     sortedDescIgnoreCase.putAll(m);
+        System.out.println("Key, Descending, CaseInsensitive:");
+        System.out.println(sortedDescIgnoreCase);
     }
 
     @Test
