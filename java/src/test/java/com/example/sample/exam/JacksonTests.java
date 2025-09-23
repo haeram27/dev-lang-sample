@@ -3,15 +3,22 @@ package com.example.sample.exam;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JacksonTests {
+
+    /* Json Mapper */
+    JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+    // JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule())
+    //         .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+    //         .enable(DeserializationFeature.USE_BIG_INTEGER_FOR_INTS).build();
 
     // gradle test --rerun-tasks --tests 'JacksonTests.parseJsonArrayToObjectList'
     @Test
@@ -36,12 +43,10 @@ public class JacksonTests {
 
         String jsonArrayString = "[{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\"},{\"name\":\"Jane Smith\",\"age\":25,\"email\":\"jane.smith@example.com\"}]";
 
-        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-
         try {
             // JSON 배열 문자열을 List로 변환
             // @formatter:off
-            List<Map<String, Object>> list = objectMapper.readValue(jsonArrayString, new TypeReference<List<Map<String, Object>>>(){});
+            List<Map<String, Object>> list = jsonMapper.readValue(jsonArrayString, new TypeReference<List<Map<String, Object>>>(){});
             // @formatter:on
 
             // List에서 데이터 접근
@@ -82,12 +87,10 @@ public class JacksonTests {
 
         String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"roles\":[\"admin\",\"user\"]}";
 
-        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-
         try {
             // JSON 문자열을 Map으로 변환
             // @formatter:off
-            Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
+            Map<String, Object> map = jsonMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
             // @formatter:on
 
             // Map에서 데이터 접근
@@ -124,12 +127,10 @@ public class JacksonTests {
 
         String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"role\":\"admin\"}";
 
-        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-
         try {
             // deserialize: json string -> java object(Map)
             // @formatter:off
-            Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
+            Map<String, Object> map = jsonMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
             // @formatter:on
 
             // read map object
@@ -151,11 +152,11 @@ public class JacksonTests {
             map.put("role", "user");
 
             // serialize: java object(map) -> json string
-            System.out.println(objectMapper.writeValueAsString(map));
+            System.out.println(jsonMapper.writeValueAsString(map));
 
             map.remove("role");
             System.out.println(map.toString());
-            System.out.println(objectMapper.writeValueAsString(map));
+            System.out.println(jsonMapper.writeValueAsString(map));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -201,10 +202,8 @@ public class JacksonTests {
                 + "}"
                 + "}";
 
-        ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-
         try {
-            JsonNode rootNode = objectMapper.readTree(jsonString);
+            JsonNode rootNode = jsonMapper.readTree(jsonString);
 
             /*
              * read first category of book
@@ -239,7 +238,7 @@ public class JacksonTests {
             String modifiedJsonString;
             ((ObjectNode) rootNode.at("/store/book/0")).put("price", 10.99);
             ((ObjectNode) rootNode.at("/store/bicycle")).put("color", "blue");
-            modifiedJsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+            modifiedJsonString = jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
             System.out.println("Modified JSON: " + modifiedJsonString);
             System.out.println("----------------------------------------------------------");
 
@@ -247,7 +246,7 @@ public class JacksonTests {
             if (bicycleNode.isObject()) {
                 ((ObjectNode) bicycleNode).put("color", "green");
             }
-            modifiedJsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+            modifiedJsonString = jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
             System.out.println("Modified JSON: " + modifiedJsonString);
             System.out.println("----------------------------------------------------------");
 

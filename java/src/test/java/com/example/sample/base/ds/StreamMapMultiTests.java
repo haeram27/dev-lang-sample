@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -113,10 +114,10 @@ public class StreamMapMultiTests {
 
         try {
             // ObjectMapper
-            ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+            JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
             // transform JSON to List<Map<String, String>>
-            List<Map<String, String>> listMap = objectMapper.readValue(jsonString, new TypeReference<List<Map<String, String>>>() {});
+            List<Map<String, String>> listMap = jsonMapper.readValue(jsonString, new TypeReference<List<Map<String, String>>>() {});
 
             // flatten by mapMulti
             var ipSet = listMap.stream()
