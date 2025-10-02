@@ -14,7 +14,7 @@ OS_TYPE=el9
 
 # openssl
 BUILD_OPENSSL=yes
-OPENSSL_VERSION=3.4.1
+OPENSSL_VERSION=3.5.4
 OPENSSL_GIT_TAG=openssl-${OPENSSL_VERSION}
 
 # curl
@@ -177,7 +177,6 @@ if [[ ${BUILD_HAPROXY} = "yes" ]]; then
         set -e
         # https://github.com/haproxy/haproxy/blob/v3.0.0/INSTALL
         make -j$(nproc) TARGET=linux-glibc \
-            USE_LUA=1 \
             USE_PCRE2=1 \
             USE_OPENSSL=1 SSL_INC=${OPENSSL_FULL_DIR}/include SSL_LIB=${OPENSSL_FULL_DIR} \
             LDFLAGS="-Wl,--enable-new-dtags,-rpath,/opt/ahnlab/cpp/bin"
