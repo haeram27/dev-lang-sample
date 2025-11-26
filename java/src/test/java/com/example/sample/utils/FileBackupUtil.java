@@ -75,6 +75,13 @@ public class FileBackupUtil {
      * backup files to directory
      * if there is already existing backup directory, it will be renamed and preserved.
      * 
+     *     * backupFiles() vs copyDirectory()
+     *                       | backupFiles | copyDirectory
+     *    --------------------------------------------------
+     *     create backup dir |  O          | X
+     *     reset backup dir  |  O          | X
+     *     remove old backup |  O          | X
+     * 
      * @param sourceFiles        files, absolute path is only allowed
      * @param backupDir          directory path to backup files, absolute path is only allowed
      * @param resetbackupDir     re-build backup directory from scratch,
@@ -156,7 +163,8 @@ public class FileBackupUtil {
     }
 
     /**
-     * copy files recursively under source directory to target directory 
+     * copy files recursively under source directory to target directory
+     * overwritean existing file if it exists.
      *
      * @param source           source directory
      * @param target           target directory
@@ -193,6 +201,8 @@ public class FileBackupUtil {
                             throws IOException {
                         Path relative = source.relativize(file);
                         Path targetFile = target.resolve(relative);
+
+                        // https://cr.openjdk.org/~jjg/8242056/api.00/java.base/java/nio/file/StandardCopyOption.html
                         Files.copy(file, targetFile, StandardCopyOption.REPLACE_EXISTING);
                         return FileVisitResult.CONTINUE;
                     }

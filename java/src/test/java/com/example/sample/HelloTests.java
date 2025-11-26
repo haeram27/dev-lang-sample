@@ -14,19 +14,9 @@ public class HelloTests extends EvaluatedTimeTests {
 
     @Test void printExceptionStackTrace() {
 
-        // stderr
-        try {
-            throw new RuntimeException("asdf");
-        } catch (Exception e) {
-            log.debug("## stderr: ");
-            e.printStackTrace();
-        }
-
-        // logger
-        try {
-            throw new RuntimeException("asdf");
-        } catch (Exception e) {
-            log.error("## Error: ", e);
-        }
+        String str = " 1111 - 2222 ";
+        var a = str.split("-");
+        System.out.println("["+a[0]+"]");
+        System.out.println("["+a[1]+"]");
     }
 }
