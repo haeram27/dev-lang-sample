@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -84,6 +85,7 @@ public class IPRangeListerTests {
         boolean printLog = true;
         boolean printFile = false;
         boolean printJson = false;
+        boolean printJsonformat = false;
 
         List<String> ipList = getIPRangeList(ipRangeMax, 3000);
 
@@ -105,13 +107,16 @@ public class IPRangeListerTests {
             }
         }
 
+        /*
+         * json
+         */
+        JsonMapper mapper = new JsonMapper();
+
         // print to json (project root)
         if (printJson) {
-            JsonMapper mapper = new JsonMapper();
             ObjectNode root = mapper.createObjectNode();
             ArrayNode ips = root.putArray("ipList");
-            
-            // age 1부터 100까지
+
             for (var ip : ipList) {
                 ObjectNode ipNode = mapper.createObjectNode();
                 ipNode.put("ip", ip);
@@ -121,9 +126,35 @@ public class IPRangeListerTests {
             try {
                 String result = mapper.writeValueAsString(root);
                 System.out.println(result);
-                
-                // 파일로 저장
+
                 Files.writeString(Path.of("ip_list.json"), result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // print to json (project root)
+        if (printJsonformat) {
+            String jsonFomat = """
+                    {
+                        "ip_list": []
+                    }
+                    """;
+
+            try {
+                JsonNode root = mapper.readTree(jsonFomat);
+                ArrayNode ips = (ArrayNode) root.get("ip_list");
+
+                for (var ip : ipList) {
+                    ObjectNode ipNode = mapper.createObjectNode();
+                    ipNode.put("ip", ip);
+                    ips.add(ipNode);
+                }
+
+                String result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+                System.out.println(result);
+
+                Files.writeString(Path.of("ip_list_format.json"), result);
             } catch (Exception e) {
                 e.printStackTrace();
             }
