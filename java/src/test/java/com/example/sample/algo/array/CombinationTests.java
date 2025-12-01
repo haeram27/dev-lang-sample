@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import com.example.sample.EvaluatedTimeTests;
 
+/*
+ * Combination - Number of cases consideration of order
+ * 조합 - 순서를 고려하지 않은 경우의 수(부분집합)
+ */
 public class CombinationTests extends EvaluatedTimeTests {
 
     <T> void printa(T[] a) {

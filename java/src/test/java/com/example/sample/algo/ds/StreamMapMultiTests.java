@@ -13,16 +13,24 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class StreamMapMultiTests {
-    /** Methods to make Stream
-        <R> Stream<R>  flatMap(Function<? super T,? extends Stream<? extends R>> mapper)
-        DoubleStream   flatMapToDouble(Function<? super T,? extends DoubleStream> mapper)
-        IntStream      flatMapToInt(Function<? super T,? extends IntStream> mapper)
-        LongStream     flatMapToLong(Function<? super T,? extends LongStream> mapper)
-        <R> Stream<R>  mapMulti(BiConsumer<? super T,? super Consumer<R>> mapper)
-        DoubleStream   mapMultiToDouble(BiConsumer<? super T,? super DoubleConsumer> mapper)
-        IntStream      mapMultiToInt(BiConsumer<? super T,? super IntConsumer> mapper)
-        LongStream     mapMultiToLong(BiConsumer<? super T,? super LongConsumer> mapper)
-    */
+    /*
+     * mapMulti() is advanced version flatMap()
+     * mapMulti() is used for make flat one collection from multiple collection
+     * for example:
+     *  String[] -> Stream<each character as String>
+     *  List<List<Integer>> -> Stream<Integer>
+     * 
+     * 
+     * Methods to make Stream
+     *   <R> Stream<R>  flatMap(Function<? super T,? extends Stream<? extends R>> mapper)
+     *   DoubleStream   flatMapToDouble(Function<? super T,? extends DoubleStream> mapper)
+     *   IntStream      flatMapToInt(Function<? super T,? extends IntStream> mapper)
+     *   LongStream     flatMapToLong(Function<? super T,? extends LongStream> mapper)
+     *   <R> Stream<R>  mapMulti(BiConsumer<? super T,? super Consumer<R>> mapper)
+     *   DoubleStream   mapMultiToDouble(BiConsumer<? super T,? super DoubleConsumer> mapper)
+     *   IntStream      mapMultiToInt(BiConsumer<? super T,? super IntConsumer> mapper)
+     *   LongStream     mapMultiToLong(BiConsumer<? super T,? super LongConsumer> mapper)
+     */
 
     @Test
     public void mapMultiArrayTest() {

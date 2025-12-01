@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import com.example.sample.EvaluatedTimeTests;
 
+/*
+ * Permutation - Number of cases considered in order
+ * 순열 - 순서 있는 경우의 수(부분집합)
+ */
 public class PermutationTests extends EvaluatedTimeTests {
     <T> void printa(T[] a) {
         for (var e : a) {

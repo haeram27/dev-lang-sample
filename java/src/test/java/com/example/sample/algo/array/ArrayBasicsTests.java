@@ -13,17 +13,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class ArrayBasicsTests {
     /**
-        ## antipode(opposite position) of index
-            antipode = len-1-i
+        ## antipode(opposite position) of index i
+            antipode = {last-index}-i = (len-1)-i
     
         ## length(number of element) from left index(lo) to right index(hi)
             len = hi-lo+1
     
-        ## mid index between two index
+        ## mid index between two index for FOR loop less operator
             mid = (hi+lo+1)/2
     
-        ## mid index of entire array
+        ## mid index of entire array for FOR loop less operator
             mid = len/2
+            for (int i=0; i<mid; i++)
     */
 
     /**
@@ -31,8 +32,9 @@ public class ArrayBasicsTests {
     * primitive array to List
     */
     @Test
-    void primitiveArrayToList() {
+    void primitiveArrayToListTest() {
         int a[] = {1, 2, 3, 4, 5};
+
         // TODO:
         var list = new ArrayList<>();
 
@@ -47,7 +49,8 @@ public class ArrayBasicsTests {
     void primitiveArrayToListA() {
         int a[] = {1, 2, 3, 4, 5};
 
-        var l1 = Arrays.stream(a).boxed().collect(Collectors.toList());
+        // var l1 = Arrays.stream(a).boxed().toList(); // immutable list, can NOT make reverse
+        var l1 = Arrays.stream(a).boxed().collect(Collectors.toList()); // mutable list
         l1.forEach(e -> System.out.print(e + " "));
         System.out.println();
 
@@ -55,7 +58,7 @@ public class ArrayBasicsTests {
         l1.forEach(e -> System.out.print(e + " "));
         System.out.println();
 
-        // legarcy  boxing
+        // legacy boxing
         var l2 = new ArrayList<Integer>();
         for (var e : a)
             l2.add(e);
@@ -105,9 +108,13 @@ public class ArrayBasicsTests {
     }
 
     /**
+     * IMPORTNT x3 !!!
+     * 
      * Quest:
      * reverse one dimensional array
      *    1  2  3   >>>   3  2  1
+     * 
+     * These are used in DP
      */
 
     @Test
@@ -119,40 +126,106 @@ public class ArrayBasicsTests {
     }
 
     @Test
-    void reverseArrayA() {
+    void reverseArrayOnePivotForInplaceTest() {
+        int[] a = {1, 2, 3, 4, 5};
+        int len = a.length;
+
+        System.out.println(Arrays.toString(a));
+    }
+
+    @Test
+    void reverseArrayOnePivotForInplace() {
         int[] a = {1, 2, 3, 4, 5};
         int len = a.length;
 
         // just swap item 0 with item n-1, 1 with n-2, ...
-        // begin index of behind half array = len/2 = last-index+1/2
+        // begin index of behind half array = len/2 = (<last-index>+1)/2
         for (int i = 0; i < len / 2; ++i) {
             // swap
-            int temp = a[i];
+            int t = a[i];
             a[i] = a[len - 1 - i];
-            a[len - 1 - i] = temp;
+            a[len - 1 - i] = t;
+        }
+
+        System.out.println(Arrays.toString(a));
+    }
+
+    // generic sample
+    public <T> void reverseArrayOnePivotInplaceGeneric(T[] a) {
+        var len = a.length;
+        for (int i = 0; i < len / 2; i++) {
+            T t = a[i];
+            a[i] = a[len - 1 - i];
+            a[len - 1 - i] = t;
+        }
+    }
+
+    @Test
+    void reverseArrayTwoPivotInplaceWhileTest() {
+        int[] a = {1, 2, 3, 4, 5};
+        var l=0;
+        var r=a.length-1;
+
+        // TODO:
+
+        System.out.println(Arrays.toString(a));
+    }
+
+    @Test
+    void reverseArrayTwoPivotInplaceWhile() {
+        int[] a = {1, 2, 3, 4, 5};
+        int l = 0;
+        int r = a.length -1;
+
+        // just swap item 0 with item n-1, 1 with n-2, ...
+        // begin index of behind half array = len/2 = (<last-index>+1)/2
+        while (l < r) {
+            var t = a[l];
+            a[l] = a[r];
+            a[r] = t;
+
+            l++;
+            r--;
         }
 
         System.out.println(Arrays.toString(a));
     }
 
     @Test
-    void reverseArrayB() {
+    void reverseArrayTwoPivotInplaceForTest() {
         int[] a = {1, 2, 3, 4, 5};
-        int len = a.length;
+
+        // TODO:
+
+        System.out.println(Arrays.toString(a));
+    }
+
+    @Test
+    void reverseArrayTwoPivotInplaceFor() {
+        int[] a = {1, 2, 3, 4, 5};
 
         // just swap item 0 with item last-1, 1 with last-2, ...
-        for (int l = 0, r = len - 1; l < r; l++, r--) {
+        for (int l = 0, r = a.length - 1; l < r; l++, r--) {
             // swap
-            int temp = a[l];
+            int t = a[l];
             a[l] = a[r];
-            a[r] = temp;
+            a[r] = t;
         }
 
         System.out.println(Arrays.toString(a));
     }
 
     @Test
-    void reverseArrayD() {
+    void reverseArrayStreamTest() {
+        int[] a = {1, 2, 3, 4, 5};
+
+        // TODO:
+        var l = new ArrayList<Integer>();
+        l.forEach(e -> System.out.print(e + " "));
+    }
+
+    @Test
+    void reverseArrayStream() {
         int[] a = {1, 2, 3, 4, 5};
 
         var l = Arrays.stream(a).boxed().collect(Collectors.toList());
