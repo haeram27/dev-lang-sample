@@ -12,19 +12,26 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class ArrayBasicsTests {
-    /**
+    /*
+        ##################
+        ## index in array
+        ##################
+
         ## antipode(opposite position) of index i
             antipode = {last-index}-i = (len-1)-i
-    
+
         ## length(number of element) from left index(lo) to right index(hi)
             len = hi-lo+1
-    
+
         ## mid index between two index for FOR loop less operator
             mid = (hi+lo+1)/2
-    
+
         ## mid index of entire array for FOR loop less operator
             mid = len/2
             for (int i=0; i<mid; i++)
+
+        ## loop to the mid of array
+            for (int l=0, r=len-1; l<r; l++, r--)
     */
 
     /**
@@ -60,8 +67,7 @@ public class ArrayBasicsTests {
 
         // legacy boxing
         var l2 = new ArrayList<Integer>();
-        for (var e : a)
-            l2.add(e);
+        for (var e : a) l2.add(e);
         l2.forEach(e -> System.out.print(e + " "));
         System.out.println();
     }
@@ -392,5 +398,4 @@ public class ArrayBasicsTests {
 
         System.out.println(Arrays.toString(c));
     }
-
 }
