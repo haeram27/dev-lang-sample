@@ -108,7 +108,35 @@ public class TreeTraversalTests {
             System.out.println(lca.data);
     }
 
-    // BFS == queue, Level Order Traversal
+    // left child only Traversal (recursive)
+    void leftChildOnlyTraversalA(Node root) {
+        // null check
+        if (root == null)
+            return;
+
+        // print data
+        System.out.print(root.data + " ");
+
+        // left child
+        if (root.left != null)
+            leftChildOnlyTraversalA(root.left);
+    }
+
+    // right child only Traversal (recursive)
+    void rightChildOnlyTraversalA(Node root) {
+        // null check
+        if (root == null)
+            return;
+
+        // print data
+        System.out.print(root.data + " ");
+
+        // right child
+        if (root.right != null)
+            rightChildOnlyTraversalA(root.right);
+    }
+
+    // BFS == queue, Level Order Traversal (loop-while)
     void levelOrderTraversalA(Node root) {
         if (root == null)
             return;
@@ -152,7 +180,7 @@ public class TreeTraversalTests {
         }
     }
 
-    // DFS == stack, preOrder, inOrder, postOrder
+    // DFS == stack, preOrder, inOrder, postOrder (loop-while)
     void dfsTraversalA(Node root) {
         if (root == null)
             return;
@@ -170,6 +198,7 @@ public class TreeTraversalTests {
         }
     }
 
+    // recursive
     void preOrderTraversalA(Node root) {
         if (root == null)
             return;
@@ -179,6 +208,7 @@ public class TreeTraversalTests {
         preOrderTraversalA(root.right);
     }
 
+    // recursive
     void inOrderTraversalA(Node root) {
         if (root == null)
             return;
@@ -188,6 +218,7 @@ public class TreeTraversalTests {
         inOrderTraversalA(root.right);
     }
 
+    // recursive
     void postOrderTraversalA(Node root) {
         if (root == null)
             return;
@@ -197,7 +228,7 @@ public class TreeTraversalTests {
         System.out.print(root.data + " ");
     }
 
-    // max number of link (count leaf from 0)
+    // max number of link (count leaf from 0) - (recursive)
     public int getMaxDepthA(Node root) {
         if (root == null)
             return 0;
@@ -212,7 +243,7 @@ public class TreeTraversalTests {
         return (l > r) ? l + 1 : r + 1;
     }
 
-    // max level of node (count leaf from 1)
+    // max level of node (count leaf from 1) - (recursive)
     public int getMaxLevelA(Node root) {
         if (root == null)
             return 0;
@@ -227,7 +258,7 @@ public class TreeTraversalTests {
         return (l > r) ? l + 1 : r + 1;
     }
 
-    //findLowestCommonAncester
+    //findLowestCommonAncester - (recursive)
     Node findLCAA(Node root, int n1, int n2) {
         // Base case 
         if (root == null)
@@ -263,6 +294,14 @@ public class TreeTraversalTests {
         root.left.right = new Node(5);
         root.right.left = new Node(6);
         root.right.right = new Node(7);
+
+        System.out.println("leftChildOnlyTraverse: ");
+        leftChildOnlyTraversalA(root);
+        System.out.println();
+
+        System.out.println("rightChildOnlyTraverse: ");
+        rightChildOnlyTraversalA(root);
+        System.out.println();
 
         System.out.println("Level order(bfs): ");
         levelOrderTraversalA(root);

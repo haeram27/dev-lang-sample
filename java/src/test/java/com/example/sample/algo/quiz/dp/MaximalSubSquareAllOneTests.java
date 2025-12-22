@@ -199,6 +199,138 @@ public class MaximalSubSquareAllOneTests {
         System.out.println();
     }
 
+    void printMaxSubSquareTestB(int[][] m) {
+        if (m == null || m.length == 0 || m[0].length == 0) {
+            System.out.println("입력된 행렬이 비어있습니다.");
+            return;
+        }
+
+        int rlen = m.length;
+        int clen = m[0].length;
+        int[][] s = new int[rlen][clen];
+        int max = 0, maxr = 0, maxc = 0;
+        int r, c;
+
+        // 1. 첫 번째 열 초기화
+        for (r = 0; r < rlen; r++) {
+            s[r][0] = m[r][0];
+            if (s[r][0] > max) {
+                max = s[r][0];
+                maxr = r;
+                maxc = 0;
+            }
+        }
+
+        // 2. 첫 번째 행 초기화
+        for (c = 1; c < clen; c++) {
+            s[0][c] = m[0][c];
+            if (s[0][c] > max) {
+                max = s[0][c];
+                maxr = 0;
+                maxc = c;
+            }
+        }
+
+        // 3. 나머지 DP 테이블(s) 채우기
+        for (r = 1; r < rlen; r++) {
+            for (c = 1; c < clen; c++) {
+                if (m[r][c] == 1) {
+                    // 왼쪽, 위, 왼쪽-위 대각선 값 중 가장 작은 값 + 1
+                    s[r][c] = Math.min(s[r - 1][c - 1], Math.min(s[r][c - 1], s[r - 1][c])) + 1;
+                } else {
+                    s[r][c] = 0;
+                }
+
+                // 4. 최대값 및 위치 갱신
+                if (s[r][c] > max) {
+                    max = s[r][c];
+                    maxr = r;
+                    maxc = c;
+                }
+            }
+        }
+
+        System.out.println(String.format("가장 큰 정사각형의 크기: %d x %d", max, max));
+        System.out.println(String.format("끝나는 위치: (row=%d, col=%d)", maxr, maxc));
+        System.out.println();
+
+        System.out.println("DP 테이블 (S):");
+        printm(s);
+
+        System.out.println("가장 큰 정사각형:");
+        // 5. 결과 정사각형 출력
+        for (r = maxr - max + 1; r <= maxr; r++) {
+            for (c = maxc - max + 1; c <= maxc; c++) {
+                System.out.print(m[r][c] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("-------------------------------------\n");
+    }
+
+    /*
+        공간 복잡도 개선 (O(M×N) → O(N))
+        현재 구현은 원본 행렬 m과 동일한 크기의 DP 테이블 s를 추가로 사용하고 있음, 따라서 **공간 복잡도는 O(M×N)**
+        하지만 DP 테이블을 채우는 공식을 다시 보면, s[r][c]를 계산할 때 필요한 것은 바로 윗 행(r-1)과 현재 행(r)의 데이터뿐이며, 그 이전 행(r-2, r-3, ...)의 데이터는 필요하지 않음
+        이 점을 이용하여 공간 사용량을 O(N) (여기서 N은 열의 개수)으로 최적화할 수 있음
+
+        코딩 테스트에서 이 문제를 만났을 때, 먼저 O(M×N) 공간을 사용하는 표준 DP 방식으로 푼 뒤, 면접관이 공간 최적화를 요구하면 O(N) 방식으로 개선하는 것이 가장 좋은 접근법
+        현재 작성하신 코드는 문제 해결을 위한 매우 훌륭하고 정확한 첫 번째 솔루션
+     */
+
+    void printMaxSubSquareTestOptimized(int[][] m) {
+        if (m == null || m.length == 0 || m[0].length == 0) {
+            System.out.println("입력된 행렬이 비어있습니다.");
+            return;
+        }
+
+        int rlen = m.length;
+        int clen = m[0].length;
+        int[] dp = new int[clen]; // 1D DP 배열
+        int max = 0, maxr = 0, maxc = 0;
+        int prev = 0; // 왼쪽 위 대각선 값을 저장할 변수 (s[r-1][c-1])
+
+        for (int r = 0; r < rlen; r++) {
+            for (int c = 0; c < clen; c++) {
+                int temp = dp[c]; // 현재 값을 임시 저장 (다음 루프에서 prev가 됨)
+                if (r == 0 || c == 0) {
+                    dp[c] = m[r][c];
+                } else if (m[r][c] == 1) {
+                    // dp[c]는 윗 행 값, dp[c-1]은 현재 행의 왼쪽 값, prev는 대각선 값
+                    dp[c] = Math.min(prev, Math.min(dp[c], dp[c - 1])) + 1;
+                } else {
+                    dp[c] = 0;
+                }
+                
+                if (dp[c] > max) {
+                    max = dp[c];
+                    // 끝나는 위치를 저장하려면 행 정보도 필요
+                    maxr = r;
+                    maxc = c;
+                }
+                prev = temp; // 대각선 값 업데이트
+            }
+        }
+
+        // 결과 출력
+        System.out.println(String.format("가장 큰 정사각형의 크기: %d x %d", max, max));
+        System.out.println(String.format("끝나는 위치: (row=%d, col=%d)", maxr, maxc));
+        System.out.println();
+
+        System.out.println("DP 테이블 (S):");
+        System.out.println(dp);
+
+        System.out.println("가장 큰 정사각형:");
+        // 5. 결과 정사각형 출력
+        for (int r = maxr - max + 1; r <= maxr; r++) {
+            for (int c = maxc - max + 1; c <= maxc; c++) {
+                System.out.print(m[r][c] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("-------------------------------------\n");
+    }
+
     /* Driver code */
     @Test
     void runAnswer() {
@@ -213,6 +345,7 @@ public class MaximalSubSquareAllOneTests {
             // @formatter:on
         };
         printMaxSubSquareTestA(m1);
+        printMaxSubSquareTestB(m1);
 
         int m2[][] = {
             // @formatter:off
@@ -235,5 +368,6 @@ public class MaximalSubSquareAllOneTests {
             // @formatter:on
         };
         printMaxSubSquareTestA(m2);
+        printMaxSubSquareTestB(m2);
     }
 }
