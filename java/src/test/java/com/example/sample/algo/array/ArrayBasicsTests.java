@@ -18,13 +18,14 @@ public class ArrayBasicsTests {
         ##################
 
         ## antipode(opposite position) of index i
-            antipode = {last-index}-i = (len-1)-i
+            antipode = {lastIndex}-i = (len-1)-i
 
         ## length(number of element) from left index(lo) to right index(hi)
             len = hi-lo+1
 
         ## mid index between two index for FOR loop less operator
             mid = (hi+lo+1)/2
+            for (int i=0; i<mid; i++)
 
         ## mid index of entire array for FOR loop less operator
             mid = len/2
@@ -272,10 +273,30 @@ public class ArrayBasicsTests {
         System.out.println(Arrays.toString(b));
     }
 
+    /*
+        Comparator::compare() and Comparable::compareTo() example for Integer class
+            int compareTo(Integer anotherInteger) {
+                return compare(this.value, anotherInteger.value);
+            }
+
+            int compare(int x, int y) {
+                return (x < y) ? -1 : ((x == y) ? 0 : 1);
+            }
+    */
+
     @Test
     public void arrayReverseSortTestA() {
         int[] a = {5, 3, 2, 4, 1};
+        // Collections.reverseOrder() ==  ((o1, o2) -> o2.compareTo(o1))
         int[] b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
+
+        // sort - natural order Comparator.compare() lambda
+        // int[] b = Arrays.stream(a).boxed().sorted((o1, o2) -> o1.compareTo(o2)).mapToInt(Integer::intValue).toArray();
+        // int[] b = Arrays.stream(a).boxed().sorted().mapToInt(Integer::intValue).toArray();
+
+        // sort - reverse order Comparator.compare() lambda
+        // int[] b = Arrays.stream(a).boxed().sorted((o1, o2) -> o2.compareTo(o1)).mapToInt(Integer::intValue).toArray();
+        // int[] b = Arrays.stream(a).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
 
         System.out.println(Arrays.toString(b));
     }
