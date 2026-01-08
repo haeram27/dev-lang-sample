@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+// DFS traverse graph with stack
 public class M_DFSTests {
     class Graph {
         private int numberOfVertex;

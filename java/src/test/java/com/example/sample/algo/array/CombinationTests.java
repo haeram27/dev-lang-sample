@@ -1,7 +1,9 @@
 package com.example.sample.algo.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -118,30 +120,9 @@ public class CombinationTests extends EvaluatedTimeTests {
         System.out.println(set.size());
     }
 
-
     /* QUIZ */
     @Test
-    public void fastestTwoIndexCombinationInSingleArray() {
-        // recursive way is so slow than just for loop
-        int len = 4;
-        // TODO: print all combination of two index
-    }
-
-    /* ANSWER */
-    @Test
-    public void fastestTwoIndexCombinationInSingleArrayA() {
-        // recursive way is so slow than just for loop
-        int len = 4;
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                System.out.println(i + " " + j);
-            }
-        }
-    }
-
-    /* QUIZ */
-    @Test
-    public void fastestTwoIndexCombinationInSingleArrayMatching() {
+    public void fastestCheckTwoIndexCombinationInSingleArrayMatching() {
         // find all matches in half and little bit more loop 
         int len = 4;
         // TODO: print all combination of two index
@@ -149,13 +130,64 @@ public class CombinationTests extends EvaluatedTimeTests {
 
     /* ANSWER */
     @Test
-    public void fastestTwoIndexCombinationInSingleArrayMatchingA() {
+    public void fastestCheckTwoIndexCombinationInSingleArrayMatchingA() {
         // find all matches in half and little bit more loop 
         int len = 4;
         for (int i = 0; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
                 System.out.println(i + ", " + j);
                 System.out.println((len - 1 - i) + ", " + (len - 1 - j));
+                System.out.println("---");
+            }
+        }
+    }
+
+    void printAllSubsets(int[] arr) {
+        List<Integer> currentSubset = new ArrayList<>();
+        findAllSubsetsRecursive(arr, 0, currentSubset);
+    }
+
+    void findAllSubsetsRecursive(int[] arr, int startIndex, List<Integer> currentSubset) {
+        System.out.println("--- " + startIndex + currentSubset);
+
+        // 배열의 끝까지 탐색
+        for (int i = startIndex; i < arr.length; i++) {
+            // 현재 요소를 부분집합에 추가
+            currentSubset.add(arr[i]);
+
+            // 다음 요소를 가지고 재귀 호출
+            findAllSubsetsRecursive(arr, i + 1, currentSubset);
+            System.out.println("+++ " + currentSubset);
+            // 백트래킹: 다음 경우의 수를 위해 마지막에 추가했던 요소 제거
+            currentSubset.remove(currentSubset.size() - 1);
+        }
+    }
+
+    @Test
+    void realSubsetTest() {
+        int[] a = {1, 2, 3};
+        printAllSubsets(a);
+    }
+
+
+    /**
+     * The reason why use recursive call instead loop (for) choice depth
+     * It needs each loop (for) and variable per depth to get each out[depth] choice  
+     */
+    @Test
+    void combinationWithLoop_FixedR() {
+        String[] data = {"a", "b", "c", "d", "e"};
+        int n = data.length;
+        int r = 3; // 3개를 뽑는 조합
+
+        // r = 3 이므로 3개를 뽑는 조합
+        // 뽑는 대상이 3개 이므로 변수 3개
+        // 변수 3개이므로 3중 for 루프 사용
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    System.out.println(data[i] + " " + data[j] + " " + data[k]);
+                }
             }
         }
     }

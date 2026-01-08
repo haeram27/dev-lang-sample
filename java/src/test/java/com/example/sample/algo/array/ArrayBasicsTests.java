@@ -331,7 +331,7 @@ public class ArrayBasicsTests {
 
     @ParameterizedTest
     @MethodSource("provideLength")
-    void allSubSet(int len) {
+    void allContiguousSubarray(int len) {
         int count = 0;
         int s, e; // e is not included in subset(substring)
 
@@ -341,40 +341,15 @@ public class ArrayBasicsTests {
     /* Answer */
     @ParameterizedTest
     @MethodSource("provideLength")
-    void allSubSetA(int len) {
+    void allContiguousSubarrayA(int len) {
         int count = 0;
 
         // [s, e) = {s <= x < e}
-        // s is opened(NOT include) index
+        // s is closed(inclusive) index
         for (int s = 0; s < len; ++s) {
-            // e is closed(NOT include) index
+            // e is opend(non-inclusive) index
             for (int e = s + 1; e < len + 1; ++e) {
                 System.out.println(String.format("%d, %d", s, e));
-                count++;
-            }
-        }
-
-        System.out.println(count);
-    }
-
-    @ParameterizedTest
-    @MethodSource("provideLength")
-    void twoIndexCombination(int len) {
-        int count = 0;
-        // TODO:
-
-        System.out.println(count);
-    }
-
-    /* Answer */
-    @ParameterizedTest
-    @MethodSource("provideLength")
-    void twoIndexCombinationA(int len) {
-        int count = 0;
-
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                System.out.println(String.format("%d, %d", i, j));
                 count++;
             }
         }
@@ -403,12 +378,18 @@ public class ArrayBasicsTests {
         var alen = a.length;
         var blen = b.length;
         int[] c = new int[alen + blen];
+        // i = index of a
+        // j = index of b
+        // k = index of c
         int i = 0, j = 0, k = 0;
 
+        // push until one of a or b is exhausted
         while (i < a.length && j < b.length) {
             c[k++] = (a[i] < b[j]) ? a[i++] : b[j++];
         }
 
+        // one of i and j is reached to max(length)
+        // so push remaining a or b into c
         while (i < a.length) {
             c[k++] = a[i++];
         }

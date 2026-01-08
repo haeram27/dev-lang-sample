@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+// BFS traverse graph with queue
 public class M_BFSTests {
     /* directional graph class using adjacency list */
     class Graph {
