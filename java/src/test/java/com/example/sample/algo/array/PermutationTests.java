@@ -48,7 +48,7 @@ public class PermutationTests extends EvaluatedTimeTests {
     * @param r         round (number of output elements)
     * @param depth     index of out[](permutation), if depth==2 then 0~(depth-1) index is filled in out[]
     *                  index i on for() statement is index of data[] to be candidate of out[depth]
-    * @param visited   check consumed element(index) of data[] while traversal
+    * @param visited   mark consumed index of data[] while traversal, visited is used to prevent choice of data[index] already consumed
     */
     public <T> void permutationA(T[] data, T[] out, int r, int depth, boolean[] visited) {
         //System.out.println(String.format("depth=%d, start=%d", depth, start));
@@ -91,6 +91,8 @@ public class PermutationTests extends EvaluatedTimeTests {
     /* Collect combinations using HashSet*/
     public void permutationC(String[] data, String[] out, int r, int depth, boolean[] visited, HashSet<String> set) {
         //System.out.println(String.format("depth=%d, start=%d", depth, start));
+
+        // recursive SHOULD have break point(return)
         if (depth == r) {
             set.add(Arrays.stream(out).collect(Collectors.joining()));
             return;
@@ -106,6 +108,7 @@ public class PermutationTests extends EvaluatedTimeTests {
             if (!visited[i]) {
                 out[depth] = data[i];
                 visited[i] = true; // data[i] can NOT be selected in next depth
+                // use recursive to select item of next depth(depth+1)
                 permutationC(data, out, r, depth + 1, visited, set);
                 visited[i] = false; // data[i] can be selected again in previous depth
             }

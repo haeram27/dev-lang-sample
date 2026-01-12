@@ -49,8 +49,8 @@ public class CombinationTests extends EvaluatedTimeTests {
     * @param data      element list (size >= r)
     * @param out       result of combination (size = r)
     * @param r         round (number of output elements)
-    * @param depth     current level of combination, if depth==2 then 0~(depth-1) index is filled in out array 
-    * @param start     start is index of data to be candidate of out[depth]
+    * @param depth     index of out[], current level of combination, if depth==n then '0 ~ (n-1)' indices are filled in out array
+    * @param start     start is index of data[] to be candidate of out[depth], start is used to prevent choice of index of data[] already consumed
     */
     public <T> void combinationA(T[] data, T[] out, int r, int depth, int start) {
         //System.out.println(String.format("depth=%d, start=%d", depth, start));
@@ -61,12 +61,15 @@ public class CombinationTests extends EvaluatedTimeTests {
 
         /**
          * depth : index of out[], level of combination selecting tree
-         * i : index for data[] to be out[depth], i can be controlled by for() and start
+         * i : index for data[] to be out[depth], it begins with "start" so that earlier selected indices (lower indices than start) are excluded at this turn
          */
         for (int i = start; i < data.length; i++) {
-            // data[i] is selected for current depth
+            // this is key of a this function data[i] is selected for current out[depth]
             out[depth] = data[i];
-            // data[i] can NOT be select in next depth because pass i+1 as start
+
+            // let's find out[depth+1]
+            // data[i] can NOT be selected at next depth because i is selected at this time
+            // so pass i+1 as start for next recursive
             combinationA(data, out, r, depth + 1, i + 1);
         }
     }
@@ -88,6 +91,8 @@ public class CombinationTests extends EvaluatedTimeTests {
     /* Collect combinations using HashSet*/
     public void combinationC(String[] data, String[] out, int r, int depth, int start, HashSet<String> set) {
         //System.out.println(String.format("depth=%d, start=%d", depth, start));
+
+        // recursive SHOULD have break point(return)
         if (depth == r) {
             set.add(Arrays.stream(out).collect((Collectors.joining())));
             return;
@@ -100,6 +105,8 @@ public class CombinationTests extends EvaluatedTimeTests {
         for (int i = start; i < data.length; i++) {
             // data[i] is selected for current depth
             out[depth] = data[i];
+
+            // use recursive to select item of next depth(depth+1)
             // data[i] can NOT be select in next depth because pass i+1 as start
             combinationC(data, out, r, depth + 1, i + 1, set);
         }

@@ -1,5 +1,6 @@
 package com.example.sample.algo.quiz.map;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,10 +30,16 @@ public class AlphabetCountTests {
             m.put(c, m.getOrDefault(c, 0) + 1);
         }
 
+        // stream
         var list = m.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
         System.out.println(list.get(list.size() - 1).getValue() - list.get(0).getValue());
         //System.out.println(list.stream().max(Map.Entry.comparingByValue()).orElse(Map.entry("null", 0)).getValue());
         //System.out.println(list.stream().min(Map.Entry.comparingByValue()).orElse(Map.entry("null", 0)).getValue());
-    }
 
+        // lambda
+        ArrayList<Map.Entry<Character, Integer>> list2 = new ArrayList<>(m.entrySet());
+        list2.sort(Map.Entry.comparingByValue());
+        // list2.sort((o1, o2) -> o1.getValue().compareTo(o2.getValue()));
+        System.out.println(list2.get(list2.size() - 1).getValue() - list2.get(0).getValue());
+    }
 }

@@ -8,6 +8,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+/*
+ * https://namu.wiki/w/%EB%B0%B0%EB%82%AD%20%EB%AC%B8%EC%A0%9C
+ * https://gazelle-and-cs.tistory.com/64
+ */
+
 public class O1KnapsackTests {
 
     private static Stream<Arguments> argSupplier() {
