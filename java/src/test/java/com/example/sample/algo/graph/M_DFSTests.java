@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-// DFS traverse graph with stack
+// DFS(Depth First Search) traverse graph with stack(same with recursive)
 public class M_DFSTests {
     class Graph {
         private int numberOfVertex;
