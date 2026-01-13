@@ -1,9 +1,8 @@
 package com.example.sample.algo.quiz.map;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,20 +34,24 @@ public class WordGroupingTests {
 
     @Test
     void wordGroupingTestA() {
-        Map<String, List<String>> m = new LinkedHashMap<>();
+        var m = new HashMap<String, List<String>>();
+        var tokens = s1.split("\\s+");
 
-        // StringTokenizer st = new StringTokenizer(s2);
-        // while (st.hasMoreTokens()) {
-        //     System.out.println(st.nextToken());
-        // }
-
-        String[] tokens = s1.split("[\\s]+");
-        for (String t : tokens) {
+        for (var t : tokens) {
             if (!t.isBlank()) {
-                // var k = t.chars().mapToObj(Character::toString).sorted().collect(Collectors.joining());
-                char[] ar = t.toCharArray();
-                Arrays.sort(ar);
-                var k = new String(ar);
+                /* key = string sort by alphabet order
+                    # 1 - String of each Character, simple and easiest
+                    var k = Arrays.stream(t.split("")).sorted().collect(Collectors.joining());
+
+                    # 2 - chars()
+                    var k = t.chars().mapToObj(Character::toString).sorted().collect(Collectors.joining());
+
+                    # 3 - toCharArray(), fastest!
+                    char[] ar = t.toCharArray();
+                    Arrays.sort(ar);
+                    var k = new String(ar);
+                 */
+                var k = Arrays.stream(t.split("")).sorted().collect(Collectors.joining());
 
                 if (m.containsKey(k)) {
                     m.get(k).add(t);
@@ -58,12 +61,7 @@ public class WordGroupingTests {
             }
         }
 
-        m.forEach((k, v) -> {
-            for (var t : v) {
-                System.out.print(t + " ");
-            }
-            System.out.println();
-        });
+        m.forEach((k, v) -> System.out.println(k +": " + v));
     }
 
 }
