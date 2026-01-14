@@ -48,7 +48,7 @@ public class MessageDigestTests {
         byte[] encodedHash = digest.digest(input.getBytes());
         return Base64.getEncoder().encodeToString(encodedHash);
     }
-    
+
     public static byte[] getSecureRandomSalt() {
         var saltString = Integer.valueOf(new SecureRandom().nextInt()).toString();
         log.info("salt: " + saltString);

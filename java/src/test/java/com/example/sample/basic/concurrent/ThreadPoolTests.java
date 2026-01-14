@@ -19,22 +19,22 @@ public class ThreadPoolTests {
 
     /*
         https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/package-summary.html
-    
+
         # java.util.concurrent Queues
         BlockingQueue? When queue is empty, queue make consumer Thread as waiting status.
         Non-BlockingQueue(ConcurrentLinkedQueue)? When queue is empty, queue returns null instead making consumer thread as waiting status.
-    
-        // Blocking queue    
+
+        // Blocking queue
         ArrayBlockingQueue(M): blocking, bounded queue. size shoud be initialized
         LinkedBlockingQueue(M): blocking, selectively unbounded queue. size is NOT limited by using list arch
         SynchronousQueue: blocking, 0 size queue. each insertion operation should wait remove operation of consumer thread.
         PriorityBlockingQueue: blocking,
         DelayQueue: blocking, make a given delay before take() each element
-    
+
         // Non-Blocking queue
         ConcurrentLinkedQueue(M): non-blocking, unbounded
         ConcurrentLinkedDeque: non-blocking, unbounded
-    
+
         # sec
         1 (sec) = 1_000 (milli-sec) = 1_000_000 (micro-sec) = 1_000_000_000 (nano-sec)
     */

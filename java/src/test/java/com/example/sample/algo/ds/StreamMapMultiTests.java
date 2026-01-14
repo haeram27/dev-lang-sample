@@ -53,7 +53,7 @@ public class StreamMapMultiTests {
             }
         }).forEach(System.out::print); // "a" "b" "c" " " "1" "2" "3" "d" "e" "f" " " "4" "5" "6"
         System.out.println();
-        
+
         String[] additionalSentences = {"Hello World!", "Java 17", "Test 123"};
         Stream.of(additionalSentences).mapMulti((sentence, consumer) -> {
             for (char character : sentence.toCharArray()) {

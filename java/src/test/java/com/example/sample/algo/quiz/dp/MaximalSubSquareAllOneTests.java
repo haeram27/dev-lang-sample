@@ -98,7 +98,7 @@ public class MaximalSubSquareAllOneTests {
     /**
     Solution:
     https://www.geeksforgeeks.org/maximum-size-sub-matrix-with-all-1s-in-a-binary-matrix/
-    
+
     1) Construct a sum matrix S[R][C] for the given M[R][C].
      a) Copy first row and first columns as it is from M[][] to S[][]
      b) For other entries, use following expressions to construct S[][]
@@ -108,16 +108,16 @@ public class MaximalSubSquareAllOneTests {
             S[i][j] = min(S[i][j-1], S[i-1][j], S[i-1][j-1]) + 1
     2) Find the maximum entry in S[R][C]
     3) Using the value and coordinates of maximum entry in S[i], print sub-matrix of M[][]
-    
+
     figure1. minimal square
     S[i-1][j-1] | S[i][j-1]
     ------------------------
     S[i-1][j]   | S[i][j]
-    
+
     endxy position of minimal subsqure = S[i][j]
     non-endxy position of minimal subsqure = S[i][j-1], S[i-1][j], S[i-1][j-1]
-    
-    
+
+
     if S[i][j] > 0 then M[i][j] == 1
     if S[i][j] == N then min(S[i][j-1], S[i-1][j], S[i-1][j-1]) == N-1
     if S[i][j] == 1 then S[i][j-1], S[i-1][j], S[i-1][j-1] >= 0 
@@ -127,7 +127,7 @@ public class MaximalSubSquareAllOneTests {
     if S[i][j] == 3 then S[i][j-1], S[i-1][j], S[i-1][j-1] >= 2
               this means minimal square's all non-endxy position has at least 2
     S[i][j] >= N (N>=2) means start-point::S[i-(N-1)][j-(N-1)] end-point::S[i][j] square fills 1
-    
+
     given:
     M[][] = {{0, 1, 1, 0, 1},
          {1, 1, 0, 1, 0},
@@ -135,7 +135,7 @@ public class MaximalSubSquareAllOneTests {
          {1, 1, 1, 1, 0},
          {1, 1, 1, 1, 1},
          {0, 0, 0, 0, 0}};
-    
+
     For the given M[][] in the above example, constructed S[][] would be:
        0  1  1  0  1
        1  1  0  1  0
@@ -301,7 +301,7 @@ public class MaximalSubSquareAllOneTests {
                 } else {
                     dp[c] = 0;
                 }
-                
+
                 if (dp[c] > max) {
                     max = dp[c];
                     // 끝나는 위치를 저장하려면 행 정보도 필요

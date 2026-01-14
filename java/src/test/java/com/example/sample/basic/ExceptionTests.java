@@ -22,5 +22,5 @@ public class ExceptionTests {
             log.error("## catch1: ", e);
         }
     }
-    
+
 }

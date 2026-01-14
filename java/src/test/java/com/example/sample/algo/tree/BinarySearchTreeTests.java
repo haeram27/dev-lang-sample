@@ -49,7 +49,7 @@ public class BinarySearchTreeTests {
         5        20
       /   \    /
      1     7  15   
-    @formatter: on    
+    @formatter: on
     */
     @Test
     public void run() {
@@ -181,7 +181,7 @@ public class BinarySearchTreeTests {
         5        20
       /   \    /
      1     7  15   
-    @formatter: on    
+    @formatter: on
     */
     @Test
     public void runA() {

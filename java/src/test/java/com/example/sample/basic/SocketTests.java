@@ -112,6 +112,6 @@ public class SocketTests extends EvaluatedTimeTests {
 
     @Test
     public void tlsSocketConnTest() {
-        log.info("{}", validateSocketConnection("10.101.10.1", 6514, ProtocolType.TCP_OVER_SSL));        
+        log.info("{}", validateSocketConnection("10.101.10.1", 6514, ProtocolType.TCP_OVER_SSL));
     }
 }

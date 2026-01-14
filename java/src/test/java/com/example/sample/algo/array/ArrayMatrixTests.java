@@ -12,13 +12,13 @@ public class ArrayMatrixTests {
     /**
         ## antipode(opposite position) of index
             antipode = len-1-i
-    
+
         ## length(number of element) from left index(lo) to right index(hi)
             len = hi-lo+1
-    
+
         ## mid index between two index
             mid = (hi+lo+1)/2
-    
+
         ## mid index of entire array
             mid = len/2
     */
@@ -149,7 +149,7 @@ public class ArrayMatrixTests {
      * flip row(with line --) of matrix(two-dimensional array)
      * exchange top and bottom rows
      *         cols
-     *        1  2  3         7  8  9    
+     *        1  2  3         7  8  9
      *  rows [4][5][6]  >>>  [4][5][6]
      *        7  8  9         1  2  3
      */
@@ -187,7 +187,7 @@ public class ArrayMatrixTests {
      * flip cols(with line |) of NxM matrix(two-dimensional array)
      * exchange left and right columns
      *         cols
-     *        1 [2] 3         3 [2] 1    
+     *        1 [2] 3         3 [2] 1
      *  rows  4 [5] 6   >>>   6 [5] 4
      *        7 [8] 9         9 [8] 7
      */
@@ -225,7 +225,7 @@ public class ArrayMatrixTests {
      * clockwise rotate of NxN matrix(two-dimensional array)
      * rotate NxN array as clockwise direction
      *         cols
-     *        1  2  3         7  4  1    
+     *        1  2  3         7  4  1
      *  rows  4  5  6   >>>   8  5  2
      *        7  8  9         9  6  3
      *
@@ -339,7 +339,7 @@ public class ArrayMatrixTests {
      * reverse-clockwise rotate of NxN matrix(two-dimensional array)
      * rotate NxN array as revserse-clockwise direction
      *         cols
-     *        1  2  3         3  6  9    
+     *        1  2  3         3  6  9
      *  rows  4  5  6   >>>   2  5  8
      *        7  8  9         1  4  7
      * 

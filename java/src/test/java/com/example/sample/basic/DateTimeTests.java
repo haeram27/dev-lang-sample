@@ -390,7 +390,7 @@ public class DateTimeTests extends EvaluatedTimeTests {
         System.out.println("OffsetDateTime.formatter: " + odt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
 
         ZoneId laZone = ZoneId.of("America/Los_Angeles");
-        
+
         // DST rule NOT applied
         ZonedDateTime toZonedDateTime = odt.toZonedDateTime();
 

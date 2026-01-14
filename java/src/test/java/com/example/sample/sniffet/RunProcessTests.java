@@ -2,7 +2,9 @@ package com.example.sample.sniffet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import org.junit.jupiter.api.Test;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,10 +43,10 @@ public class RunProcessTests {
                 // wait until process is exited
                 exitcode = process.waitFor();
                 log.info("exitcode="+exitcode);
-        
+
                 if (exitcode != 0) {
                     log.error("Error: failed to run process");
-                }        
+                }
             }
         } catch (Exception e) {
             log.error("Exception: failed to run process", e);

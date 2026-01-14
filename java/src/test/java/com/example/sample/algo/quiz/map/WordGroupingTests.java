@@ -12,12 +12,12 @@ public class WordGroupingTests {
     /* 
         make group of token consist of same alphabets
         and print each group in each line
-        
+
         output for s1 ::
         final fnial fanil
         proxy pxory
         abyss
-    
+
         output for s2 ::
         fired fried 
         gainly 

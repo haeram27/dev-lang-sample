@@ -54,7 +54,7 @@ public class InsertionSortTests {
 
             // set k(key) to last j position (== j+1)
             // if j for statement is not executed then j+1 == i
-            // if j for statement is executed at least once last j will be j+1            
+            // if j for statement is executed at least once last j will be j+1
             a[j + 1] = k;
         }
 
