@@ -40,13 +40,13 @@ public class WordGroupingTests {
         for (var t : tokens) {
             if (!t.isBlank()) {
                 /* key = string sort by alphabet order
-                    # 1 - String of each Character, simple and easiest
+                    # 1 - String stream, simple and easiest
                     var k = Arrays.stream(t.split("")).sorted().collect(Collectors.joining());
 
-                    # 2 - chars()
+                    # 2 - IntStream
                     var k = t.chars().mapToObj(Character::toString).sorted().collect(Collectors.joining());
 
-                    # 3 - toCharArray(), fastest!
+                    # 3 - char[] Array, fastest!
                     char[] ar = t.toCharArray();
                     Arrays.sort(ar);
                     var k = new String(ar);

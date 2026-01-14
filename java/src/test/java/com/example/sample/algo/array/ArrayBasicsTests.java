@@ -321,17 +321,17 @@ public class ArrayBasicsTests {
     private static Stream<Arguments> provideLength() {
         // @formatter:off
         return Stream.of(
-            Arguments.of(3),  // AllSubSet(6), Comb(3)
-            Arguments.of(4),  // AllSubSet(10), Comb(6)
-            Arguments.of(5),  // AllSubSet(15), Comb(10)
-            Arguments.of(6),  // AllSubSet(21), Comb(15)
-            Arguments.of(7)); // AllSubSet(28), Comb(21)
+            Arguments.of(3),  // AllContiguousSubArray(6), Comb(3)
+            Arguments.of(4),  // AllContiguousSubArray(10), Comb(6)
+            Arguments.of(5),  // AllContiguousSubArray(15), Comb(10)
+            Arguments.of(6),  // AllContiguousSubArray(21), Comb(15)
+            Arguments.of(7)); // AllContiguousSubArray(28), Comb(21)
         // @formatter:on
     }
 
     @ParameterizedTest
     @MethodSource("provideLength")
-    void allContiguousSubarray(int len) {
+    void allContiguousSubArray(int len) {
         int count = 0;
         int s, e; // e is not included in subset(substring)
 
@@ -341,14 +341,14 @@ public class ArrayBasicsTests {
     /* Answer */
     @ParameterizedTest
     @MethodSource("provideLength")
-    void allContiguousSubarrayA(int len) {
+    void allContiguousSubArrayA(int len) {
         int count = 0;
 
         // [s, e) = {s <= x < e}
         // s is closed(inclusive) index
         for (int s = 0; s < len; ++s) {
             // e is opend(non-inclusive) index
-            for (int e = s + 1; e < len + 1; ++e) {
+            for (int e = s + 1; e < len+1; ++e) {
                 System.out.println(String.format("%d, %d", s, e));
                 count++;
             }
