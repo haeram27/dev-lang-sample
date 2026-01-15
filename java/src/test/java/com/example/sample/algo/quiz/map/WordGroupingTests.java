@@ -1,6 +1,5 @@
 package com.example.sample.algo.quiz.map;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +33,17 @@ public class WordGroupingTests {
 
     @Test
     void wordGroupingTestA() {
+        var m = Stream.of(s1.split("\\s++")).collect(
+            // make Map<String, List<String>>
+            Collectors.groupingBy(
+                // make key using stream element
+                s -> Stream.of(s.split("")).sorted().collect(Collectors.joining())
+            ));
+        m.forEach((k, v) -> System.out.println(k +": " + v));
+    }
+
+    @Test
+    void wordGroupingTestB() {
         var m = new HashMap<String, List<String>>();
         var tokens = s1.split("\\s+");
 
@@ -41,7 +51,7 @@ public class WordGroupingTests {
             if (!t.isBlank()) {
                 /* key = string sort by alphabet order
                     # 1 - String stream, simple and easiest
-                    var k = Arrays.stream(t.split("")).sorted().collect(Collectors.joining());
+                    var k = Stream.of(t.split("")).sorted().collect(Collectors.joining());
 
                     # 2 - IntStream
                     var k = t.chars().mapToObj(Character::toString).sorted().collect(Collectors.joining());
@@ -51,7 +61,7 @@ public class WordGroupingTests {
                     Arrays.sort(ar);
                     var k = new String(ar);
                  */
-                var k = Arrays.stream(t.split("")).sorted().collect(Collectors.joining());
+                var k = Stream.of(t.split("")).sorted().collect(Collectors.joining());
 
                 if (m.containsKey(k)) {
                     m.get(k).add(t);
@@ -63,5 +73,4 @@ public class WordGroupingTests {
 
         m.forEach((k, v) -> System.out.println(k +": " + v));
     }
-
 }

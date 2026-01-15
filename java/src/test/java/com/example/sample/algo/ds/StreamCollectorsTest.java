@@ -80,8 +80,16 @@ public class StreamCollectorsTest {
     }
 
     /**
-     * Collectors.groupingBy(delimiter)
-     * making Map<K, List<V>>
+     * Collectors.groupingBy() -> returns Map<K, List<T>>
+     * https://devdocs.io/openjdk~21/java.base/java/util/stream/collectors#groupingBy(java.util.function.Function)
+     * 
+     * Map<K,List<T>> groupingBy(classifier)
+     * Map<K, D<T>> groupingBy(classifier, downstream)
+     * Map<K, D<T>> groupingBy(classifier, mapFactory, downstream)
+     * 
+     * classifier = keyMaker by value(= T = stream item)
+     * downstream = D Container, default is List but can be Set or Queue etc...
+     * mapFactory = Type of Map, default is HashMap but can be LinkedHashMap etc.. 
      */
     @Test
     public void groupingByTest() {
@@ -94,19 +102,13 @@ public class StreamCollectorsTest {
 
         // Map<String, List<String>>
         String s1 = new String("final fnial fanil proxy pxory abyss");
-        String[] a1 = s1.split("\\s+");
-        Arrays.asList(a1).stream().collect(
+        Arrays.stream(s1.split("\\s+")).collect(
         // @formatter:off
             Collectors.groupingBy(
-                // classifier == keyMapper, function to return map key for each unit of stream
-                //               and each unit of stream becomes value of map
-                str -> {
-                    var ar = str.toCharArray();
-                    Arrays.sort(ar);
-                    return String.valueOf(ar);
-                }
-                // str -> Stream.of(str.split("")).sorted().collect(Collectors.joining())
-                // str -> str.chars().sorted().collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString()
+                // classifier == keyMapper, keyMaker
+                // classifier returns key of map made using value(each stream element)
+                // classifier is function to return map key for each unit of stream and each unit of stream becomes value of map
+                str -> Stream.of(str.split("")).sorted().collect(Collectors.joining())
             )
         // @formatter:on
         ).forEach((k, v) -> {

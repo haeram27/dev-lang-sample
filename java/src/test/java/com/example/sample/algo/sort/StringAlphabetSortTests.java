@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 public class StringAlphabetSortTests {
     String s = "abcdeghijklmn";
     String s1 = "abcdeg hijklmn";
+    String w = "a e b d c";
 
     /*
         String Stream of each character : easiest and simple
@@ -24,6 +25,9 @@ public class StringAlphabetSortTests {
         System.out.println(sorted);
 
         sorted = Stream.of(s.split("")).sorted(Collections.reverseOrder()).collect(Collectors.joining());
+        System.out.println(sorted);
+
+        sorted = Stream.of(w.split("\\s+")).sorted(Collections.reverseOrder()).collect(Collectors.joining());
         System.out.println(sorted);
     }
 
