@@ -6,8 +6,11 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 public class StreamTests {
-    /** Methods to make Stream
-        # Stream generate
+    /** 
+        Methods to make Stream
+        https://devdocs.io/openjdk~21/java.base/java/util/stream/stream
+
+        # Stream INITIATE
             ## primitive
             IntStream IntStream.of(int t)
             IntStream IntStream.of(int... values)
@@ -46,7 +49,7 @@ public class StreamTests {
             Stream<T> Stream.builder().add(T t).build()
             Stream<T> Stream.concat(Stream<? extends T> a, Stream<? extends T> b)
 
-        # Stream.intermediate operations
+        # Stream.INTERMEDIATE operations
             <R> Stream<R>  map(Function<? super T,? extends R> mapper)
             DoubleStream   mapToDouble(ToDoubleFunction<? super T> mapper)
             IntStream      mapToInt(ToIntFunction<? super T> mapper)
@@ -64,17 +67,17 @@ public class StreamTests {
             Stream<T>      sorted(Comparator<? super T> comparator)
 
             Stream<T>      distinct()
-            Stream<T>      filter(Predicate<? super T> predicate)
 
-            Stream<T>      skip(long n)
-            Stream<T>      limit(long maxSize)
+            Stream<T>      peek(Consumer<? super T> action)  ==  intermediate forEach()
 
-            Stream<T>      peek(Consumer<? super T> action)
+            Stream<T>      skip(long n)           = discard n from first
+            Stream<T>      limit(long maxSize)    = preserve n from first
 
-            Stream<T>      takeWhile(Predicate<? super T> predicate)
-            Stream<T>      dropWhile(Predicate<? super T> predicate)
+            Stream<T>      filter(Predicate<? super T> predicate)     = take all `true of predicate`
+            Stream<T>      takeWhile(Predicate<? super T> predicate)  = preserve items `true of predicate` from beginning and stop taking when meet `false of predicate`
+            Stream<T>      dropWhile(Predicate<? super T> predicate)  = discard items `true of predicate` from beginning and stop dropping when meet `false of predicate`
 
-        # Stream.terminal operations
+        # Stream.TERMINAL operations
             <R,A> R        collect(Collector<? super T,A,R> collector)
             <R> R          collect(Supplier<R> supplier, BiConsumer<R,? super T> accumulator, BiConsumer<R,R> combiner)
 
@@ -113,29 +116,53 @@ public class StreamTests {
         list.stream().forEach(System.out::println);
         // 0 1 2 3 4
 
+        System.out.println("map() ---------------------");
         // transform stream elements
         list.stream().map(i -> i * i).forEach(System.out::println);
         // 0 1 4 9 16
 
+        System.out.println("limit() ---------------------");
         // discard tail of stream
         list.stream().limit(4).forEach(System.out::println);
         // 0
 
+        System.out.println("skip() ---------------------");
         // discard head of stream
         list.stream().skip(1).forEach(System.out::println);
         // 1 2 3 4
 
+        System.out.println("peek() ---------------------");
+        // peek(intermediate op) == forEach(terminal op)
+        list.stream().peek(System.out::println).forEach(System.out::println);
+
+        System.out.println("filter() ---------------------");
         // select elements using Predicate
         list.stream().filter(i -> i <= 1).forEach(System.out::println);
         // 0 1
 
-        list.stream().filter(i -> i % 2 == 0).forEach(System.out::println);
-        // 0 2 4
+        System.out.println("filter() vs takeWhile() ---------------------");
+        System.out.println("filter() ---------------------");
+        Stream.of(2,4,5,8,6).filter(i -> i % 2 == 0).forEach(System.out::println);
+        // 8 6 4 2
 
-        // reduce elements to one,  0+1+2+3+4
-        var n = list.stream().reduce((a, b) -> a + b).get();
+        System.out.println("takeWhile() - taking `true of Predicate` prefix of stream until meet NOT matched(false of Predicate) i");
+        // matches passed predicate
+        Stream.of(2,4,5,8,6).takeWhile(i -> i % 2 == 0).forEach(System.out::println);
+        // 2 4
+
+        System.out.println("dropWhile() - `drop true of Predicate` of stream until meet NOT matched(false of Predicatge) i");
+        // matches passed predicate
+        Stream.of(2,4,5,6,8).dropWhile(i -> i % 2 == 0).forEach(System.out::println);
+        // 5,6,8
+
+        // reduce elements to one,  ((((0+1)+2)+3)+4)
+        var n = list.stream().reduce((a, b) -> {
+            System.out.println("a:"+a+", b:"+b);
+            return a + b;}
+        ).orElseGet(()-> 0);
         System.out.println(n);
         // 10
+
     }
 
     @Test
