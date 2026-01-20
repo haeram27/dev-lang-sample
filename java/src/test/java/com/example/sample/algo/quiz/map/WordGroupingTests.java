@@ -33,13 +33,12 @@ public class WordGroupingTests {
 
     @Test
     void wordGroupingTestA() {
-        var m = Stream.of(s1.split("\\s++")).collect(
+        Stream.of(s1.split("\\s+")).collect(
             // make Map<String, List<String>>
             Collectors.groupingBy(
                 // make key using stream element
                 s -> Stream.of(s.split("")).sorted().collect(Collectors.joining())
-            ));
-        m.forEach((k, v) -> System.out.println(k +": " + v));
+            )).forEach((k,v)->System.out.println(k+": "+v));
     }
 
     @Test

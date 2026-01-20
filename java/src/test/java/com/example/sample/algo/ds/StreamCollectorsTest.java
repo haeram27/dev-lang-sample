@@ -12,6 +12,71 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
+/**
+    https://devdocs.io/openjdk~21/java.base/java/util/stream/collectors
+
+    Double          averagingDouble(ToDoubleFunction<? super T> mapper)
+    Int             averagingInt(ToIntFunction<? super T> mapper)
+    Long            averagingLong(ToLongFunction<? super T> mapper)
+
+                    collectingAndThen(Collector<T,A,R> downstream, Function<R,RR> finisher)
+
+    Long            counting()
+                    filtering(Predicate<? super T> predicate, Collector<? super T,A,R> downstream)
+                    flatMapping(Function<? super T,? extends Stream<? extends U>> mapper, Collector<? super U,A,R> downstream)
+
+    Map<K,List<T>>  groupingBy(Function<? super T,? extends K> classifier)
+    Map<K,D<T>>     groupingBy(Function<? super T,? extends K> classifier, Supplier<M> mapFactory, Collector<? super T,A,D> downstream)
+    Map<K,D<T>>     groupingBy(Function<? super T,? extends K> classifier, Collector<? super T,A,D> downstream)
+
+    ConcurrentMap<K,List<T>> groupingByConcurrent(Function<? super T,? extends K> classifier)
+                    groupingByConcurrent(Function<? super T,? extends K> classifier, Supplier<M> mapFactory, Collector<? super T,A,D> downstream)
+                    groupingByConcurrent(Function<? super T,? extends K> classifier, Collector<? super T,A,D> downstream)
+
+
+    String          joining()
+    String          joining(CharSequence delimiter)
+    String          joining(CharSequence delimiter, CharSequence prefix, CharSequence suffix)
+
+                    mapping(Function<? super T,? extends U> mapper, Collector<? super U,A,R> downstream)
+
+    Optional<T>     maxBy(Comparator<? super T> comparator)
+    Optional<T>     minBy(Comparator<? super T> comparator)
+
+                    partitioningBy(Predicate<? super T> predicate)
+                    partitioningBy(Predicate<? super T> predicate, Collector<? super T,A,D> downstream)
+
+                    reducing(BinaryOperator<T> op)
+                    reducing(T identity, BinaryOperator<T> op)
+                    reducing(U identity, Function<? super T,? extends U> mapper, BinaryOperator<U> op)
+
+                    summarizingDouble(ToDoubleFunction<? super T> mapper)
+                    summarizingInt(ToIntFunction<? super T> mapper)
+                    summarizingLong(ToLongFunction<? super T> mapper)
+
+                    summingDouble(ToDoubleFunction<? super T> mapper)
+                    summingInt(ToIntFunction<? super T> mapper)
+                    summingLong(ToLongFunction<? super T> mapper)
+
+                    teeing(Collector<? super T,?,R1> downstream1, Collector<? super T,?,R2> downstream2, BiFunction<? super R1,? super R2,R> merger)
+
+                    toCollection(Supplier<C> collectionFactory)
+
+                    toConcurrentMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper)
+                    toConcurrentMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> mergeFunction)
+                    toConcurrentMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> mergeFunction, Supplier<M> mapFactory)
+
+                    toList()
+    Map<K,U>        toMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper)
+                    toMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> mergeFunction)
+                    toMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> mergeFunction, Supplier<M> mapFactory)
+                    toSet()
+
+                    toUnmodifiableList()
+                    toUnmodifiableMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper)
+                    toUnmodifiableMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> mergeFunction)
+                    toUnmodifiableSet()
+ */
 public class StreamCollectorsTest {
 
     @Test
@@ -80,7 +145,7 @@ public class StreamCollectorsTest {
     }
 
     /**
-     * Collectors.groupingBy() -> returns Map<K, List<T>>
+     * Collectors.groupingBy() -> Map<K, List<T>>
      * https://devdocs.io/openjdk~21/java.base/java/util/stream/collectors#groupingBy(java.util.function.Function)
      * 
      * Map<K,List<T>> groupingBy(classifier)
@@ -118,7 +183,7 @@ public class StreamCollectorsTest {
     }
 
     /**
-     * Collectors.joining(delimiter)
+     * Collectors.joining(delimiter) -> String
      * concatenate string unit of stream
      */
     @Test
