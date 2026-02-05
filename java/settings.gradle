@@ -1,6 +1,8 @@
 pluginManagement {
     repositories {
-        maven { url privateMavenRepositoryUrl }
+        // mavenLocal() or same as
+            // maven { url "file:${System.getProperty('user.home')}/.m2/repository" }
+            // maven { url "file:///home/user/.m2/repository"}
         gradlePluginPortal()
         mavenCentral()
     }
@@ -8,7 +10,9 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        maven { url privateMavenRepositoryUrl }
+        // mavenLocal() or same as
+            // maven { url "file:${System.getProperty('user.home')}/.m2/repository" }
+            // maven { url "file:///home/user/.m2/repository"}
         mavenCentral()
     } 
 }
