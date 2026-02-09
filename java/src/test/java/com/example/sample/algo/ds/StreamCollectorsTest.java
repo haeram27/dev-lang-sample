@@ -33,6 +33,8 @@ import org.junit.jupiter.api.Test;
                     groupingByConcurrent(Function<? super T,? extends K> classifier, Supplier<M> mapFactory, Collector<? super T,A,D> downstream)
                     groupingByConcurrent(Function<? super T,? extends K> classifier, Collector<? super T,A,D> downstream)
 
+    Map<Boolean, List<T>>    partitioningBy(Predicate<? super T> predicate)
+    Map<Boolean, D<T>>       partitioningBy(Predicate<? super T> predicate, Collector<? super T,A,D> downstream)
 
     String          joining()
     String          joining(CharSequence delimiter)
@@ -42,9 +44,6 @@ import org.junit.jupiter.api.Test;
 
     Optional<T>     maxBy(Comparator<? super T> comparator)
     Optional<T>     minBy(Comparator<? super T> comparator)
-
-                    partitioningBy(Predicate<? super T> predicate)
-                    partitioningBy(Predicate<? super T> predicate, Collector<? super T,A,D> downstream)
 
                     reducing(BinaryOperator<T> op)
                     reducing(T identity, BinaryOperator<T> op)
@@ -174,6 +173,51 @@ public class StreamCollectorsTest {
                 // classifier returns key of map made using value(each stream element)
                 // classifier is function to return map key for each unit of stream and each unit of stream becomes value of map
                 str -> Stream.of(str.split("")).sorted().collect(Collectors.joining())
+            )
+        // @formatter:on
+        ).forEach((k, v) -> {
+            System.out.println("k::" + k);
+            System.out.println("v::" + v);
+        });
+    }
+
+    /**
+     * Collectors.partitioningBy() -> Map<Boolean, List<T>>
+     * https://devdocs.io/openjdk~21/java.base/java/util/stream/collectors#partitioningBy(java.util.function.Predicate)
+     * 
+     * Map<Boolean,List<T>> partitioningBy(Predicate<? super T> predicate)
+     * Map<Boolean,D<T>> partitioningBy(Predicate<? super T> predicate, Collector<? super T,A,D> downstream)
+     * 
+     * predicate = returns boolean, to make key of result Map
+     * downstream = D Container, default is List but can be Set or Queue etc...
+     */
+    @Test
+    public void partitioningByTest() {
+        // Map<Boolean, List<String>>
+        String s1 = new String("final fnial fanil ban abn nab");
+
+        System.out.println("=== Map<Boolean, List<T>>");
+        Arrays.stream(s1.split("\\s+")).collect(
+        // @formatter:off
+            Collectors.partitioningBy(
+                // predicate retuns boolean to be key of result Map
+                s -> s.length() > 3
+            )
+        // @formatter:on
+        ).forEach((k, v) -> {
+            System.out.println("k::" + k);
+            System.out.println("v::" + v);
+        });
+
+        System.out.println("=== Map<Boolean, Set<T>>");
+        Arrays.stream(s1.split("\\s+")).collect(
+        // @formatter:off
+            Collectors.partitioningBy(
+                // predicate - retuns boolean to be key of result Map
+                s -> s.length() > 3,
+                // downstream - collection for values
+                Collectors.toSet()
+                //Collectors.toCollection(TreeSet::new)
             )
         // @formatter:on
         ).forEach((k, v) -> {
