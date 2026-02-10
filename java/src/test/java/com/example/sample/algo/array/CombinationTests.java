@@ -16,6 +16,68 @@ import com.example.sample.EvaluatedTimeTests;
  */
 public class CombinationTests extends EvaluatedTimeTests {
 
+    /*****************************************************************************************************
+     * Combination using Loop
+     * recursive is faster than for loop way
+     */
+
+    /* 
+     * QUIZ:
+     * make all combination of two item in a array
+     * combination, r==2 : {{a, b}, {a,c}, {a,d}, {b,c}, {b,d}, {c,d}} 
+     */
+    @Test
+    public void combinationTwoItemsLoopTest() {
+        String[] a = {"a", "b", "c", "d"};
+        int n = a.length;
+
+        // TODO: use FOR loop, make all combination of two item
+    }
+
+    /* Important: r = 2 */
+    @Test
+    public void combinationTwoItemsLoopA() {
+        String[] a = {"a", "b", "c", "d"};
+        int n = a.length;
+
+        System.out.println("Loop implementation for r=2");
+        // 이중 루프를 사용하여 2개의 아이템을 뽑는 조합을 생성합니다.
+        // i는 0부터 n까지, j는 i+1부터 n까지 반복하여 중복 없이 순서 없는 쌍을 만듭니다.
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                System.out.println(a[i] + " " + a[j]);
+            }
+        }
+    }
+
+    /**
+     * r = 3
+     * The reason why use recursive call instead loop (for) choice depth
+     * It needs each loop (for) and variable per depth to get each out[depth] choice  
+     */
+    @Test
+    void combinationWithLoop_FixedR() {
+        String[] data = {"a", "b", "c", "d", "e"};
+        int n = data.length;
+        int r = 3; // 3개를 뽑는 조합
+
+        // r = 3 이므로 3개를 뽑는 조합
+        // 뽑는 대상이 3개 이므로 변수 3개
+        // 변수 3개이므로 3중 for 루프 사용
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    System.out.println(data[i] + " " + data[j] + " " + data[k]);
+                }
+            }
+        }
+    }
+
+    /*****************************************************************************************************
+     * Combination using Recursive
+     * recursive is faster than for loop way
+     */
+
     <T> void printa(T[] a) {
         for (var e : a) {
             System.out.print(e + " ");
@@ -41,9 +103,10 @@ public class CombinationTests extends EvaluatedTimeTests {
         combination(data, out, r, 0, 0);
     }
 
+    /* Important */
     /* ANSWER */
     /**
-    * @brief combination
+    * @brief combination using recursive
     *
     * @tparam T
     * @param data      element list (size >= r)
@@ -174,28 +237,5 @@ public class CombinationTests extends EvaluatedTimeTests {
     void realSubsetTest() {
         int[] a = {1, 2, 3};
         printAllSubsets(a);
-    }
-
-
-    /**
-     * The reason why use recursive call instead loop (for) choice depth
-     * It needs each loop (for) and variable per depth to get each out[depth] choice  
-     */
-    @Test
-    void combinationWithLoop_FixedR() {
-        String[] data = {"a", "b", "c", "d", "e"};
-        int n = data.length;
-        int r = 3; // 3개를 뽑는 조합
-
-        // r = 3 이므로 3개를 뽑는 조합
-        // 뽑는 대상이 3개 이므로 변수 3개
-        // 변수 3개이므로 3중 for 루프 사용
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                for (int k = j + 1; k < n; k++) {
-                    System.out.println(data[i] + " " + data[j] + " " + data[k]);
-                }
-            }
-        }
     }
 }

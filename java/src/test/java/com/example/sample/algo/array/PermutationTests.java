@@ -13,6 +13,46 @@ import com.example.sample.EvaluatedTimeTests;
  * 순열 - 순서 있는 경우의 수(부분집합)
  */
 public class PermutationTests extends EvaluatedTimeTests {
+    /*****************************************************************************************************
+     * Permutation using Loop
+     * recursive is faster than for loop way
+     */
+
+    /* 
+     * QUIZ:
+     * make all permutation of two item in a array
+     * permutation r=2 : {a, b}, {a, c}, {a, d}, {b, a}, {b, c}, {b, d}, {c, a}, {c, b}, {c, d}, {d, a}, {d, b}, {d, c}
+     */
+    @Test
+    public void twoItemPermutationTest() {
+        String[] a = {"a", "b", "c", "d"};
+        int n = a.length;
+
+        // TODO: use FOR loop, make all non-repeat permutation of two item
+    }
+
+    @Test
+    public void twoItemPermutationTestA() {
+        String[] a = {"a", "b", "c", "d"};
+        int n = a.length;
+
+        // select first item
+        for (int i = 0; i < n; i++) {
+            // select second item
+            for (int j = 0; j < n; j++) {
+                // remove repetition of same index, i != j
+                if (i != j) {
+                    System.out.println("[" + a[i] + ", " + a[j] + "]");
+                }
+            }
+        }
+    }
+
+    /*****************************************************************************************************
+     * Permutation using Recursive
+     * recursive is faster than for loop way
+     */
+
     <T> void printa(T[] a) {
         for (var e : a) {
             System.out.print(e + " ");
@@ -40,7 +80,7 @@ public class PermutationTests extends EvaluatedTimeTests {
 
     /* Answer */
     /**
-    * @brief permutation
+    * @brief permutation using recursive
     *
     * @tparam T
     * @param data      element list (size >= r)
