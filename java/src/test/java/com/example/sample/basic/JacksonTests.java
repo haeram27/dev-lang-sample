@@ -12,15 +12,99 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JacksonTests {
 
     /* Json Mapper */
     JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
-    // JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule())
-    //         .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-    //         .enable(DeserializationFeature.USE_BIG_INTEGER_FOR_INTS).build();
 
-    // gradle test --rerun-tasks --tests 'JacksonTests.parseJsonArrayToObjectList'
+    /*
+    JsonMapper jsonMapper = JsonMapper.builder()
+        .addModule(new JavaTimeModule())
+        .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+        .enable(DeserializationFeature.USE_BIG_INTEGER_FOR_INTS)
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .build();
+    */
+
+    /**
+     * To map json string to object
+     * use
+     *     T = JsonMapper.readValue(jsonString, new TypeReference<T>(){})
+     *     JsonNode = JsonMapper.readTree(jsonString)
+     *
+     * jsonString is only allowed empty("") or json string
+     */
+    @Test
+    public void mapperReadTreeTest() {
+
+        String nullStr = null;
+        var emptyStr = "";
+        var anyStr  = "asdf";
+        var jsonStr  = """
+                        {
+                            "key":"value"
+                        }
+                        """;
+
+        JsonNode jsonNode;
+
+        log.info("=== null string test =========================");
+        try {
+            jsonNode = jsonMapper.readTree(nullStr);   // Exception
+            if (jsonNode == null) {
+                log.error("Error: node is null");
+            }else if (jsonNode.isEmpty()) {
+                log.error("Error: node is empty");
+            }
+            log.info(jsonNode.toPrettyString());
+        } catch(Exception e) {
+            log.error(e.getMessage(), e.getClass());
+        }
+
+        log.info("=== any string test =========================");
+        try {
+            jsonNode = jsonMapper.readTree(anyStr);     // Exception
+            if (jsonNode == null) {
+                log.error("Error: node is null");
+            }else if (jsonNode.isEmpty()) {
+                log.error("Error: node is empty");
+            }
+            log.info(jsonNode.toPrettyString());
+        } catch(Exception e) {
+            log.error(e.getMessage(), e);
+        }
+
+        log.info("=== empty string test =========================");
+        try {
+            jsonNode = jsonMapper.readTree(emptyStr);    // return empty JsonNode
+            if (jsonNode == null) {
+                log.error("Error: node is null");
+            }else if (jsonNode.isEmpty()) {
+                log.error("Error: node is empty");  // here
+            }
+            log.info(jsonNode.toPrettyString());
+        } catch(Exception e) {
+            log.error(e.getMessage());
+        }
+
+
+        log.info("=== json string test =========================");
+        try {
+            jsonNode = jsonMapper.readTree(jsonStr); // OK
+            if (jsonNode == null) {
+                log.error("Error: node is null");
+            }else if (jsonNode.isEmpty()) {
+                log.error("Error: node is empty");
+            }
+            log.info(jsonNode.toPrettyString());
+        } catch(Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
     @Test
     public void parseJsonArrayToObjectList() {
 
