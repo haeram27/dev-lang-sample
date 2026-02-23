@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- Configuration: https://logback.qos.ch/manual/configuration.html -->
+
+    <!-- PatternLayout: https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout -->
+    <variable name="defaultPatternLayout" value="%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n" />
+    <variable name="highLightPatternLayout" value="%magenta(%d{yyyyMMdd HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %cyan(%logger{36}) -%kvp -%msg %n" />
+    <variable name="logRoot" value=".run" />
+    <variable name="logFile" value="logback" />
+    <variable name="logFilePath" value="${logRoot}/logs/${logFile}" />
+
+    <!-- Appender: https://logback.qos.ch/manual/appenders.html -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${highLightPatternLayout}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${defaultPatternLayout}</pattern>
+        </encoder>
+
+        <file>${logFilePath}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGBACK_ROLLINGPOLICY_FILE_NAME_PATTERN:-${logFilePath}.%d{yyyy-MM-dd}.%i.log}</fileNamePattern>
+            <cleanHistoryOnStart>${LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>
+            <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+            <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+            <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-7}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <root level="ALL">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLINGFILE"/>
+    </root>
+
+</configuration>
