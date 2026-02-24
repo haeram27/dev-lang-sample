@@ -7,15 +7,14 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 import org.slf4j.LoggerFactory
 
-class AppTest {
+class AppTests {
     companion object {
-        private val logger = LoggerFactory.getLogger(AppTest::class.java)
+        private val logger = LoggerFactory.getLogger(AppTests::class.java)
     }
 
-    @Test fun appHasAGreeting() {
+    @Test fun appHasGreeting() {
         val classUnderTest = App()
-        println("Hello, Kotlin!")
-        logger.info("Hello, Kotlin!")
         assertNotNull(classUnderTest.greeting, "app should have a greeting")
     }
+
 }
