@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 
     // Apply the application plugin to add support for building a CLI application in Java.
+    // application build a executable binaries
     application
 }
 
@@ -24,6 +25,8 @@ dependencies {
     implementation(libs.guava)
     implementation("org.slf4j:slf4j-api:2.0.13")
     runtimeOnly("ch.qos.logback:logback-classic:1.5.6")
+    // Source: https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom
+    implementation(platform("com.fasterxml.jackson:jackson-bom:2.21.1"))
 }
 
 testing {
@@ -59,6 +62,7 @@ java {
     }
 }
 
+// build 'app' and 'app.bat' for execution bin and assemble .tar and .zip in app/build/distributions
 application {
     // Define the main class for the application.
     mainClass = "org.example.AppKt"

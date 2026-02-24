@@ -19,7 +19,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+    sourceCompatibility = '21'
 }
 
 configurations {
@@ -96,7 +96,6 @@ tasks.named('runWithJavaExec') {
     }
 }
 
-
 /*
  * # clean a specific test result cache before run test
  * gradle test --rerun --tests 'Hello*.hello'
@@ -115,6 +114,12 @@ test {
     }
 }
 
-jar {
-    enabled = false
+// jar {
+//     enabled = false
+// }
+
+// build 'app' and 'app.bat' for execution bin and assemble .tar and .zip in app/build/distributions
+application {
+    // Define the main class for the application.
+    mainClass = "com.example.sample.SampleApplication"
 }

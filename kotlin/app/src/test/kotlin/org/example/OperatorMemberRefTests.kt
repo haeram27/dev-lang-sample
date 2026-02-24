@@ -7,9 +7,9 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 import org.slf4j.LoggerFactory
 
-class MemberRefOperatorTests {
+class OperatorMemberRefTests {
     companion object {
-        private val logger = LoggerFactory.getLogger(MemberRefOperatorTests::class.java)
+        private val logger = LoggerFactory.getLogger(OperatorMemberRefTests::class.java)
     }
 
     /**
