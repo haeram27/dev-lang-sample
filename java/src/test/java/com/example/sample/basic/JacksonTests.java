@@ -7,9 +7,12 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +24,11 @@ public class JacksonTests {
     JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
     /*
-    JsonMapper jsonMapper = JsonMapper.builder()
+    JsonMapper.builder()
         .addModule(new JavaTimeModule())
         .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
         .enable(DeserializationFeature.USE_BIG_INTEGER_FOR_INTS)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES) // prevent UnknownPropertyException
         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .build();
     */
