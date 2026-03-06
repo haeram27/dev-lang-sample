@@ -105,11 +105,25 @@ public class Ip4Util {
         long start = ipToLong(startIp);
         long end = ipToLong(endIp);
 
-        if (start > end) {
+        if (!isStartIpLessOrEqualThanEndIp(startIp, endIp)) {
             throw new IllegalArgumentException("Start IP is greater than end IP: " + startIp + " > " + endIp);
         }
 
         return ip >= start && ip <= end;
+    }
+
+    /**
+     * Validates whether the start IP is less or equal than the end IP
+     * 
+     * @param startIp Starting IP address
+     * @param endIp Ending IP address
+     * @return true if start IP is less or equal than end IP, false otherwise
+     * @throws IllegalArgumentException if either IP address format is invalid
+     */
+    public static boolean isStartIpLessOrEqualThanEndIp(String startIp, String endIp) {
+        long start = ipToLong(startIp);
+        long end = ipToLong(endIp);
+        return start <= end;
     }
 
     /**
@@ -213,7 +227,4 @@ public class Ip4Util {
         
         return longToIp(broadcastAddress);
     }
-}
- {
-    
 }
