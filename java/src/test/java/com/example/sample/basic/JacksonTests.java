@@ -7,12 +7,9 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +19,73 @@ public class JacksonTests {
 
     /* Json Mapper */
     JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+
+    /*
+        Object Mapper Member Methods
+        https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-databind/latest/com/fasterxml/jackson/databind/ObjectMapper.html
+
+        // === Deserialize ========================================
+        // jsonBin to JsonNode(Tree)
+        JsonNode    readTree(byte[] content)
+        JsonNode    readTree(File file)
+        JsonNode    readTree(InputStream in)
+        JsonNode    readTree(Reader r)
+        JsonNode    readTree(String content)
+        JsonNode    readTree(URL source)
+
+        // jsonBin to Type(Class, String, JsonNode(Tree))
+        <T> T    readValue(byte[] src, Class<T> valueType)
+        <T> T    readValue(byte[] src, int offset, int len, Class<T> valueType)
+        <T> T    readValue(byte[] src, int offset, int len, JavaType valueType)
+        <T> T    readValue(byte[] src, int offset, int len, TypeReference valueTypeRef)
+        <T> T    readValue(byte[] src, JavaType valueType)
+        <T> T    readValue(byte[] src, TypeReference valueTypeRef)
+        <T> T    readValue(File src, Class<T> valueType)
+        <T> T    readValue(File src, JavaType valueType)
+        <T> T    readValue(File src, TypeReference valueTypeRef)
+        <T> T    readValue(InputStream src, Class<T> valueType)
+        <T> T    readValue(InputStream src, JavaType valueType)
+        <T> T    readValue(InputStream src, TypeReference valueTypeRef)
+        <T> T    readValue(JsonParser jp, Class<T> valueType)
+        <T> T    readValue(JsonParser jp, JavaType valueType)
+        <T> T    readValue(JsonParser jp, ResolvedType valueType)
+        <T> T    readValue(JsonParser jp, TypeReference<?> valueTypeRef)
+        <T> T    readValue(Reader src, Class<T> valueType)
+        <T> T    readValue(Reader src, JavaType valueType)
+        <T> T    readValue(Reader src, TypeReference valueTypeRef)
+        <T> T    readValue(String content, Class<T> valueType)
+        <T> T    readValue(String content, JavaType valueType)
+        <T> T    readValue(String content, TypeReference valueTypeRef)
+        <T> T    readValue(URL src, Class<T> valueType)
+        <T> T    readValue(URL src, JavaType valueType)
+        <T> T    readValue(URL src, TypeReference valueTypeRef)
+        <T> MappingIterator<T>    readValues(JsonParser jp, Class<T> valueType)
+        <T> MappingIterator<T>    readValues(JsonParser jp, JavaType valueType)
+        <T> MappingIterator<T>    readValues(JsonParser jp, ResolvedType valueType)
+        <T> MappingIterator<T>    readValues(JsonParser jp, TypeReference<?> valueTypeRef)
+
+        // Object(JsonNode) to Type(Class, String)
+        <T> T    convertValue(Object fromValue, Class<T> toValueType)
+        <T> T    convertValue(Object fromValue, JavaType toValueType)
+        <T> T    convertValue(Object fromValue, TypeReference<?> toValueTypeRef)
+
+        // exchange Node to Type
+        <T extends JsonNode> T    valueToTree(Object fromValue)
+        <T> T treeToValue(TreeNode n, Class<T> valueType)
+
+
+        // === Serialize ========================================
+        // JsonNode to jsonBin
+        void    writeTree(JsonGenerator jgen, JsonNode rootNode)
+        void    writeTree(JsonGenerator jgen, TreeNode rootNode)
+        // Obejct to jsonBin
+        void    writeValue(File resultFile, Object value)
+        void    writeValue(JsonGenerator jgen, Object value)
+        void    writeValue(OutputStream out, Object value)
+        void    writeValue(Writer w, Object value)
+        byte[]    writeValueAsBytes(Object value)
+        String    writeValueAsString(Object value)
+    */
 
     /*
     JsonMapper.builder()
