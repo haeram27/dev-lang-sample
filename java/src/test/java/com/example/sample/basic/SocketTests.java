@@ -3,6 +3,9 @@ package com.example.sample.basic;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -42,8 +45,8 @@ public class SocketTests extends EvaluatedTimeTests {
 
         if (ProtocolType.TCP == protocol) {
             try (Socket socket = createTCPSocket(host, port, false, 2000, 2000);
-                    PrintWriter out = new PrintWriter(new BufferedWriter(
-                            new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true)) {
+                PrintWriter out = new PrintWriter(new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true)) {
                 out.println("connection test");
                 out.flush();
             } catch (Exception e) {
@@ -52,12 +55,20 @@ public class SocketTests extends EvaluatedTimeTests {
             }
         } else if (ProtocolType.TCP_OVER_SSL == protocol) {
             try (SSLSocket socket = createSSLSocket(host, port, false, 2000, 2000);
-                    PrintWriter out = new PrintWriter(new BufferedWriter(
-                            new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true)) {
+                PrintWriter out = new PrintWriter(new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true)) {
                 out.println("connection test");
                 out.flush();
             } catch (Exception e) {
                 log.error("## TLS Socket connection error:", e);
+                return false;
+            }
+        } else if (ProtocolType.UDP == protocol) {
+            try (DatagramSocket socket = new DatagramSocket()) {
+                byte[] msg = new String("connection test").getBytes();
+                socket.send(new DatagramPacket(msg, msg.length, InetAddress.getByName(host), port));
+            } catch (Exception e) {
+                log.error("## UDP Socket connection error:", e);
                 return false;
             }
         }
@@ -107,11 +118,11 @@ public class SocketTests extends EvaluatedTimeTests {
 
     @Test
     public void tcpSocketConnTest() {
-        log.info("{}", validateSocketConnection("10.101.10.1", 514, ProtocolType.TCP));
+        log.info("{}", validateSocketConnection("127.0.0.1", 514, ProtocolType.TCP));
     }
 
     @Test
     public void tlsSocketConnTest() {
-        log.info("{}", validateSocketConnection("10.101.10.1", 6514, ProtocolType.TCP_OVER_SSL));
+        log.info("{}", validateSocketConnection("127.0.0.1", 6514, ProtocolType.TCP_OVER_SSL));
     }
 }

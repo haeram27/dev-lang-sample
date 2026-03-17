@@ -2,6 +2,9 @@ package com.example.sample.basic;
 
 import org.junit.jupiter.api.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class EnumTests {
     enum Number {
         ONE(0x01),
@@ -17,23 +20,62 @@ public class EnumTests {
         public int getCode() {
             return code;
         }
+
+        public static boolean isValidEnumName(String s) {
+            if (s == null) return false;
+            try {
+                Number.valueOf(s); // return a Number n
+                return true;
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+        }
     }
 
     @Test
     void printEnums() {
-        System.out.println("toString(): " + Number.ONE.toString());
-        System.out.println("name(): " + Number.ONE.name());
-        System.out.println("ordinal(): " + Number.ONE.ordinal());
-        System.out.println("getCode(): " + Number.ONE.getCode());
+        for (var n : Number.values()) {
+            log.info("=== " + n.toString() + " ==============");
+            log.info("toString(): " + n.toString());
+            log.info("name(): " + n.name());        // enum item name
+            log.info("ordinal(): " + n.ordinal());  // enum item order number from 0
+            log.info("getCode(): " + n.getCode());  // item's user defined internal value
+        }
+    }
 
-        System.out.println("toString(): " + Number.TWO.toString());
-        System.out.println("name(): " + Number.TWO.name());
-        System.out.println("ordinal(): " + Number.TWO.ordinal());
-        System.out.println("getCode(): " + Number.TWO.getCode());
+    @Test
+    void enumSwitchPatternTest() {
+        var item = "TWO";
+        switch(Number.valueOf(item)) {
+            case Number.ONE:
+                log.info("=== ONE ==============");
+                log.info("toString(): " + Number.ONE.toString());
+                log.info("name(): " + Number.ONE.name());
+                log.info("ordinal(): " + Number.ONE.ordinal());
+                log.info("getCode(): " + Number.ONE.getCode());
+                break;
+            case Number.TWO:
+                log.info("=== TWO ==============");
+                log.info("toString(): " + Number.TWO.toString());
+                log.info("name(): " + Number.TWO.name());
+                log.info("ordinal(): " + Number.TWO.ordinal());
+                log.info("getCode(): " + Number.TWO.getCode());
+                break;
+            case Number.THREE:
+                log.info("=== THREE ==============");
+                log.info("toString(): " + Number.THREE.toString());
+                log.info("name(): " + Number.THREE.name());
+                log.info("ordinal(): " + Number.THREE.ordinal());
+                log.info("getCode(): " + Number.THREE.getCode());
+                break;
+            default:
+                break;
+        }
+    }
 
-        System.out.println("toString(): " + Number.THREE.toString());
-        System.out.println("name(): " + Number.THREE.name());
-        System.out.println("ordinal(): " + Number.THREE.ordinal());
-        System.out.println("getCode(): " + Number.THREE.getCode());
+    @Test
+    void validNameTest() {
+        log.info("{}", Number.isValidEnumName("ONE")); // true
+        log.info("{}", Number.isValidEnumName("TEN")); // false
     }
 }
