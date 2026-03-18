@@ -64,7 +64,7 @@ public class JacksonTests {
         <T> MappingIterator<T>    readValues(JsonParser jp, ResolvedType valueType)
         <T> MappingIterator<T>    readValues(JsonParser jp, TypeReference<?> valueTypeRef)
 
-        // Object(JsonNode) to Type(Class, String)
+        // Object(JsonNode etc) to Type(User Defined Class, String)
         <T> T    convertValue(Object fromValue, Class<T> toValueType)
         <T> T    convertValue(Object fromValue, JavaType toValueType)
         <T> T    convertValue(Object fromValue, TypeReference<?> toValueTypeRef)
@@ -85,6 +85,11 @@ public class JacksonTests {
         void    writeValue(Writer w, Object value)
         byte[]    writeValueAsBytes(Object value)
         String    writeValueAsString(Object value)
+    */
+
+    /*
+        // === Read from JsonNode with ptr ========================================
+        JsonNode at(String jsonPtrExpr)
     */
 
     /*
@@ -173,11 +178,53 @@ public class JacksonTests {
         }
     }
 
+    /**
+     * read value using json path
+     */
+    @Test
+    public void readWithJsonPtr() {
+        String jsonString = """
+            {
+                "store": {
+                    "book": [
+                        {
+                            "category": "reference",
+                            "author": "Nigel Rees",
+                            "title": "Sayings of the Century",
+                            "price": 8.95
+                        },
+                        {
+                            "category": "fiction",
+                            "author": "Evelyn Waugh",
+                            "title": "Sword of Honour",
+                            "price": 12.99
+                        }
+                    ],
+                    "bicycle": {
+                        "color": "red",
+                        "price": 19.95
+                    }
+                }
+            }
+            """;
+
+        try {
+            JsonNode rootNode = jsonMapper.readTree(jsonString);
+
+            log.info(rootNode.at("/store/book/0/title").asText());
+
+            // WARNING: path index parameter input type as "int"
+            log.info(rootNode.path("store").path("book").path(0).path("title").asText());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void parseJsonArrayToObjectList() {
 
-        // @formatter:off
-        /*
+        String jsonArrayString = """
         [
             {
                 "name": "John Doe",
@@ -190,11 +237,7 @@ public class JacksonTests {
                 "email": "jane.smith@example.com"
             }
         ]
-        */
-        // @formatter:on
-
-        String jsonArrayString = "[{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\"},{\"name\":\"Jane Smith\",\"age\":25,\"email\":\"jane.smith@example.com\"}]";
-
+        """;
         try {
             // JSON 배열 문자열을 List로 변환
             // @formatter:off
@@ -222,23 +265,17 @@ public class JacksonTests {
     // gradle test --rerun-tasks --tests 'JacksonTests.parseJsonObjectToMap'
     @Test
     public void parseJsonObjectToMap() {
-
-        // @formatter:off
-        /*
-        {
-            "name": "John Doe",
-            "age": 30,
-            "email": "john.doe@example.com",
-            "roles": [
-                "admin",
-                "user"
-            ]
-        }
-        */
-        // @formatter:on
-
-        String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"roles\":[\"admin\",\"user\"]}";
-
+        String jsonString = """
+            {
+                "name": "John Doe",
+                "age": 30,
+                "email": "john.doe@example.com",
+                "roles": [
+                    "admin",
+                    "user"
+                ]
+            }
+            """;
         try {
             // JSON 문자열을 Map으로 변환
             // @formatter:off
@@ -265,20 +302,14 @@ public class JacksonTests {
     // gradle test --rerun-tasks --tests 'JacksonTests.upateValueUsingMap'
     @Test
     public void upateValueUsingMap() {
-
-        // @formatter:off
-        /*
-        {
-            "name": "John Doe",
-            "age": 30,
-            "email": "john.doe@example.com",
-            "role": "admin"
-        }
-        */
-        // @formatter:on
-
-        String jsonString = "{\"name\":\"John Doe\",\"age\":30,\"email\":\"john.doe@example.com\",\"role\":\"admin\"}";
-
+        String jsonString = """
+            {
+                "name": "John Doe",
+                "age": 30,
+                "email": "john.doe@example.com",
+                "role": "admin"
+            }
+            """;
         try {
             // deserialize: json string -> java object(Map)
             // @formatter:off
@@ -318,41 +349,30 @@ public class JacksonTests {
     // gradle test --rerun-tasks --tests 'JacksonTests.upateValueUsingJsonNode'
     @Test
     public void upateValueUsingJsonNode() {
-        // @formatter:off
-        /*
-        {
-            "store": {
-                "book": [
-                    {
-                        "category": "reference",
-                        "author": "Nigel Rees",
-                        "title": "Sayings of the Century",
-                        "price": 8.95
-                    },
-                    {
-                        "category": "fiction",
-                        "author": "Evelyn Waugh",
-                        "title": "Sword of Honour",
-                        "price": 12.99
+        String jsonString = """
+            {
+                "store": {
+                    "book": [
+                        {
+                            "category": "reference",
+                            "author": "Nigel Rees",
+                            "title": "Sayings of the Century",
+                            "price": 8.95
+                        },
+                        {
+                            "category": "fiction",
+                            "author": "Evelyn Waugh",
+                            "title": "Sword of Honour",
+                            "price": 12.99
+                        }
+                    ],
+                    "bicycle": {
+                        "color": "red",
+                        "price": 19.95
                     }
-                ],
-                "bicycle": {
-                    "color": "red",
-                    "price": 19.95
                 }
             }
-        }
-        */
-        // @formatter:on
-        String jsonString = "{"
-                + "\"store\": {"
-                + "\"book\": ["
-                + "{ \"category\": \"reference\", \"author\": \"Nigel Rees\", \"title\": \"Sayings of the Century\", \"price\": 8.95 },"
-                + "{ \"category\": \"fiction\", \"author\": \"Evelyn Waugh\", \"title\": \"Sword of Honour\", \"price\": 12.99 }"
-                + "],"
-                + "\"bicycle\": { \"color\": \"red\", \"price\": 19.95 }"
-                + "}"
-                + "}";
+            """;
 
         try {
             JsonNode rootNode = jsonMapper.readTree(jsonString);
