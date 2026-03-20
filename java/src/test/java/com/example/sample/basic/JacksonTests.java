@@ -116,51 +116,51 @@ public class JacksonTests {
 
         String nullStr = null;
         var emptyStr = "";
-        var anyStr  = "asdf";
-        var jsonStr  = """
-                        {
-                            "key":"value"
-                        }
-                        """;
+        var anyStr = "asdf";
+        var jsonStr = """
+                {
+                    "key":"value"
+                }
+                """;
 
         JsonNode jsonNode;
 
         log.info("=== null string test =========================");
         try {
-            jsonNode = jsonMapper.readTree(nullStr);   // Exception
+            jsonNode = jsonMapper.readTree(nullStr); // Exception
             if (jsonNode == null) {
                 log.error("Error: node is null");
-            }else if (jsonNode.isEmpty()) {
+            } else if (jsonNode.isEmpty()) {
                 log.error("Error: node is empty");
             }
             log.info(jsonNode.toPrettyString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e.getClass());
         }
 
         log.info("=== any string test =========================");
         try {
-            jsonNode = jsonMapper.readTree(anyStr);     // Exception
+            jsonNode = jsonMapper.readTree(anyStr); // Exception
             if (jsonNode == null) {
                 log.error("Error: node is null");
-            }else if (jsonNode.isEmpty()) {
+            } else if (jsonNode.isEmpty()) {
                 log.error("Error: node is empty");
             }
             log.info(jsonNode.toPrettyString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
 
         log.info("=== empty string test =========================");
         try {
-            jsonNode = jsonMapper.readTree(emptyStr);    // return empty JsonNode
+            jsonNode = jsonMapper.readTree(emptyStr); // return empty JsonNode
             if (jsonNode == null) {
                 log.error("Error: node is null");
-            }else if (jsonNode.isEmpty()) {
-                log.error("Error: node is empty");  // here
+            } else if (jsonNode.isEmpty()) {
+                log.error("Error: node is empty"); // here
             }
             log.info(jsonNode.toPrettyString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 
@@ -170,11 +170,11 @@ public class JacksonTests {
             jsonNode = jsonMapper.readTree(jsonStr); // OK
             if (jsonNode == null) {
                 log.error("Error: node is null");
-            }else if (jsonNode.isEmpty()) {
+            } else if (jsonNode.isEmpty()) {
                 log.error("Error: node is empty");
             }
             log.info(jsonNode.toPrettyString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
@@ -185,29 +185,29 @@ public class JacksonTests {
     @Test
     public void readWithJsonPtr() {
         String jsonString = """
-            {
-                "store": {
-                    "book": [
-                        {
-                            "category": "reference",
-                            "author": "Nigel Rees",
-                            "title": "Sayings of the Century",
-                            "price": 8.95
-                        },
-                        {
-                            "category": "fiction",
-                            "author": "Evelyn Waugh",
-                            "title": "Sword of Honour",
-                            "price": 12.99
+                {
+                    "store": {
+                        "book": [
+                            {
+                                "category": "reference",
+                                "author": "Nigel Rees",
+                                "title": "Sayings of the Century",
+                                "price": 8.95
+                            },
+                            {
+                                "category": "fiction",
+                                "author": "Evelyn Waugh",
+                                "title": "Sword of Honour",
+                                "price": 12.99
+                            }
+                        ],
+                        "bicycle": {
+                            "color": "red",
+                            "price": 19.95
                         }
-                    ],
-                    "bicycle": {
-                        "color": "red",
-                        "price": 19.95
                     }
                 }
-            }
-            """;
+                """;
 
         try {
             JsonNode rootNode = jsonMapper.readTree(jsonString);
@@ -226,19 +226,19 @@ public class JacksonTests {
     public void parseJsonArrayToObjectList() {
 
         String jsonArrayString = """
-        [
-            {
-                "name": "John Doe",
-                "age": 30,
-                "email": "john.doe@example.com"
-            },
-            {
-                "name": "Jane Smith",
-                "age": 25,
-                "email": "jane.smith@example.com"
-            }
-        ]
-        """;
+                [
+                    {
+                        "name": "John Doe",
+                        "age": 30,
+                        "email": "john.doe@example.com"
+                    },
+                    {
+                        "name": "Jane Smith",
+                        "age": 25,
+                        "email": "jane.smith@example.com"
+                    }
+                ]
+                """;
         try {
             // JSON 배열 문자열을 List로 변환
             // @formatter:off
@@ -267,16 +267,16 @@ public class JacksonTests {
     @Test
     public void parseJsonObjectToMap() {
         String jsonString = """
-            {
-                "name": "John Doe",
-                "age": 30,
-                "email": "john.doe@example.com",
-                "roles": [
-                    "admin",
-                    "user"
-                ]
-            }
-            """;
+                {
+                    "name": "John Doe",
+                    "age": 30,
+                    "email": "john.doe@example.com",
+                    "roles": [
+                        "admin",
+                        "user"
+                    ]
+                }
+                """;
         try {
             // JSON 문자열을 Map으로 변환
             // @formatter:off
@@ -304,13 +304,13 @@ public class JacksonTests {
     @Test
     public void upateValueUsingMap() {
         String jsonString = """
-            {
-                "name": "John Doe",
-                "age": 30,
-                "email": "john.doe@example.com",
-                "role": "admin"
-            }
-            """;
+                {
+                    "name": "John Doe",
+                    "age": 30,
+                    "email": "john.doe@example.com",
+                    "role": "admin"
+                }
+                """;
         try {
             // deserialize: json string -> java object(Map)
             // @formatter:off
@@ -351,29 +351,29 @@ public class JacksonTests {
     @Test
     public void upateValueUsingJsonNode() {
         String jsonString = """
-            {
-                "store": {
-                    "book": [
-                        {
-                            "category": "reference",
-                            "author": "Nigel Rees",
-                            "title": "Sayings of the Century",
-                            "price": 8.95
-                        },
-                        {
-                            "category": "fiction",
-                            "author": "Evelyn Waugh",
-                            "title": "Sword of Honour",
-                            "price": 12.99
+                {
+                    "store": {
+                        "book": [
+                            {
+                                "category": "reference",
+                                "author": "Nigel Rees",
+                                "title": "Sayings of the Century",
+                                "price": 8.95
+                            },
+                            {
+                                "category": "fiction",
+                                "author": "Evelyn Waugh",
+                                "title": "Sword of Honour",
+                                "price": 12.99
+                            }
+                        ],
+                        "bicycle": {
+                            "color": "red",
+                            "price": 19.95
                         }
-                    ],
-                    "bicycle": {
-                        "color": "red",
-                        "price": 19.95
                     }
                 }
-            }
-            """;
+                """;
 
         try {
             JsonNode rootNode = jsonMapper.readTree(jsonString);
@@ -429,16 +429,15 @@ public class JacksonTests {
     }
 
     public void valueToTreeTest() {
-        String respStr = """
-        {"header":{"isSuccessful":true,"resultCode":0,"resultMessage":"SUCCESS"},"body":{"pageNum":0,"pageSize":0,"totalCount":0,"data":null}}
-        """;
+        String respStr =
+                """
+                        {"header":{"isSuccessful":true,"resultCode":0,"resultMessage":"SUCCESS"},"body":{"pageNum":0,"pageSize":0,"totalCount":0,"data":null}}
+                        """;
 
         var pageNumber = 1;
         var pageSize = 90;
         var totalServerCount = 500;
-        var collectedServers = IntStream.rangeClosed(1, 500)
-    .boxed()
-    .collect(Collectors.toList());
+        var collectedServers = IntStream.rangeClosed(1, 500).boxed().collect(Collectors.toList());
 
         JsonNode responseBody = jsonMapper.createObjectNode();
         try {
@@ -451,4 +450,5 @@ public class JacksonTests {
         } catch (Exception e) {
             log.error("## Error", e);
         }
+    }
 }
