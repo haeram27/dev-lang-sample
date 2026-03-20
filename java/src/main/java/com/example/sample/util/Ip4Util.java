@@ -1,4 +1,4 @@
-package com.example.sample.utils;
+package com.example.sample.util;
 
 /**
  * Utility class for IPv4 address operations.

@@ -45,9 +45,9 @@ public class PagenationUtil {
             return List.of(); // Return an empty list if there are no items
         }
 
-        int startIndex = Math.min((pageNumber - 1) * pageSize, totalCount);
-        int endIndex = Math.min(startIndex + pageSize, totalCount);
+        int startInclusive = Math.min((pageNumber - 1) * pageSize, totalCount);
+        int endExclusive = Math.min(startInclusive + pageSize, totalCount);
 
-        return list.subList(startIndex, endIndex);
+        return list.subList(startInclusive, endExclusive);
     }
 }

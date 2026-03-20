@@ -1,4 +1,4 @@
-package com.example.sample.utils;
+package com.example.sample.util;
 
 import java.io.IOException;
 import java.nio.file.FileVisitOption;

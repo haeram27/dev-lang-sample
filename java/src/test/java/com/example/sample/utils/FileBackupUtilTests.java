@@ -5,7 +5,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+import com.example.sample.util.FileBackupUtil;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class FileBackupUtilTests {
 
     @Test

@@ -38,7 +38,7 @@ public class StringTests extends EvaluatedTimeTests {
 """; // block lines start from start of closing """ (0) so all preceeding space will be existed
 
 /*
-        - start of line is most left character place in a block after open """
+        - start of line is most left non-space character place in a block below `opening"""` include `closing """` so all preceeding space will be existed
         - textblk1 or textblk2 is recommended
 
 Result:
