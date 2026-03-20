@@ -3,6 +3,8 @@ package com.example.sample.basic;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +35,7 @@ public class JacksonTests {
         JsonNode    readTree(String content)
         JsonNode    readTree(URL source)
 
-        // jsonBin to Type(Class, String, JsonNode(Tree))
+        // jsonBin to Type(JsonNode(Tree), Class Type, Generic Type)
         <T> T    readValue(byte[] src, Class<T> valueType)
         <T> T    readValue(byte[] src, int offset, int len, Class<T> valueType)
         <T> T    readValue(byte[] src, int offset, int len, JavaType valueType)
@@ -64,15 +66,14 @@ public class JacksonTests {
         <T> MappingIterator<T>    readValues(JsonParser jp, ResolvedType valueType)
         <T> MappingIterator<T>    readValues(JsonParser jp, TypeReference<?> valueTypeRef)
 
-        // Object(JsonNode etc) to Type(User Defined Class, String)
+        // JsonObject(JsonNode, ObjectNode etc) to Type(User Defined Class, Generic Type)
         <T> T    convertValue(Object fromValue, Class<T> toValueType)
         <T> T    convertValue(Object fromValue, JavaType toValueType)
         <T> T    convertValue(Object fromValue, TypeReference<?> toValueTypeRef)
 
-        // exchange Node to Type
-        <T extends JsonNode> T    valueToTree(Object fromValue)
+        // Important!!!!  exchange Object(Generic) to JsonNode 
+        <T extends JsonNode> T valueToTree(Object fromValue)
         <T> T treeToValue(TreeNode n, Class<T> valueType)
-
 
         // === Serialize ========================================
         // JsonNode to jsonBin
@@ -426,4 +427,28 @@ public class JacksonTests {
             e.printStackTrace();
         }
     }
+
+    public void valueToTreeTest() {
+        String respStr = """
+        {"header":{"isSuccessful":true,"resultCode":0,"resultMessage":"SUCCESS"},"body":{"pageNum":0,"pageSize":0,"totalCount":0,"data":null}}
+        """;
+
+        var pageNumber = 1;
+        var pageSize = 90;
+        var totalServerCount = 500;
+        var collectedServers = IntStream.rangeClosed(1, 500)
+    .boxed()
+    .collect(Collectors.toList());
+
+        JsonNode responseBody = jsonMapper.createObjectNode();
+        try {
+            responseBody = jsonMapper.readTree(respStr);
+            ObjectNode body = (ObjectNode) responseBody.path("body");
+            body.put("pageNum", pageNumber);
+            body.put("pageSize", pageSize);
+            body.put("totalCount", totalServerCount);
+            body.set("data", jsonMapper.valueToTree(collectedServers)); // 핵심
+        } catch (Exception e) {
+            log.error("## Error", e);
+        }
 }
