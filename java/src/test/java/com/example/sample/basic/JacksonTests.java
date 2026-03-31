@@ -25,6 +25,7 @@ public class JacksonTests {
     /*
         Object Mapper Member Methods
         https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-databind/latest/com/fasterxml/jackson/databind/ObjectMapper.html
+        jsonBin = json string or byte[]
 
         // === Deserialize ========================================
         // jsonBin to JsonNode(Tree)
