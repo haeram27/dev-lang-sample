@@ -10,12 +10,12 @@ public enum RandomUtil {
 
     RandomUtil;
 
-    private final Random rnd;
+    private final Random random;
 
     private static final int TIME_CHECK = 3000;
 
     private RandomUtil() {
-        rnd = new SecureRandom();
+        random = new SecureRandom();
     }
 
     public static RandomUtil getInstance() {
@@ -31,7 +31,7 @@ public enum RandomUtil {
         byte[] bytes = new byte[size];
         long start = System.currentTimeMillis();
         // copy random bytes from random source(SecureRandom)
-        rnd.nextBytes(bytes);
+        random.nextBytes(bytes);
         long end = System.currentTimeMillis();
         if (end - start > TIME_CHECK) {
             log.warn("Random create Time : " + (end - start));
@@ -41,16 +41,16 @@ public enum RandomUtil {
 
     /**
      * 
-     * @param limit
-     * @return
+     * @param bound the upper bound (exclusive). Must be positive.
+     * @return random int between 0 (inclusive) and bound (exclusive)
      */
     public int getRandomInt(int bound) {
         long start = System.currentTimeMillis();
-        int random = rnd.nextInt(bound);
+        int r = random.nextInt(bound);
         long end = System.currentTimeMillis();
         if (end - start > TIME_CHECK) {
             log.warn("Random create Time : " + (end - start));
         }
-        return random;
+        return r;
     }
 }

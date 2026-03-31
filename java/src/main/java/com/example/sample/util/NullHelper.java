@@ -11,5 +11,4 @@ public class NullHelper {
     static BigInteger nullToZero(BigInteger n) {
         return (n == null) ? BigInteger.ZERO : n;
     }
-
 }

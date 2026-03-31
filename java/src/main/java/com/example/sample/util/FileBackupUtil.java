@@ -218,7 +218,8 @@ public class FileBackupUtil {
 
     /**
      * collect regular files from given directories, directories are traversed recursively.
-     * allowed following symbolic links
+     * this works as find command in Linux, and allowed following symbolic links by default.
+     * with default, symbolic links will be followed, and regular files will be collected from symbolic linked directory as well.
      * 
      * @param dirs list of absolute path of directory
      * @return regular file list removed redundancy

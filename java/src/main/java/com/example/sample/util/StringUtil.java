@@ -6,6 +6,11 @@ import java.util.Objects;
 public final class StringUtil {
 
     private StringUtil() {
+        // Prevent instantiation
+    }
+
+    public static boolean hasText(String text) {
+        return text != null && !text.isBlank();
     }
 
     public static boolean isEmpty(String text) {
@@ -59,7 +64,7 @@ public final class StringUtil {
      * @return
      */
     public static String toLowerCase(String src) {
-        return null == src ? null : src.toLowerCase(Locale.getDefault());
+        return hasText(src) ? src.toLowerCase(Locale.getDefault()) : null;
     }
 
     /**
@@ -68,10 +73,10 @@ public final class StringUtil {
      * @return
      */
     public static String toUpperCase(String src) {
-        return null == src ? null : src.toUpperCase(Locale.getDefault());
+        return hasText(src) ? src.toUpperCase(Locale.getDefault()) : null;
     }
 
     public static String toString(Object obj) {
-        return obj == null ? null : obj.toString();
+        return Objects.toString(obj, null);
     }
 }
