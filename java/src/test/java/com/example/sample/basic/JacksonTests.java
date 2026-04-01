@@ -25,10 +25,14 @@ public class JacksonTests {
     /*
         Object Mapper Member Methods
         https://javadoc.io/doc/com.fasterxml.jackson.core/jackson-databind/latest/com/fasterxml/jackson/databind/ObjectMapper.html
-        jsonBin = json string or byte[]
+
+        Parameter Terms:
+        JSONBIN = json string or byte[]
+        TREE = ObjectNode, JsonNode, YamlNode
+        VALUE = JavaType, Class, Generic Type and includes JsonNode or String
 
         // === Deserialize ========================================
-        // jsonBin to JsonNode(Tree)
+        // readTree(): JSONBIN to TREE
         JsonNode    readTree(byte[] content)
         JsonNode    readTree(File file)
         JsonNode    readTree(InputStream in)
@@ -36,7 +40,7 @@ public class JacksonTests {
         JsonNode    readTree(String content)
         JsonNode    readTree(URL source)
 
-        // jsonBin to Type(JsonNode(Tree), Class Type, Generic Type)
+        // readValue(): JSONBIN to TYPE
         <T> T    readValue(byte[] src, Class<T> valueType)
         <T> T    readValue(byte[] src, int offset, int len, Class<T> valueType)
         <T> T    readValue(byte[] src, int offset, int len, JavaType valueType)
@@ -67,20 +71,20 @@ public class JacksonTests {
         <T> MappingIterator<T>    readValues(JsonParser jp, ResolvedType valueType)
         <T> MappingIterator<T>    readValues(JsonParser jp, TypeReference<?> valueTypeRef)
 
-        // JsonObject(JsonNode, ObjectNode etc) to Type(User Defined Class, Generic Type)
+        // convertValue(): JsonObject(JsonNode, ObjectNode etc) to Type(User Defined Class, Generic Type)
         <T> T    convertValue(Object fromValue, Class<T> toValueType)
         <T> T    convertValue(Object fromValue, JavaType toValueType)
         <T> T    convertValue(Object fromValue, TypeReference<?> toValueTypeRef)
 
-        // Important!!!!  exchange Object(Generic) to JsonNode 
+        // Important!!!!  exchange between VALUE and TREE 
         <T extends JsonNode> T valueToTree(Object fromValue)
         <T> T treeToValue(TreeNode n, Class<T> valueType)
 
         // === Serialize ========================================
-        // JsonNode to jsonBin
+        // writeTree(): TREE to JSONBIN
         void    writeTree(JsonGenerator jgen, JsonNode rootNode)
         void    writeTree(JsonGenerator jgen, TreeNode rootNode)
-        // Obejct to jsonBin
+        //writeValue():  VALUE to JSONBIN
         void    writeValue(File resultFile, Object value)
         void    writeValue(JsonGenerator jgen, Object value)
         void    writeValue(OutputStream out, Object value)

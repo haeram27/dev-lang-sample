@@ -40,22 +40,27 @@ public class VirtualThreadTests {
 
     @Test
     public void virtualThreadExecutorTest() {
-
+        var taskSize = 300;
         var list = new ArrayList<Integer>();
-        for (int i=0; i<300; i++) list.add(i);
+        for (int i=0; i<taskSize; i++) list.add(i);
 
         // Executors.newVirtualThreadPerTaskExecutor() makes unbounded size thread
         // ExecutorService SHOULD be called close()
         try (var es = Executors.newVirtualThreadPerTaskExecutor()) {
             List<Future<Integer>> futures = list.stream()
                 .map(i -> es.submit(() -> {
-                    log.info("val: "+ i);
-                    // Callable lambda throw all exceptions to Future
-                    Thread.sleep(1000);
+                    try {
+                        log.info("val: "+ i);
+                        // Callable lambda throw all exceptions to Future
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
                     return i;
                 }))
                 .toList();
 
+            // use CountDownLatch to wait for all thread completion, but Future.get() is more convenient to wait for completion and get result
             boolean allDone = futures.stream().allMatch(Future::isDone);
             log.info("alldone: " + allDone); // alldone: false here
 
