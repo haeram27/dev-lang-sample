@@ -12,21 +12,20 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import org.junit.jupiter.api.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.example.sample.EvaluatedTimeTests;
+import com.example.sample.util.RandomUtil;
 import com.example.sample.util.StringUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class SocketTests extends EvaluatedTimeTests {
+
+    private static final Logger log = LoggerFactory.getLogger(RandomUtil.class);
 
     public enum ProtocolType {
         UDP,

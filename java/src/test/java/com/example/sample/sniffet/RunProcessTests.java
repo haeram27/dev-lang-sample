@@ -2,13 +2,13 @@ package com.example.sample.sniffet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class RunProcessTests {
+
+    private static final Logger log = LoggerFactory.getLogger(RunProcessTests.class);
 
     @Test
     public void run() {

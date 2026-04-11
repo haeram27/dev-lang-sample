@@ -5,21 +5,22 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.jupiter.api.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class ReflectionTests {
+
+    private static final Logger log = LoggerFactory.getLogger(ReflectionTests.class);
+
     @Test
     void reflectTypeTest() {
         JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
@@ -31,7 +32,7 @@ public class ReflectionTests {
 
         log.info("{}", jtype.getTypeName());
 
-        // printClassInfo(tr.getClass());
+        printClassInfo(tr.getClass());
         printTypeInfo(tr.getType());
     }
 
@@ -40,7 +41,7 @@ public class ReflectionTests {
         log.info("toGenericString: {}", c.toGenericString());
         log.info("getCanonicalName: {}", c.getCanonicalName());
         log.info("getTypeName: {}", c.getTypeName());
-        log.info("getTypeParameters: {}", c.getTypeParameters());
+        log.info("getTypeParameters: {}", Arrays.toString(c.getTypeParameters()));
     }
 
     private void printTypeInfo(Type t) {
@@ -51,7 +52,7 @@ public class ReflectionTests {
             log.info("=== Class");
         } else if (t instanceof ParameterizedType) {
             log.info("=== ParameterizedType");
-            log.info("Types: {}", ((ParameterizedType) t).getActualTypeArguments());
+            log.info("Types: {}", Arrays.toString(((ParameterizedType) t).getActualTypeArguments()));
         } else if (t instanceof JavaType) {
             log.info("=== JavaType");
         } else if (t instanceof GenericArrayType) {

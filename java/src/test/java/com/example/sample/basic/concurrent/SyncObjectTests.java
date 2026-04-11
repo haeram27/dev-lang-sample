@@ -1,11 +1,13 @@
 package com.example.sample.basic.concurrent;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class SyncObjectTests {
+
+    private static final Logger log = LoggerFactory.getLogger(SyncObjectTests.class);
+
     /**
      * Lock Objects for synchroniaztion in Java
      *  - Object (instrinsic lock or monitor lock) : supports wait, notify, notifyAll

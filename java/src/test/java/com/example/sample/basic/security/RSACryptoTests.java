@@ -5,19 +5,21 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
-
 import javax.crypto.Cipher;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 
 /*
  * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/package-summary.html
  */
 
-@Slf4j
+
 public class RSACryptoTests {
+
+    private static final Logger log = LoggerFactory.getLogger(RSACryptoTests.class);
+
     private static final String ALGORITHM = "RSA";
 
     @Test

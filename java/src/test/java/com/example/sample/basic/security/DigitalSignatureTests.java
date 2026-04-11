@@ -6,16 +6,20 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 
 /*
  * https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/package-summary.html
  */
 
 // Digital Signing (RSA)
-@Slf4j
+
 public class DigitalSignatureTests {
+
+    private static final Logger log = LoggerFactory.getLogger(DigitalSignatureTests.class);
+
     private static final String ALGORITHM = "RSA";
     private static final String SIGNATURE_ALGORITHM = "SHA256withRSA";
 

@@ -2,13 +2,14 @@ package com.example.sample.util;
 
 import java.security.SecureRandom;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public enum RandomUtil {
 
     RandomUtil;
+
+    private static final Logger log = LoggerFactory.getLogger(RandomUtil.class);
 
     private final Random random;
 

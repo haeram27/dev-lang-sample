@@ -2,11 +2,11 @@ package com.example.sample.util;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class PathUtil {
+    private static final Logger log = LoggerFactory.getLogger(PathUtil.class);
 
     /**
      * read file from process working dir(command launching dir when execute java -jar or run in IDE)

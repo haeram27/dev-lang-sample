@@ -12,13 +12,14 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class FileIOTests {
+
+    private static final Logger log = LoggerFactory.getLogger(FileIOTests.class);
+
     private static final String TEST_FILE_PATH = "/tmp/test-upload";
     private static final int CHUNK_SIZE = 1024 * 1024 * 100; // 100MB Chunk
     private static final AtomicBoolean running = new AtomicBoolean(true);

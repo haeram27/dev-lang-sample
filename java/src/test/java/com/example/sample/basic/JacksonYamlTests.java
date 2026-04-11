@@ -2,18 +2,17 @@ package com.example.sample.basic;
 
 import java.nio.file.Files;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.example.sample.model.YamlTestDto;
 import com.example.sample.util.PathUtil;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class JacksonYamlTests {
+
+    private static final Logger log = LoggerFactory.getLogger(JacksonYamlTests.class);
 
     /* Json Mapper */
     YAMLMapper yamlMapper = YAMLMapper.builder().addModule(new JavaTimeModule()).build();
@@ -51,7 +50,7 @@ public class JacksonYamlTests {
             return;
         }
 
-        YamlTestDto yaml = new YamlTestDto();
+        YamlTestDto yaml = null;
         try {
             yaml = yamlMapper.readValue(path.toFile(), YamlTestDto.class);
         } catch(Exception e) {
@@ -66,7 +65,7 @@ public class JacksonYamlTests {
             log.error(e.getMessage(), e);
         }
 */
-        log.info(Optional.ofNullable(yaml.getKey1()).orElse("key1 is null"));
-        log.info(Optional.ofNullable(yaml.getKey1()).orElse("key2 is null"));
+        log.info(Optional.ofNullable(yaml.key1()).orElse("key1 is null"));
+        log.info(Optional.ofNullable(yaml.key2()).orElse("key2 is null"));
     }
 }

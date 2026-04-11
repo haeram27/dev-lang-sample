@@ -39,8 +39,6 @@ public class XStringPermutationTests {
         System.out.println(end - start);
     }
 
-
-
     /*
      * ArrayPermutation: ArrayPermutation is faster than StringPermutation exponentially
      */

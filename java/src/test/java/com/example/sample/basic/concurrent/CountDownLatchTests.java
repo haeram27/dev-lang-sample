@@ -2,13 +2,14 @@ package com.example.sample.basic.concurrent;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class CountDownLatchTests {
+
+    private static final Logger log = LoggerFactory.getLogger(CountDownLatchTests.class);
+
     @Test
     public void CountDownLatchTest() {
         int totalCount = 10;

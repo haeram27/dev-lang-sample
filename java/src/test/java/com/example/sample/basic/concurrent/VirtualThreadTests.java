@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class VirtualThreadTests {
+
+    private static final Logger log = LoggerFactory.getLogger(VirtualThreadTests.class);
+
     /**
      * Since Java 21 - virtual thread added
      * ThreadPool is NOT required for virtual thread

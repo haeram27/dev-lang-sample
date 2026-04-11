@@ -5,13 +5,14 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class TextMessageTests {
+    
+    private static final Logger log = LoggerFactory.getLogger(TextMessageTests.class);
+
     private final String message = """
             {
                 "name": "test",

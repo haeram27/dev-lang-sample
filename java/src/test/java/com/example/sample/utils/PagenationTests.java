@@ -2,11 +2,14 @@ package com.example.sample.utils;
 
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.example.sample.util.PagenationUtil;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class PagenationTests {
+
+    private static final Logger log = LoggerFactory.getLogger(PagenationTests.class);
+
     @Test
     void getTotalPagesTest() {
         int totalCount = 10;

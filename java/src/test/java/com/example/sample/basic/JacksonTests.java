@@ -5,19 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.junit.jupiter.api.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class JacksonTests {
+
+    private static final Logger log = LoggerFactory.getLogger(JacksonTests.class);
 
     /* Json Mapper */
     JsonMapper jsonMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();

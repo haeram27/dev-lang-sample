@@ -29,8 +29,6 @@ public class QuickSortTests {
         System.out.println(Arrays.toString(a));
     }
 
-
-
     /* Answer */
     void quickSortA(int[] a, int lo, int hi) {
         if (lo >= hi)

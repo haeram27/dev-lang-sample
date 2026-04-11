@@ -6,13 +6,12 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     alias(libs.plugins.kotlin.jvm)
-
-    // Apply the application plugin to add support for building a CLI application in Java.
-    // application build a executable binaries
-    application
 }
 
 repositories {
@@ -29,14 +28,45 @@ dependencies {
     implementation(platform("com.fasterxml.jackson:jackson-bom:2.21.1"))
 }
 
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+kotlin {
+    jvmToolchain(25)
+}
+
 testing {
     suites {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("2.2.21")
+            useKotlinTest("2.3.20")
         }
     }
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.fromTarget("25"))
+    }
+}
+
+tasks.register<Jar>("fatJar") {
+    archiveClassifier.set("all")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes["Main-Class"] = "org.example.AppKt"
+    }
+    from(sourceSets.main.get().output)
+    from(configurations.runtimeClasspath.get().filter { it.exists() }.map { if (it.isDirectory) it else zipTree(it) })
+}
+
+tasks.named("assemble") {
+    dependsOn("fatJar")
 }
 
 /*
@@ -55,15 +85,9 @@ tasks.test {
     }
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
 
-// build 'app' and 'app.bat' for execution bin and assemble .tar and .zip in app/build/distributions
-application {
-    // Define the main class for the application.
-    mainClass = "org.example.AppKt"
-}
+/*
+실행 가능한 fat JAR 생성: ./gradlew :app:fatJar
+배포 바이너리: app/build/libs/app-all.jar
+실행 방법: java -jar app/build/libs/app-all.jar
+ */

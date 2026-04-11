@@ -11,13 +11,13 @@ import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class CompletableFutureTests {
+
+    private static final Logger log = LoggerFactory.getLogger(CompletableFutureTests.class);
 
     @Test
     public void supplyAsyncTest() {
