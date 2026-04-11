@@ -2,6 +2,8 @@
 set -euo pipefail
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+MIN_JAVA_VERSION=25
+
 # Prefer the fat jar built by the app module.
 JAR=$(find app/build/libs -maxdepth 1 -type f -name '*-all.jar' | sort | tail -n 1)
 if [[ -z "$JAR" ]]; then
@@ -31,8 +33,8 @@ if ! [[ "$JAVA_MAJOR" =~ ^[0-9]+$ ]]; then
   exit 1
 fi
 
-if (( JAVA_MAJOR <= 25 )); then
-  echo "Java version must be 26 or higher. Current Java version: $JAVA_VERSION_RAW" >&2
+if (( JAVA_MAJOR < MIN_JAVA_VERSION )); then
+  echo "Java version must be $MIN_JAVA_VERSION or higher. Current Java version: $JAVA_VERSION_RAW" >&2
   exit 1
 fi
 
