@@ -1,18 +1,50 @@
+// plugin repositories
 pluginManagement {
     repositories {
-        // mavenLocal() or same as
-            // maven { url "file:${System.getProperty('user.home')}/.m2/repository" }
-            // maven { url "file:///home/user/.m2/repository"}
+        if (settings.hasProperty('privateMavenRepositoryUrl') && 
+            privateMavenRepositoryUrl != null && 
+            !privateMavenRepositoryUrl.toString().trim().isEmpty()) {
+            maven {
+                url privateMavenRepositoryUrl
+
+                // if url is NOT https
+                // allowInsecureProtocol = true
+
+                // if ahthentication is required
+                // credentials {
+                //     username = "user"
+                //     password = "password"
+                // }
+            }
+        } else {
+            println "No private maven repository url provided, fallback to pulic maven repositories."
+        }
         gradlePluginPortal()
         mavenCentral()
     }
 }
 
+// dependency repositories
 dependencyResolutionManagement {
     repositories {
-        // mavenLocal() or same as
-            // maven { url "file:${System.getProperty('user.home')}/.m2/repository" }
-            // maven { url "file:///home/user/.m2/repository"}
+        if (settings.hasProperty('privateMavenRepositoryUrl') && 
+            privateMavenRepositoryUrl != null && 
+            !privateMavenRepositoryUrl.toString().trim().isEmpty()) {
+            maven {
+                url privateMavenRepositoryUrl
+
+                // if url is NOT https
+                // allowInsecureProtocol = true
+
+                // if ahthentication is required
+                // credentials {
+                //     username = "user"
+                //     password = "password"
+                // }
+            }
+        } else {
+            println "No private maven repository url provided, fallback to pulic maven repositories."
+        }
         mavenCentral()
     } 
 }

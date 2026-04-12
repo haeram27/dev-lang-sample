@@ -9,7 +9,7 @@ pluginManagement {
 
     val privateMavenRepositoryUrl = providers.gradleProperty("privateMavenRepositoryUrl").orNull
     if (privateMavenRepositoryUrl.isNullOrBlank()) {
-        println("gradle property 'privateMavenRepositoryUrl' is missing. fallback to pulic maven repositories.")
+        println("No private maven repository url provided, fallback to pulic maven repositories.")
     }
     repositories {
         if (!privateMavenRepositoryUrl.isNullOrBlank()) {
@@ -26,7 +26,7 @@ pluginManagement {
 dependencyResolutionManagement {
     val privateMavenRepositoryUrl = providers.gradleProperty("privateMavenRepositoryUrl").orNull
     if (privateMavenRepositoryUrl.isNullOrBlank()) {
-        println("gradle property 'privateMavenRepositoryUrl' is missing. fallback to pulic maven repositories.")
+        println("No private maven repository url provided, fallback to pulic maven repositories.")
     }
     repositories {
         if (!privateMavenRepositoryUrl.isNullOrBlank()) {
