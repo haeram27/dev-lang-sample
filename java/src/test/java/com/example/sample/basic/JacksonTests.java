@@ -94,7 +94,16 @@ public class JacksonTests {
 
     /*
         // === Read from JsonNode with ptr ========================================
-        JsonNode at(String jsonPtrExpr)
+        JsonNode JsonNode.get(String fieldName)    return null if no such field exists
+        JsonNode JsonNode.path(String fieldName)    return MissingNode if no such field exists
+        JsonNode JsonNode.at(String jsonPtrExpr)    return MissingNode if no such field exists
+
+
+        | method | args | not existing key | purpose | recommended |
+        |---|---|---|---|---|
+        | get() | single child node key | null | when you are sure the key exists | no |
+        | path() | single child node key| MissingNode | when preventing errors (NPE) is important, chaining | yes |
+        | at() | JSON Pointer path key | MissingNode | when accessing deep nested values (Deep Search) | yes |
     */
 
     /*
